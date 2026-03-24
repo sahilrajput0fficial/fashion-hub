@@ -1,14 +1,17 @@
 const Product = require('../models/Product');
+const connectDB = require('../config/db');
 
 // @desc    Fetch all products
 // @route   GET /api/products
 // @access  Public
 const getProducts = async (req, res) => {
     try {
+        await connectDB();
         const products = await Product.find({});
         res.json(products);
     } catch (error) {
-        res.status(500).json({ message: 'Server Error' });
+        console.error('getProducts error:', error.message);
+        res.status(500).json({ message: 'Server Error', detail: error.message });
     }
 };
 
@@ -17,6 +20,7 @@ const getProducts = async (req, res) => {
 // @access  Public
 const getProductById = async (req, res) => {
     try {
+        await connectDB();
         const product = await Product.findById(req.params.id);
         if (product) {
             res.json(product);
@@ -24,7 +28,8 @@ const getProductById = async (req, res) => {
             res.status(404).json({ message: 'Product not found' });
         }
     } catch (error) {
-        res.status(500).json({ message: 'Server Error' });
+        console.error('getProductById error:', error.message);
+        res.status(500).json({ message: 'Server Error', detail: error.message });
     }
 };
 

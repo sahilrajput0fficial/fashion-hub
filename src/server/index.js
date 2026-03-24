@@ -55,8 +55,18 @@ app.get('/product', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/product.html'));
 });
 
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', message: 'Fashion Hub API is running' });
+app.get('/api/health', async (req, res) => {
+    const mongoose = require('mongoose');
+    res.json({
+        status: 'ok',
+        message: 'Fashion Hub API is running',
+        env: {
+            MONGO_URI_SET: !!process.env.MONGO_URI,
+            JWT_SECRET_SET: !!process.env.JWT_SECRET,
+            NODE_ENV: process.env.NODE_ENV || 'not set'
+        },
+        db: mongoose.connection.readyState === 1 ? 'connected' : 'not connected'
+    });
 });
 
 const PORT = process.env.PORT || 3000;
