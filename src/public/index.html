@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Fashion Hub | The Digital Atelier</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,500;0,600;1,500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap"
+        rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#e89f8c",
+                        "inverse-on-surface": "#f1f1ef",
+                        "primary-fixed": "#afefdd",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#e2dfde",
+                        "on-primary-fixed-variant": "#065043",
+                        "surface-bright": "#f9f9f7",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e2e3e1",
+                        "tertiary": "#4e2013",
+                        "on-secondary-fixed-variant": "#474746",
+                        "background": "#f9f9f7",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#7ebdac",
+                        "surface-variant": "#e2e3e1",
+                        "inverse-surface": "#2f3130",
+                        "on-surface-variant": "#3f4945",
+                        "inverse-primary": "#94d3c1",
+                        "outline-variant": "#bfc9c4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#004d40",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "secondary": "#5f5e5e",
+                        "on-background": "#1a1c1b",
+                        "surface-tint": "#29695b",
+                        "primary": "#00342b",
+                        "tertiary-container": "#693527",
+                        "surface-container-high": "#e8e8e6",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbd1",
+                        "on-tertiary-fixed-variant": "#6d382a",
+                        "surface-dim": "#dadad8",
+                        "primary-fixed-dim": "#94d3c1",
+                        "surface": "#f9f9f7",
+                        "surface-container": "#eeeeec",
+                        "on-surface": "#1a1c1b",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#e5e2e1",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "tertiary-fixed-dim": "#ffb5a1",
+                        "on-tertiary-fixed": "#370e04",
+                        "on-secondary-container": "#636262",
+                        "outline": "#707975",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f4f4f2",
+                        "on-primary-fixed": "#00201a"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        h1,
+        h2,
+        h3,
+        .font-serif {
+            font-family: 'Noto Serif', serif;
+        }
+    </style>
+</head>
+
+<body class="bg-surface text-on-surface antialiased">
+    <!-- Top Navigation Bar -->
+    <nav class="fixed top-0 z-50 w-full bg-[#f9f9f7] dark:bg-[#1a1c1b] opacity-80 backdrop-blur-xl">
+        <div class="flex justify-between items-center px-8 py-6 w-full max-w-[1440px] mx-auto">
+            <div class="flex items-center gap-12">
+                <a class="text-2xl font-semibold tracking-tighter text-[#00342b] dark:text-[#004d40] font-serif" href="/">Fashion Hub</a>
+                <div class="hidden md:flex gap-8 items-center">
+                    <a class="text-[#00342b] dark:text-[#004d40] border-b border-[#00342b] pb-1 tracking-widest uppercase text-[10px] font-semibold" href="/">Home</a>
+                    <a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/catalog">Catalog</a>
+                    <a id="account-nav-link" class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/login">Sign In</a>
+                </div>
+            </div>
+            <div class="flex items-center gap-6">
+                <div class="hidden lg:block relative">
+                    <input class="bg-surface-container-high border-none px-6 py-2 w-64 text-sm focus:ring-0" placeholder="Search the collection..." type="text" />
+                </div>
+                <button class="relative hover:scale-95 duration-200 transition-transform" id="cart-button" onclick="window.location.href='/cart'" aria-label="View Shopping Cart">
+                    <span class="material-symbols-outlined text-[#00342b]">shopping_cart</span>
+                    <span id="cart-counter" class="absolute -top-2 -right-2 bg-primary text-on-primary text-[8px] font-bold rounded-full w-4 h-4 flex items-center justify-center opacity-0 transition-opacity duration-300">0</span>
+                </button>
+            </div>
+        </div>
+    </nav>
+    <!-- Hero Section: Editorial Banner -->
+    <section class="relative h-screen w-full flex items-center overflow-hidden pt-20">
+        <div class="absolute inset-0 z-0">
+            <img alt="High fashion editorial" class="w-full h-full object-cover"
+                data-alt="A sophisticated fashion model in high-end linen tailoring standing against a minimalist architectural background with soft natural sunlight."
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDO4eOmXUA5JMlXnz4YYnPeRo1ZJDu1QVKeR5bsPJFLTalKFacCbnQd4aLyCPS1r9lLj3Zl2z0YK3rDWgH77A-1BHyDjyj2j4GgAidZtcpdd0FmhEASXE6Udk9r-XkL3-gvWqfGk6bPnPpOTr5NRK5RvqRsitgsiqDPRLRXpc-te5CChhfLR1zP831uFRE7qGZEqeiqyBfuoA6TydbZYhkuX37KvJ2Hx4Hb-ptoTOkiMwVlZZS2prz1rlCVCc3F-7QMeN7UUIBD1nA" />
+            <div class="absolute inset-0 bg-primary/10"></div>
+        </div>
+        <div class="relative z-10 max-w-[1440px] mx-auto px-8 w-full">
+            <div class="max-w-2xl bg-surface-container-lowest/80 backdrop-blur-md p-12 inline-block">
+                <p class="text-[10px] uppercase tracking-[0.2em] font-semibold text-primary mb-4">Season <span
+                        id="current-year-banner">2026</span> Premiere</p>
+                <h1 class="text-6xl md:text-8xl font-semibold leading-tight mb-8 tracking-tighter">Artisanal <br /><span
+                        class="italic font-normal">Modernity</span></h1>
+                <p class="text-lg text-secondary mb-10 max-w-md leading-relaxed">Defining the intersection of heritage
+                    craftsmanship and contemporary silhouette. Designed for the discerning individual.</p>
+                <a class="inline-block bg-primary text-on-primary py-4 px-10 text-sm font-semibold uppercase tracking-widest hover:bg-primary-container transition-all duration-300 active:scale-95"
+                    href="#trending">
+                    Shop New Arrivals
+                </a>
+            </div>
+        </div>
+    </section>
+    <!-- Featured Categories: Asymmetric Bento Grid -->
+    <section class="py-32 px-8 max-w-[1440px] mx-auto bg-surface">
+        <div class="flex flex-col md:flex-row justify-between items-end mb-16">
+            <div>
+                <span class="text-[10px] uppercase tracking-widest font-bold text-primary">Curated Series</span>
+                <h2 class="text-4xl font-medium mt-2">Essential Categories</h2>
+            </div>
+            <p class="text-secondary max-w-sm text-sm italic">Meticulously selected pieces that define the modern
+                wardrobe foundation.</p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 min-h-[700px]">
+            <!-- Main Category -->
+            <div class="md:col-span-7 relative group overflow-hidden bg-surface-container-low">
+                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    data-alt="Editorial close up of high-quality silk and wool clothing textures layered beautifully on a model."
+                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX504_A-VCJOQgvKwE9q0Ki_mv0540nddYxG03d2_lVoWEntVHp6ppRqxArcs8KFCSX2JwErzpQlOsd6NFdB7T3Yb_tMl7r8_4nXIgobpToTMGStUQBDFpp0CghdXFswQcfuMWeO4Rpe6vUwXhhmmF7g1P9vFzlowUY9j4rvnB73bQVbYmEmc2H5eB_-EIHjQQvb7z9RSjNMPyQKeVB8rJKKLdUAUJG2seS77uh28_uoIZYMNjXCzupDJyoVE86OuENzXJZiWKt8E" />
+                <div
+                    class="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-primary/40 to-transparent">
+                    <h3 class="text-white text-3xl font-serif mb-2">Clothing</h3>
+                    <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
+                        href="#">Explore Collection</a>
+                </div>
+            </div>
+            <div class="md:col-span-5 flex flex-col gap-8">
+                <!-- Secondary Category -->
+                <div class="h-1/2 relative group overflow-hidden bg-surface-container-low">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        data-alt="High-end designer footwear arranged artistically on a stone plinth with dramatic shadows."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7_lYgH4JdTB9Gm0rJJkPTfbRGOvyiDEP3xFgRGRhgZ1vyheL6mkiDB60X6GZp8Sv6gCHWG-ibUIMJWpGEvp4ZFsXaM5YjfFpx3vwTJDYdwknAGeYhNyVtetVbK8TweNNzm8o9z2t11Enq2GTseWjvHoFX4ZI8HMcp5s51vSAhIDmTC_CD4OKrcPfrOQcJiUP701ZvnlHhINXHQqfemyGy4iJq6mthirsGWysZSe_GPuLVsU5JnUnSr1jLKT7DQGnzXeqrEyoSyTw" />
+                    <div
+                        class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-primary/40 to-transparent">
+                        <h3 class="text-white text-2xl font-serif mb-2">Footwear</h3>
+                        <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
+                            href="#">View Styles</a>
+                    </div>
+                </div>
+                <!-- Tertiary Category -->
+                <div class="h-1/2 relative group overflow-hidden bg-surface-container-low">
+                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                        data-alt="Minimalist designer accessories and leather goods laid out on a cream linen surface."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYPjPmfccM_Lh6WrKIwSieWyD9vAxjC5Ttw5fOU5ceL0t0jI_B2SxL8SCuCBw6xwuFWmPQSvU9VjJEa3Pedpj000_JJjMVHrXsbL_djzz28Y92VX2Tmf-CC2Goj1rzHqyauGCmn-t2fWRl09I7TBjNYHBzWKGWd3BJWET93Op9T53QrA7VHfxdR7uD7SVcz1JNSBt_hVISfc8yKjGbJNWgntlMOeJIkMjudjArfRMMuUKu0mBDiKNmZQ6AJAN0Fg9KcnShJurFpRM" />
+                    <div
+                        class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-primary/40 to-transparent">
+                        <h3 class="text-white text-2xl font-serif mb-2">Accessories</h3>
+                        <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
+                            href="#">Discover Detail</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Trending Products: Product Grid -->
+    <section id="trending" class="py-24 bg-surface-container-low">
+        <div class="max-w-[1440px] mx-auto px-8">
+            <div class="text-center mb-20">
+                <h2 class="text-3xl font-serif italic mb-4">Trending Now</h2>
+                <div class="w-12 h-px bg-primary mx-auto"></div>
+            </div>
+            <div id="trending-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-x-8 gap-y-16">
+                <!-- Product 1 -->
+                <div class="group">
+                    <div class="aspect-[3/4] overflow-hidden bg-surface mb-6 relative">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="A draped ivory silk blouse on a mannequin with soft architectural lighting."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBekhdLsjWdek26bjIACGcHvBFnEGcXyiNJ-rJrhemlRoJAygb2p8D_aBf-5dPJ2DuWZyRRdCzKlzRwgGjHsaDSfiq-ej1oOiLMMLGtk97oo_oPoBRIh1BAsMIybLf53f9n2cZEtiUpDaSbyfMxrv64H7g9gv-Eos62PHIvh24hm74R_KiCeARR6upCmo64TodQL_NXICHfdNKa2hxdfIkvhhKfisG_EAbB3b7RBNgTRfZfWojO5CazkB89XEwzp02IlD-TXcHUzDo" />
+                        <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                                class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors"
+                                aria-label="Add to cart">
+                                <span class="material-symbols-outlined text-sm"
+                                    data-icon="shopping_bag">shopping_bag</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">New Arrival</p>
+                    <h3 class="text-sm font-medium text-on-surface mb-2">Structured Silk Blouse</h3>
+                    <p class="text-sm font-serif">$240.00</p>
+                </div>
+                <!-- Product 2 -->
+                <div class="group">
+                    <div class="aspect-[3/4] overflow-hidden bg-surface mb-6 relative">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Detail of a charcoal grey tailored wool coat with distinctive button placement."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeAceXBY92HEuuYkVXUmebgLWuS9W0juc37-5qZCC_vNidIEAU575ChVXBXqX2O1y1bbFSKW4G7V38G3WcJxrWybzq8rFRvtJouUOKaPVTI_W-LENgGM6jBJ1OVrEXZs5RNORxJikApE5-ujOaY42x8KPdmTHSxdd-pDERkcDx7OnTPoOPtMs7970QMX9wHQ6mpaMVdgOLNSlMSrMnk6zqrPsfSd_P0XwD35px1BqrKpWqA33bVLKq3AXe1sqzkAfqRbU05B-8Dy8" />
+                        <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                                class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors"
+                                aria-label="Add to cart">
+                                <span class="material-symbols-outlined text-sm"
+                                    data-icon="shopping_bag">shopping_bag</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">Limited Edition</p>
+                    <h3 class="text-sm font-medium text-on-surface mb-2">Atelier Wool Overcoat</h3>
+                    <p class="text-sm font-serif">$850.00</p>
+                </div>
+                <!-- Product 3 -->
+                <div class="group">
+                    <div class="aspect-[3/4] overflow-hidden bg-surface mb-6 relative">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Minimalist high-waisted linen trousers in a soft sand color."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGf0pBXBAaijvFw4M34YvS_CDf0j4ZUvnn7sEy1pcTYDYBlMeZkdaC1aSEAFRLpUFuJZvdiSDL1RR3yc_EocOtFGi9QGwStiSg1OwFxEDBsCuxaER30qK6YINAs6zT48wS38jlUhCwsFF5zhg4lIeYb4gH50e27l8igDv2IAKjh9g1a5dtIN7ZvP3iauPywNJphD0Mh1m84wA-bGljlkKFKjQdt0aN5ssgf2JTmeIWsoVkwxZeJi29GuNeQsWEhXzcBeRPiAHBVno" />
+                        <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                                class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors"
+                                aria-label="Add to cart">
+                                <span class="material-symbols-outlined text-sm"
+                                    data-icon="shopping_bag">shopping_bag</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">Core Collection</p>
+                    <h3 class="text-sm font-medium text-on-surface mb-2">High-Rise Linen Trouser</h3>
+                    <p class="text-sm font-serif">$185.00</p>
+                </div>
+                <!-- Product 4 -->
+                <div class="group">
+                    <div class="aspect-[3/4] overflow-hidden bg-surface mb-6 relative">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                            data-alt="Elegant leather tote bag in a deep forest green color resting on an oak chair."
+                            src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoPGnoMxAmv9fE42rcT4sUxbLtUhpUn2QL23Aou8_Vs_4giTKseyEEeBnKDwcIyJASh341cVxwJvMSpefYJ-ZMabmMEYwZjNsM_74aXRrbQqtHRxHE7K0k7IWT-e8yYuYpJxA-vO0EqPK0cykKwGqiG1Ybc0OwXxoYx9lEw7A4Or6rLrz_vUAaE1myFlufWBMHpPjZD0Hh_4Oq-baEoVlZEXwaJSU7IfjCOnTAegeyVFbhqvBdclG06WhVi-9oygUxEopzTW6MXHM" />
+                        <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                            <button
+                                class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors"
+                                aria-label="Add to cart">
+                                <span class="material-symbols-outlined text-sm"
+                                    data-icon="shopping_bag">shopping_bag</span>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">Accessories</p>
+                    <h3 class="text-sm font-medium text-on-surface mb-2">Pebbled Leather Tote</h3>
+                    <p class="text-sm font-serif">$420.00</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- About the Atelier: Editorial Layout -->
+    <section class="py-40 bg-surface">
+        <div class="max-w-[1440px] mx-auto px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-24 items-center">
+                <div class="relative">
+                    <div class="absolute -top-10 -left-10 w-64 h-80 bg-surface-container-low -z-10"></div>
+                    <img class="w-full grayscale brightness-90 shadow-2xl"
+                        data-alt="Interior of a high-end fashion design studio with sketches, fabric swatches and a minimalist aesthetic."
+                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4uzzrcpb6Uz5NqM0uy_7DZ9aIRVKtRZFJ2jHcJSUYsVHymUgobtwsvAQ3tppE5u2rxMFyF_AdE_2LXg5dzr4EgtinTRppc9r9Cypa1mtiU7wB4GWbJuBjJgc2CONpKYvRNiEjBgrjeqTcrFPxiYnau2ajbcr-j2-dg6AS0Ew1KejaGXG_kW_hvU1C7l_U6onBq_XDKIariw9361XEgUSy6xow6Qbmf8C7GF9vnVKgf2fnKDnTuKpoF8HlE37SEJOGil6a-YEhHOU" />
+                </div>
+                <div class="flex flex-col gap-8">
+                    <span class="text-[10px] uppercase tracking-[0.3em] font-bold text-primary">Our Philosophy</span>
+                    <h2 class="text-5xl font-serif leading-tight">The Digital Atelier: <br />Where Vision Meets Craft
+                    </h2>
+                    <p class="text-secondary leading-relaxed text-lg italic">
+                        "Fashion is not just what you wear; it is an architectural statement of identity. In our
+                        atelier, we treat every seam as a foundational pillar and every fabric as a canvas for the
+                        soul."
+                    </p>
+                    <div class="h-px w-20 bg-primary/20"></div>
+                    <p class="text-sm text-on-surface leading-loose max-w-lg">
+                        Fashion Hub began as a small collective of designers dedicated to reversing the 'fast fashion'
+                        cycle. By focusing on small-batch production and ethically sourced materials, we ensure that
+                        every piece leaving our atelier is designed to last a lifetime, not just a season.
+                    </p>
+                    <a class="text-primary text-[10px] uppercase tracking-widest font-bold border-b-2 border-primary w-fit pb-1 hover:pb-2 transition-all"
+                        href="#">
+                        Read Our Story
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Footer -->
+    <footer class="w-full bg-[#f4f4f2] dark:bg-[#121212] mt-20 border-t-0">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-[1440px] mx-auto">
+            <div class="md:col-span-1">
+                <a class="text-xl font-serif text-[#00342b] dark:text-[#004d40]" href="#">Fashion Hub</a>
+                <p class="mt-6 text-sm text-gray-600 dark:text-gray-400 leading-relaxed font-body">
+                    A digital atelier committed to the pursuit of timeless elegance and conscious craftsmanship.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-[10px] uppercase tracking-widest font-bold text-[#00342b] mb-6">Explore</h4>
+                <ul class="flex flex-col gap-4">
+                    <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
+                            href="#">About Us</a></li>
+                    <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
+                            href="#">Contact</a></li>
+                    <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
+                            href="#">Shipping Info</a></li>
+                    <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
+                            href="#">Privacy Policy</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] uppercase tracking-widest font-bold text-[#00342b] mb-6">Collections</h4>
+                <ul class="flex flex-col gap-4">
+                    <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
+                            href="#">New Arrivals</a></li>
+                    <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
+                            href="#">Essentials</a></li>
+                    <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
+                            href="#">Tailoring</a></li>
+                    <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
+                            href="#">Archive</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-[10px] uppercase tracking-widest font-bold text-[#00342b] mb-6">Newsletter</h4>
+                <p class="text-xs text-gray-500 mb-4">Join our inner circle for exclusive previews.</p>
+                <div class="flex gap-2">
+                    <input class="bg-surface-container border-none text-xs w-full py-3" placeholder="Your email"
+                        type="email" />
+                    <button
+                        class="bg-[#00342b] text-white px-4 text-xs font-bold uppercase tracking-widest">Join</button>
+                </div>
+            </div>
+        </div>
+        <div
+            class="px-12 py-8 border-t border-black/5 max-w-[1440px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[10px] tracking-wide text-gray-600 dark:text-gray-400 uppercase">© <span
+                    id="copyright-year">2026</span> Digital Atelier. All Rights Reserved.</p>
+            <div class="flex gap-6">
+                <span class="material-symbols-outlined text-sm text-gray-400" data-icon="share">share</span>
+                <span class="material-symbols-outlined text-sm text-gray-400" data-icon="language">language</span>
+            </div>
+        </div>
+    </footer>
+    <script src="/js/app.js"></script>
+    <script>
+        // Year
+        const yr = Math.max(new Date().getFullYear(), 2026);
+        document.getElementById('current-year-banner').textContent = yr;
+        document.getElementById('copyright-year').textContent = yr;
+
+        // Nav
+        initNavCart();
+        initNavUser();
+
+        // Trending Products (live from API)
+        async function loadTrendingProducts() {
+            try {
+                const products = await apiFetch('/api/products');
+                const trendingGrid = document.getElementById('trending-grid');
+                if (!trendingGrid) return;
+                const trending = products.filter(p => p.trending);
+                trendingGrid.innerHTML = trending.map(product => `
+                    <div class="group">
+                        <div class="aspect-[3/4] overflow-hidden bg-surface mb-6 relative">
+                            <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="${product.image}" alt="${product.name}">
+                            <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
+                                <button onclick="onAddToCart(${JSON.stringify(product).replace(/"/g, '&quot;')})" class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors" aria-label="Add to cart">
+                                    <span class="material-symbols-outlined text-sm">shopping_bag</span>
+                                </button>
+                            </div>
+                        </div>
+                        <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">${product.category}</p>
+                        <h3 class="text-sm font-medium text-on-surface mb-2">${product.name}</h3>
+                        <p class="text-sm font-serif">$${product.price.toLocaleString()}.00</p>
+                    </div>
+                `).join('');
+            } catch (e) { console.error('Could not load products', e); }
+        }
+
+        function onAddToCart(product) {
+            Cart.addItem(product);
+            initNavCart();
+            const counter = document.getElementById('cart-counter');
+            counter.classList.add('scale-125');
+            setTimeout(() => counter.classList.remove('scale-125'), 200);
+        }
+
+        // Smooth scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
+            });
+        });
+
+        loadTrendingProducts();
+    </script>
+</body>
+</html>

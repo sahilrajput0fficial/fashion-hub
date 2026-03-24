@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Product | Fashion Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,500;0,600;1,500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "on-tertiary-container": "#e89f8c", "primary": "#00342b", "on-primary": "#ffffff",
+        "surface": "#f9f9f7", "surface-container-low": "#f4f4f2", "surface-container": "#eeeeec",
+        "surface-container-lowest": "#ffffff", "surface-container-high": "#e8e8e6",
+        "surface-dim": "#dadad8", "secondary": "#5f5e5e", "outline-variant": "#bfc9c4",
+        "on-surface": "#1a1c1b", "on-surface-variant": "#3f4945", "error": "#ba1a1a"
+      },
+      fontFamily: { "headline": ["Noto Serif"], "body": ["Inter"], "label": ["Inter"] },
+      borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" }
+    }
+  }
+}
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; font-size: 20px; }
+  body { font-family: 'Inter', sans-serif; }
+  h1,h2,h3,.font-serif { font-family: 'Noto Serif', serif; }
+  .size-btn.active { background: #00342b; color: white; border-color: #00342b; }
+  @keyframes slideUp { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+  .slide-up { animation: slideUp 0.4s ease forwards; }
+  @keyframes cartPop { 0%,100% { transform:scale(1); } 50% { transform:scale(1.3); } }
+  .cart-pop { animation: cartPop 0.3s ease; }
+</style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+
+<!-- Nav -->
+<nav class="fixed top-0 z-50 w-full bg-[#f9f9f7] opacity-90 backdrop-blur-xl border-b border-outline-variant/20">
+  <div class="flex justify-between items-center px-8 py-5 w-full max-w-[1440px] mx-auto">
+    <a href="/" class="text-2xl font-semibold tracking-tighter text-primary font-serif">Fashion Hub</a>
+    <div class="hidden md:flex items-center space-x-12">
+      <a class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/">Home</a>
+      <a class="text-primary border-b border-primary pb-1 text-xs tracking-widest uppercase" href="/catalog">Catalog</a>
+      <a id="account-nav-link" class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/login">Sign In</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button onclick="window.location.href='/cart'" class="relative hover:scale-95 duration-200" aria-label="Cart">
+        <span class="material-symbols-outlined text-primary">shopping_cart</span>
+        <span id="cart-counter" class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-all duration-300">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<!-- Breadcrumb -->
+<div class="pt-24 pb-0 px-8 max-w-[1440px] mx-auto">
+  <nav class="flex items-center gap-2 text-[10px] tracking-widest uppercase text-secondary">
+    <a href="/" class="hover:text-primary transition-colors">Home</a>
+    <span class="material-symbols-outlined !text-xs">chevron_right</span>
+    <a href="/catalog" class="hover:text-primary transition-colors">Catalog</a>
+    <span class="material-symbols-outlined !text-xs">chevron_right</span>
+    <span id="breadcrumb-name" class="text-primary">Product</span>
+  </nav>
+</div>
+
+<!-- Product Detail -->
+<main class="px-8 py-12 max-w-[1440px] mx-auto">
+
+  <!-- Loading State -->
+  <div id="loading-state" class="grid grid-cols-1 lg:grid-cols-2 gap-16">
+    <div class="aspect-[3/4] bg-surface-container animate-pulse"></div>
+    <div class="space-y-6 pt-4">
+      <div class="h-3 w-24 bg-surface-container-high animate-pulse"></div>
+      <div class="h-10 w-3/4 bg-surface-container-high animate-pulse"></div>
+      <div class="h-8 w-32 bg-surface-container-high animate-pulse"></div>
+    </div>
+  </div>
+
+  <!-- Product Content (hidden until loaded) -->
+  <div id="product-content" class="hidden grid grid-cols-1 lg:grid-cols-2 gap-16 slide-up">
+
+    <!-- Left: Images -->
+    <div class="space-y-4">
+      <div class="aspect-[3/4] overflow-hidden bg-surface-container-low relative group">
+        <img id="product-img-main" src="" alt="" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+        <!-- Zoom hint -->
+        <div class="absolute bottom-6 right-6 bg-white/80 backdrop-blur-sm px-3 py-1.5 flex items-center gap-1 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+          <span class="material-symbols-outlined !text-xs text-primary">zoom_in</span>
+          <span class="text-[9px] uppercase tracking-widest text-primary">View</span>
+        </div>
+      </div>
+      <!-- Thumbnail strip -->
+      <div id="product-thumbnails" class="flex gap-3"></div>
+    </div>
+
+    <!-- Right: Details -->
+    <div class="flex flex-col gap-8 pt-4 lg:pt-8">
+
+      <!-- Category & Badge -->
+      <div class="flex items-center justify-between">
+        <span id="product-category" class="text-[10px] uppercase tracking-widest font-label text-secondary"></span>
+        <span id="trending-badge" class="hidden text-[9px] uppercase tracking-[0.2em] px-3 py-1 bg-primary/10 text-primary font-bold">Trending Now</span>
+      </div>
+
+      <!-- Name & Price -->
+      <div class="space-y-3">
+        <h1 id="product-name" class="text-4xl lg:text-5xl font-serif leading-tight"></h1>
+        <div class="flex items-baseline gap-4">
+          <span id="product-price" class="text-2xl font-serif text-primary"></span>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <p id="product-description" class="text-secondary text-sm leading-relaxed border-t border-outline-variant/30 pt-6"></p>
+
+      <!-- Size Selector -->
+      <div class="space-y-4">
+        <div class="flex justify-between items-center">
+          <span class="text-xs tracking-widest uppercase font-label">Select Size</span>
+          <button class="text-xs text-primary border-b border-primary/20 hover:border-primary transition-all pb-0.5">Size Guide</button>
+        </div>
+        <div class="flex flex-wrap gap-3">
+          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">XS</button>
+          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">S</button>
+          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center active">M</button>
+          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">L</button>
+          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">XL</button>
+        </div>
+      </div>
+
+      <!-- Quantity & Add to Cart -->
+      <div class="space-y-4">
+        <span class="text-xs tracking-widest uppercase font-label">Quantity</span>
+        <div class="flex items-center gap-6">
+          <div class="flex items-center border border-outline-variant bg-surface-container-lowest">
+            <button onclick="changeQty(-1)" class="px-4 py-3 text-primary hover:bg-surface-container transition-colors">
+              <span class="material-symbols-outlined !text-xs">remove</span>
+            </button>
+            <span id="qty-display" class="px-6 text-sm font-body min-w-[3rem] text-center">1</span>
+            <button onclick="changeQty(1)" class="px-4 py-3 text-primary hover:bg-surface-container transition-colors">
+              <span class="material-symbols-outlined !text-xs">add</span>
+            </button>
+          </div>
+          <span id="stock-label" class="text-xs text-secondary italic"></span>
+        </div>
+
+        <button id="add-to-cart-btn" onclick="handleAddToCart()" class="w-full bg-primary text-on-primary py-5 text-xs tracking-widest uppercase font-label hover:opacity-90 transition-all flex items-center justify-center gap-3 group">
+          <span class="material-symbols-outlined text-on-primary !text-base group-hover:scale-110 transition-transform">shopping_bag</span>
+          <span id="btn-text">Add to Bag</span>
+        </button>
+
+        <button class="w-full border border-outline-variant py-4 text-xs tracking-widest uppercase font-label hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-3">
+          <span class="material-symbols-outlined !text-base">favorite_border</span>
+          Add to Wishlist
+        </button>
+      </div>
+
+      <!-- Accordion: Delivery & Returns -->
+      <div class="divide-y divide-outline-variant/30 border-t border-outline-variant/30">
+        <details class="py-5 group">
+          <summary class="flex justify-between items-center cursor-pointer text-xs tracking-widest uppercase font-label list-none">
+            Delivery & Returns
+            <span class="material-symbols-outlined !text-sm text-secondary group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <div class="pt-4 text-sm text-secondary leading-relaxed space-y-2">
+            <p>Complimentary delivery on all orders. 14-day returns on unworn pieces in original packaging.</p>
+          </div>
+        </details>
+        <details class="py-5 group">
+          <summary class="flex justify-between items-center cursor-pointer text-xs tracking-widest uppercase font-label list-none">
+            Craftsmanship
+            <span class="material-symbols-outlined !text-sm text-secondary group-open:rotate-180 transition-transform">expand_more</span>
+          </summary>
+          <div class="pt-4 text-sm text-secondary leading-relaxed space-y-2">
+            <p>Handcrafted in collaboration with European ateliers using ethically sourced materials.</p>
+          </div>
+        </details>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Error State -->
+  <div id="error-state" class="hidden text-center py-32">
+    <p class="text-secondary italic font-serif text-xl mb-6">This piece is unavailable.</p>
+    <a href="/catalog" class="text-primary text-xs tracking-widest uppercase border-b border-primary pb-1 hover:border-primary/50 transition-all">Return to Catalog</a>
+  </div>
+
+  <!-- Related Products -->
+  <section class="mt-24 border-t border-outline-variant/30 pt-16">
+    <div class="flex justify-between items-end mb-12">
+      <div>
+        <span class="text-[10px] uppercase tracking-widest text-secondary font-label">You May Also Appreciate</span>
+        <h2 class="text-2xl font-serif mt-2">Related Pieces</h2>
+      </div>
+      <a href="/catalog" class="text-xs uppercase tracking-widest font-label text-secondary hover:text-primary transition-colors border-b border-outline-variant pb-1">View All</a>
+    </div>
+    <div id="related-grid" class="grid grid-cols-2 md:grid-cols-4 gap-8"></div>
+  </section>
+</main>
+
+<footer class="w-full mt-20 bg-surface-container-low py-10">
+  <p class="text-center text-[10px] tracking-widest uppercase text-secondary">© <span id="copyright-year">2026</span> Digital Atelier. All Rights Reserved.</p>
+</footer>
+
+<!-- Add to Cart Toast -->
+<div id="cart-toast" class="fixed bottom-8 left-1/2 -translate-x-1/2 bg-primary text-on-primary px-8 py-4 flex items-center gap-3 shadow-xl z-50 opacity-0 translate-y-4 transition-all duration-500 pointer-events-none">
+  <span class="material-symbols-outlined !text-base">check_circle</span>
+  <span class="text-xs tracking-widest uppercase font-label">Added to Your Bag</span>
+  <button onclick="window.location.href='/cart'" class="ml-4 border-l border-white/20 pl-4 text-[10px] uppercase tracking-widest hover:opacity-70 pointer-events-auto">View Bag</button>
+</div>
+
+<script src="/js/app.js"></script>
+<script>
+  document.getElementById('copyright-year').textContent = Math.max(new Date().getFullYear(), 2026);
+  initNavCart();
+  initNavUser();
+
+  // Get product ID from URL ?id=xxxx
+  const params = new URLSearchParams(window.location.search);
+  const productId = params.get('id');
+
+  let currentProduct = null;
+  let currentQty = 1;
+  let selectedSize = 'M';
+
+  async function loadProduct() {
+    if (!productId) { showError(); return; }
+    try {
+      const product = await apiFetch(`/api/products/${productId}`);
+      currentProduct = product;
+      document.title = `${product.name} | Fashion Hub`;
+      document.getElementById('breadcrumb-name').textContent = product.name;
+      document.getElementById('product-name').textContent = product.name;
+      document.getElementById('product-category').textContent = product.category;
+      document.getElementById('product-price').textContent = `$${product.price.toLocaleString()}.00`;
+      document.getElementById('product-description').textContent = product.description;
+      document.getElementById('product-img-main').src = product.image;
+      document.getElementById('product-img-main').alt = product.name;
+      document.getElementById('stock-label').textContent = product.stock > 0 ? `${product.stock} in stock` : 'Out of stock';
+
+      if (product.trending) document.getElementById('trending-badge').classList.remove('hidden');
+      if (product.stock === 0) {
+        const btn = document.getElementById('add-to-cart-btn');
+        btn.disabled = true;
+        btn.classList.add('opacity-40', 'cursor-not-allowed');
+        document.getElementById('btn-text').textContent = 'Out of Stock';
+      }
+
+      // Thumbnails (use same image for now; can be extended with image arrays)
+      document.getElementById('product-thumbnails').innerHTML = `
+        <div class="w-20 h-28 overflow-hidden border-2 border-primary cursor-pointer">
+          <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+        </div>
+      `;
+
+      document.getElementById('loading-state').classList.add('hidden');
+      document.getElementById('product-content').classList.remove('hidden');
+
+      loadRelated(product);
+    } catch (e) {
+      showError();
+    }
+  }
+
+  function showError() {
+    document.getElementById('loading-state').classList.add('hidden');
+    document.getElementById('error-state').classList.remove('hidden');
+  }
+
+  async function loadRelated(currentProduct) {
+    try {
+      const all = await apiFetch('/api/products');
+      const related = all.filter(p => p._id !== currentProduct._id).slice(0, 4);
+      document.getElementById('related-grid').innerHTML = related.map(p => `
+        <div class="group cursor-pointer" onclick="window.location.href='/product?id=${p._id}'">
+          <div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-4 relative">
+            <img src="${p.image}" alt="${p.name}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700">
+            <button onclick="event.stopPropagation(); quickAddToCart(${JSON.stringify(p).replace(/"/g, '&quot;')})"
+              class="absolute bottom-3 right-3 bg-primary text-on-primary p-2.5 opacity-0 group-hover:opacity-100 translate-y-2 group-hover:translate-y-0 transition-all duration-300">
+              <span class="material-symbols-outlined !text-sm">shopping_bag</span>
+            </button>
+          </div>
+          <p class="text-[10px] uppercase tracking-widest text-secondary mb-1">${p.category}</p>
+          <h3 class="text-sm font-body hover:text-primary transition-colors">${p.name}</h3>
+          <p class="text-sm font-serif text-primary mt-1">$${p.price.toLocaleString()}.00</p>
+        </div>
+      `).join('');
+    } catch(e) { /* silent */ }
+  }
+
+  function selectSize(btn) {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    selectedSize = btn.textContent.trim();
+  }
+
+  function changeQty(delta) {
+    currentQty = Math.max(1, Math.min(currentQty + delta, currentProduct?.stock || 99));
+    document.getElementById('qty-display').textContent = currentQty;
+  }
+
+  function handleAddToCart() {
+    if (!currentProduct) return;
+    for (let i = 0; i < currentQty; i++) {
+      Cart.addItem({ ...currentProduct, size: selectedSize }, 1);
+    }
+    Cart.setItems(Cart.getItems()); // force recalculate
+    initNavCart();
+    showToast();
+
+    const btn = document.getElementById('add-to-cart-btn');
+    btn.classList.add('opacity-80');
+    document.getElementById('btn-text').textContent = '✓ Added to Bag';
+    setTimeout(() => {
+      btn.classList.remove('opacity-80');
+      document.getElementById('btn-text').textContent = 'Add to Bag';
+    }, 2000);
+  }
+
+  function quickAddToCart(product) {
+    Cart.addItem(product);
+    initNavCart();
+    showToast();
+  }
+
+  function showToast() {
+    const toast = document.getElementById('cart-toast');
+    toast.classList.remove('opacity-0', 'translate-y-4');
+    toast.classList.add('opacity-100', 'translate-y-0');
+    setTimeout(() => {
+      toast.classList.add('opacity-0', 'translate-y-4');
+      toast.classList.remove('opacity-100', 'translate-y-0');
+    }, 3500);
+    const counter = document.getElementById('cart-counter');
+    counter.classList.add('cart-pop');
+    counter.addEventListener('animationend', () => counter.classList.remove('cart-pop'), { once: true });
+  }
+
+  loadProduct();
+</script>
+</body>
+</html>

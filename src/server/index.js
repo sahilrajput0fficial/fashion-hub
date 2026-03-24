@@ -1,0 +1,65 @@
+const express = require('express');
+const path = require('path');
+const morgan = require('morgan');
+const dotenv = require('dotenv');
+const nocache = require('nocache');
+const connectDB = require('./config/db');
+const productRoutes = require('./routes/productRoutes');
+const userRoutes = require('./routes/userRoutes');
+const cartRoutes = require('./routes/cartRoutes');
+const orderRoutes = require('./routes/orderRoutes');
+
+dotenv.config();
+
+// Connect to MongoDB
+connectDB();
+
+const app = express();
+
+// Middleware
+app.use(express.json());
+app.use(morgan('dev'));
+app.use(nocache());
+
+// Static Files
+app.use(express.static(path.join(__dirname, '../public')));
+
+// API Routes
+app.use('/api/products', productRoutes);
+app.use('/api/users', userRoutes);
+app.use('/api/cart', cartRoutes);
+app.use('/api/orders', orderRoutes);
+
+// Frontend Routes
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/index.html'));
+});
+
+app.get('/catalog', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/catalog.html'));
+});
+
+app.get('/cart', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/cart.html'));
+});
+
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/login.html'));
+});
+
+app.get('/account', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/account.html'));
+});
+
+app.get('/product', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/product.html'));
+});
+
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok', message: 'Fashion Hub API is running' });
+});
+
+const PORT = process.env.PORT || 3000;
+app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+});

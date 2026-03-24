@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>My Account | Fashion Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,500;0,600;1,500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+<script id="tailwind-config">
+tailwind.config = {
+  darkMode: "class",
+  theme: {
+    extend: {
+      colors: {
+        "on-tertiary-container": "#e89f8c", "primary": "#00342b", "on-primary": "#ffffff",
+        "surface": "#f9f9f7", "surface-container-low": "#f4f4f2", "surface-container": "#eeeeec",
+        "surface-container-lowest": "#ffffff", "surface-container-high": "#e8e8e6",
+        "secondary": "#5f5e5e", "outline-variant": "#bfc9c4", "on-surface": "#1a1c1b",
+        "on-surface-variant": "#3f4945", "error": "#ba1a1a"
+      },
+      fontFamily: { "headline": ["Noto Serif"], "body": ["Inter"], "label": ["Inter"] },
+      borderRadius: { "DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px" }
+    }
+  }
+}
+</script>
+<style>
+  .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; font-size: 20px; }
+  body { font-family: 'Inter', sans-serif; }
+  h1, h2, h3, .font-serif { font-family: 'Noto Serif', serif; }
+</style>
+</head>
+<body class="bg-surface text-on-surface antialiased">
+
+<!-- Nav -->
+<nav class="fixed top-0 z-50 w-full bg-[#f9f9f7] opacity-90 backdrop-blur-xl border-b border-outline-variant/20">
+  <div class="flex justify-between items-center px-8 py-5 w-full max-w-[1440px] mx-auto">
+    <a href="/" class="text-2xl font-semibold tracking-tighter text-primary font-serif">Fashion Hub</a>
+    <div class="hidden md:flex items-center space-x-12">
+      <a class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/">Home</a>
+      <a class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/catalog">Catalog</a>
+      <a class="text-primary border-b border-primary pb-1 text-xs tracking-widest uppercase" href="/account">Account</a>
+    </div>
+    <div class="flex items-center space-x-4">
+      <button onclick="window.location.href='/cart'" class="relative hover:scale-95 duration-200">
+        <span class="material-symbols-outlined text-primary">shopping_cart</span>
+        <span id="cart-counter" class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity">0</span>
+      </button>
+    </div>
+  </div>
+</nav>
+
+<main class="pt-28 pb-20 px-8 max-w-[1440px] mx-auto">
+  <!-- Header -->
+  <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6">
+    <div>
+      <span class="text-[10px] uppercase tracking-widest font-bold text-secondary">Personal Space</span>
+      <h1 class="text-4xl font-serif mt-2">My Atelier</h1>
+      <p id="welcome-name" class="text-secondary italic mt-1 text-sm"></p>
+    </div>
+    <button onclick="handleLogout()" class="flex items-center gap-2 text-xs tracking-widest uppercase font-label text-secondary hover:text-primary border border-outline-variant px-6 py-3 transition-colors">
+      <span class="material-symbols-outlined text-sm">logout</span> Sign Out
+    </button>
+  </div>
+
+  <!-- Tabs -->
+  <div class="flex border-b border-outline-variant mb-12">
+    <button onclick="showTab('orders')" id="tab-orders" class="tab-btn active-tab">Order History</button>
+    <button onclick="showTab('profile')" id="tab-profile" class="tab-btn">Profile</button>
+    <button id="tab-admin-products" onclick="showTab('admin-products')" class="tab-btn hidden">Admin: Products</button>
+  </div>
+
+  <!-- Orders Tab -->
+  <div id="orders-panel">
+    <div id="orders-list" class="space-y-4">
+      <div class="text-center py-16 text-secondary italic font-serif">Loading order history...</div>
+    </div>
+  </div>
+
+  <!-- Profile Tab -->
+  <div id="profile-panel" class="hidden">
+    <div class="max-w-lg space-y-8">
+      <div class="grid grid-cols-1 gap-6">
+        <div class="space-y-2">
+          <label class="text-xs tracking-widest uppercase font-label">Full Name</label>
+          <input id="profile-name" type="text" class="w-full bg-surface-container-low border-0 border-b border-outline-variant py-3 px-0 text-sm focus:outline-none focus:border-primary transition-colors">
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs tracking-widest uppercase font-label">Email Address</label>
+          <input id="profile-email" type="email" disabled class="w-full bg-surface-container py-3 px-0 border-b border-outline-variant/50 text-sm text-secondary cursor-not-allowed">
+        </div>
+        <div class="space-y-2">
+          <label class="text-xs tracking-widest uppercase font-label">Account Role</label>
+          <input id="profile-role" type="text" disabled class="w-full bg-surface-container py-3 px-0 border-b border-outline-variant/50 text-sm text-secondary cursor-not-allowed capitalize">
+        </div>
+      </div>
+      <p id="profile-msg" class="hidden text-xs text-green-700 bg-green-50 border border-green-300 p-3">Profile updated successfully.</p>
+      <button onclick="saveProfile()" class="bg-primary text-on-primary px-8 py-4 text-xs tracking-widest uppercase font-label hover:opacity-90 transition-all">Save Changes</button>
+    </div>
+  </div>
+
+  <!-- Admin Products Tab -->
+  <div id="admin-products-panel" class="hidden">
+    <div class="flex justify-between items-center mb-8">
+      <h2 class="text-xl font-serif">Product Inventory</h2>
+      <button onclick="createProduct()" class="bg-primary text-on-primary px-6 py-3 text-xs tracking-widest uppercase flex items-center gap-2 hover:opacity-90">
+        <span class="material-symbols-outlined !text-sm">add</span> Add Product
+      </button>
+    </div>
+    <div id="admin-products-list" class="overflow-x-auto">
+      <div class="text-center py-16 text-secondary italic font-serif">Loading products...</div>
+    </div>
+  </div>
+</main>
+
+<footer class="w-full bg-surface-container-low mt-20 py-8 px-8">
+  <p class="text-center text-xs text-secondary">© <span id="copyright-year">2026</span> Digital Atelier. All Rights Reserved.</p>
+</footer>
+
+<style>
+  .tab-btn { padding: 0 0 1rem 0; margin-right: 2.5rem; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; font-weight: 600; color: #5f5e5e; border-bottom: 2px solid transparent; transition: all 0.2s; }
+  .tab-btn.active-tab { color: #00342b; border-bottom-color: #00342b; }
+</style>
+
+<script src="/js/app.js"></script>
+<script>
+  if (!Auth.isLoggedIn()) window.location.href = '/login';
+  document.getElementById('copyright-year').textContent = Math.max(new Date().getFullYear(), 2026);
+  initNavCart();
+
+  const user = Auth.getUser();
+  if (user) {
+    document.getElementById('welcome-name').textContent = `Welcome back, ${user.name}`;
+    document.getElementById('profile-name').value = user.name;
+    document.getElementById('profile-email').value = user.email;
+    document.getElementById('profile-role').value = user.role;
+    if (user.role === 'admin') {
+      document.getElementById('tab-admin-products').classList.remove('hidden');
+    }
+  }
+
+  function showTab(tab) {
+    ['orders', 'profile', 'admin-products'].forEach(t => {
+      document.getElementById(`${t}-panel`).classList.add('hidden');
+      const btn = document.getElementById(`tab-${t}`);
+      if (btn) btn.classList.remove('active-tab');
+    });
+    document.getElementById(`${tab}-panel`).classList.remove('hidden');
+    const activeBtn = document.getElementById(`tab-${tab}`);
+    if (activeBtn) activeBtn.classList.add('active-tab');
+    if (tab === 'admin-products') loadAdminProducts();
+  }
+
+  async function loadOrders() {
+    try {
+      const orders = await apiFetch('/api/orders/myorders');
+      const container = document.getElementById('orders-list');
+      if (!orders.length) {
+        container.innerHTML = `
+          <div class="py-20 text-center text-secondary italic font-serif">
+            No orders yet. Your collection awaits.
+            <a href="/catalog" class="block text-primary not-italic font-sans text-xs uppercase tracking-widest font-bold mt-4 border-b border-primary/20 w-fit mx-auto pb-1 hover:border-primary transition-all">Explore Catalog</a>
+          </div>`;
+        return;
+      }
+      container.innerHTML = orders.map(order => `
+        <div class="border border-outline-variant/40 p-6 space-y-3 hover:border-primary/40 transition-colors">
+          <div class="flex justify-between items-start">
+            <div>
+              <p class="text-[10px] tracking-widest uppercase text-secondary">Order ID</p>
+              <p class="font-mono text-xs mt-1 text-on-surface">${order._id}</p>
+            </div>
+            <span class="text-[9px] tracking-widest uppercase px-3 py-1 font-bold ${order.isDelivered ? 'bg-green-100 text-green-800' : order.isPaid ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800'}">
+              ${order.isDelivered ? 'Delivered' : order.isPaid ? 'Processing' : 'Pending'}
+            </span>
+          </div>
+          <div class="flex justify-between text-sm">
+            <span class="text-secondary">Total</span>
+            <span class="font-serif font-medium">$${order.totalPrice?.toFixed(2)}</span>
+          </div>
+          <p class="text-[10px] text-secondary">${new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+        </div>
+      `).join('');
+    } catch (err) {
+      document.getElementById('orders-list').innerHTML = `<div class="py-16 text-center text-secondary italic font-serif">Could not load orders.</div>`;
+    }
+  }
+
+  async function loadAdminProducts() {
+    try {
+      const products = await apiFetch('/api/products');
+      const container = document.getElementById('admin-products-list');
+      container.innerHTML = `
+        <table class="w-full text-xs">
+          <thead>
+            <tr class="border-b border-outline-variant text-left text-on-surface-variant tracking-widest uppercase">
+              <th class="pb-4 pr-6">Product</th>
+              <th class="pb-4 pr-6">Category</th>
+              <th class="pb-4 pr-6">Price</th>
+              <th class="pb-4 pr-6">Stock</th>
+              <th class="pb-4 pr-6">Trending</th>
+              <th class="pb-4">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-outline-variant/30">
+            ${products.map(p => `
+              <tr class="hover:bg-surface-container-low/50 transition-colors">
+                <td class="py-4 pr-6 font-medium">${p.name}</td>
+                <td class="py-4 pr-6 text-secondary">${p.category}</td>
+                <td class="py-4 pr-6 font-serif">$${p.price}</td>
+                <td class="py-4 pr-6 ${p.stock < 5 ? 'text-amber-600 font-bold' : ''}">${p.stock}</td>
+                <td class="py-4 pr-6">${p.trending ? '✓' : '—'}</td>
+                <td class="py-4">
+                  <button onclick="deleteProduct('${p._id}')" class="text-error hover:opacity-70 text-[10px] tracking-widest uppercase font-bold">Delete</button>
+                </td>
+              </tr>
+            `).join('')}
+          </tbody>
+        </table>
+      `;
+    } catch (err) {
+      document.getElementById('admin-products-list').innerHTML = `<div class="py-8 text-secondary italic">Could not load products.</div>`;
+    }
+  }
+
+  async function deleteProduct(id) {
+    if (!confirm('Remove this product from the atelier?')) return;
+    try {
+      await apiFetch(`/api/products/${id}`, { method: 'DELETE' });
+      loadAdminProducts();
+    } catch (err) { alert('Could not delete product: ' + err.message); }
+  }
+
+  async function createProduct() {
+    try {
+      await apiFetch('/api/products', { method: 'POST' });
+      loadAdminProducts();
+    } catch (err) { alert('Could not create product: ' + err.message); }
+  }
+
+  function saveProfile() {
+    const user = Auth.getUser();
+    user.name = document.getElementById('profile-name').value;
+    localStorage.setItem('fashionHub_user', JSON.stringify(user));
+    const msg = document.getElementById('profile-msg');
+    msg.classList.remove('hidden');
+    setTimeout(() => msg.classList.add('hidden'), 3000);
+  }
+
+  function handleLogout() {
+    Auth.clearSession();
+    Cart.clear();
+    window.location.href = '/';
+  }
+
+  loadOrders();
+</script>
+</body>
+</html>

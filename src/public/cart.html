@@ -1,0 +1,341 @@
+<!DOCTYPE html>
+
+<html lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Shopping Cart | Fashion Hub</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:wght@500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "on-tertiary-container": "#e89f8c",
+                        "inverse-on-surface": "#f1f1ef",
+                        "primary-fixed": "#afefdd",
+                        "on-error-container": "#93000a",
+                        "secondary-container": "#e2dfde",
+                        "on-primary-fixed-variant": "#065043",
+                        "surface-bright": "#f9f9f7",
+                        "on-primary": "#ffffff",
+                        "surface-container-highest": "#e2e3e1",
+                        "tertiary": "#4e2013",
+                        "on-secondary-fixed-variant": "#474746",
+                        "background": "#f9f9f7",
+                        "on-secondary": "#ffffff",
+                        "on-primary-container": "#7ebdac",
+                        "surface-variant": "#e2e3e1",
+                        "inverse-surface": "#2f3130",
+                        "on-surface-variant": "#3f4945",
+                        "inverse-primary": "#94d3c1",
+                        "outline-variant": "#bfc9c4",
+                        "surface-container-lowest": "#ffffff",
+                        "primary-container": "#004d40",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "secondary": "#5f5e5e",
+                        "on-background": "#1a1c1b",
+                        "surface-tint": "#29695b",
+                        "primary": "#00342b",
+                        "tertiary-container": "#693527",
+                        "surface-container-high": "#e8e8e6",
+                        "error": "#ba1a1a",
+                        "tertiary-fixed": "#ffdbd1",
+                        "on-tertiary-fixed-variant": "#6d382a",
+                        "surface-dim": "#dadad8",
+                        "primary-fixed-dim": "#94d3c1",
+                        "surface": "#f9f9f7",
+                        "surface-container": "#eeeeec",
+                        "on-surface": "#1a1c1b",
+                        "on-error": "#ffffff",
+                        "secondary-fixed": "#e5e2e1",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "tertiary-fixed-dim": "#ffb5a1",
+                        "on-tertiary-fixed": "#370e04",
+                        "on-secondary-container": "#636262",
+                        "outline": "#707975",
+                        "on-tertiary": "#ffffff",
+                        "error-container": "#ffdad6",
+                        "surface-container-low": "#f4f4f2",
+                        "on-primary-fixed": "#00201a"
+                    },
+                    fontFamily: {
+                        "headline": ["Noto Serif"],
+                        "body": ["Inter"],
+                        "label": ["Inter"]
+                    },
+                    borderRadius: {"DEFAULT": "0px", "lg": "0px", "xl": "0px", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+            font-size: 20px;
+        }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, .font-serif { font-family: 'Noto Serif', serif; }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="fixed top-0 z-50 w-full bg-[#f9f9f7] dark:bg-[#1a1c1b] opacity-80 backdrop-blur-xl transition-all duration-300">
+<div class="flex justify-between items-center px-8 py-6 w-full max-w-[1440px] mx-auto">
+<div class="text-2xl font-semibold tracking-tighter text-[#00342b] dark:text-[#004d40] font-serif">
+                <a href="/">Fashion Hub</a>
+            </div>
+<div class="hidden md:flex items-center space-x-12">
+<a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/">Home</a>
+<a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/catalog">Catalog</a>
+<a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/account">Account</a>
+</div>
+<div class="flex items-center space-x-6">
+<button class="text-[#00342b] dark:text-[#004d40] transition-transform duration-200 active:scale-95" aria-label="Search">
+<span class="material-symbols-outlined" data-icon="search">search</span>
+</button>
+<button class="text-[#00342b] dark:text-[#004d40] border-b border-[#00342b] pb-1 transition-transform duration-200 active:scale-95 relative" aria-label="View Shopping Cart">
+<span class="material-symbols-outlined" data-icon="shopping_cart">shopping_cart</span>
+<span id="cart-counter" class="absolute -top-2 -right-2 bg-primary text-on-primary text-[9px] w-4 h-4 flex items-center justify-center rounded-full opacity-0 transition-opacity duration-300">0</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-grow pt-32 pb-20 px-8 max-w-[1440px] mx-auto w-full">
+<header class="mb-16">
+<span class="label-sm text-[11px] font-bold tracking-[0.2em] uppercase text-outline mb-4 block">Your Selection</span>
+<h1 class="text-5xl md:text-6xl font-semibold tracking-tight text-primary">Shopping Cart</h1>
+</header>
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-16 items-start">
+<!-- Cart Items Table-Style List -->
+<div class="lg:col-span-8 space-y-12">
+<div class="w-full">
+<!-- Table Header -->
+<div class="grid grid-cols-12 pb-6 text-outline uppercase tracking-widest text-[10px] font-bold border-b border-outline-variant/15">
+<div class="col-span-6">Product Details</div>
+<div class="col-span-2 text-center">Quantity</div>
+<div class="col-span-2 text-right">Price</div>
+<div class="col-span-2 text-right">Total</div>
+</div>
+<!-- Dynamic Cart Content Placeholder -->
+<div id="cart-items-container">
+    <!-- Items will be injected here or default items shown -->
+    <div class="py-20 text-center text-secondary italic font-serif">
+        Your atelier selection is currently empty.
+        <a href="/catalog" class="block text-primary not-italic font-sans text-xs uppercase tracking-widest font-bold mt-4 border-b border-primary/20 w-fit mx-auto pb-1 hover:border-primary transition-all">Continue Discovery</a>
+    </div>
+</div>
+</div>
+<!-- Shipping Hint -->
+<div class="bg-surface-container-low p-8 flex items-center gap-6">
+<span class="material-symbols-outlined text-primary text-4xl" data-icon="local_shipping">local_shipping</span>
+<div>
+<p class="font-serif text-lg text-primary">Complimentary Concierge Shipping</p>
+<p class="text-sm text-secondary">Your order qualifies for insured express delivery and 30-day extended returns.</p>
+</div>
+</div>
+</div>
+<!-- Order Summary Sidebar -->
+<div class="lg:col-span-4 sticky top-40">
+<div class="bg-surface-container-lowest p-10 shadow-sm transition-all duration-500 hover:shadow-md">
+<h2 class="font-serif text-2xl text-primary mb-8">Order Summary</h2>
+<div class="space-y-6 mb-10 pb-10 border-b border-outline-variant/20">
+<div class="flex justify-between items-center text-sm">
+<span class="text-secondary">Subtotal (<span id="summary-count">0</span> items)</span>
+<span class="text-on-surface font-medium" id="subtotal-amount">$0.00</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-secondary">Express Shipping</span>
+<span class="text-on-surface font-medium tracking-widest uppercase text-[11px]">Free</span>
+</div>
+<div class="flex justify-between items-center text-sm">
+<span class="text-secondary">Estimated Tax</span>
+<span class="text-on-surface font-medium" id="tax-amount">$0.00</span>
+</div>
+</div>
+<!-- Promo Code Input -->
+<div class="mb-10">
+<label class="label-sm text-[10px] font-bold tracking-widest uppercase text-secondary block mb-3">Promo Code</label>
+<div class="flex bg-surface-container-high">
+<input class="bg-transparent border-none focus:ring-0 text-xs tracking-widest px-4 py-4 w-full placeholder:text-outline-variant" placeholder="ENTER CODE" type="text" aria-label="Promo code"/>
+<button class="bg-primary text-on-primary px-6 text-[10px] font-bold uppercase tracking-widest hover:bg-primary-container transition-colors">Apply</button>
+</div>
+</div>
+<div class="flex justify-between items-end mb-12">
+<span class="font-serif text-xl text-primary">Total</span>
+<div class="text-right">
+<span class="block text-[10px] text-secondary uppercase tracking-widest mb-1">Tax Included</span>
+<span class="text-3xl font-serif text-primary" id="total-amount">$0.00</span>
+</div>
+</div>
+<button class="w-full bg-primary text-on-primary py-5 font-bold uppercase tracking-[0.2em] text-xs hover:bg-primary-container transition-all active:scale-[0.98] duration-200">
+                        Proceed to Checkout
+                    </button>
+<div class="mt-8 flex flex-col items-center gap-4">
+<span class="text-[10px] text-outline uppercase tracking-widest">Guaranteed Secure Payment</span>
+<div class="flex gap-4 opacity-50 grayscale">
+<span class="material-symbols-outlined text-2xl" data-icon="credit_card">credit_card</span>
+<span class="material-symbols-outlined text-2xl" data-icon="account_balance">account_balance</span>
+<span class="material-symbols-outlined text-2xl" data-icon="payments">payments</span>
+</div>
+</div>
+</div>
+<div class="mt-8 px-4 text-center">
+<p class="text-[11px] text-secondary leading-relaxed">
+                        Need assistance? Contact our <a class="text-primary border-b border-primary/20 hover:border-primary transition-all" href="#">Digital Concierge</a> 24/7.
+                    </p>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full border-t-0 mt-20 bg-[#f4f4f2] dark:bg-[#121212]">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-12 px-12 py-16 max-w-[1440px] mx-auto">
+<div class="md:col-span-1">
+<div class="text-xl font-serif text-[#00342b] dark:text-[#004d40] mb-6">Digital Atelier.</div>
+<p class="text-sm text-gray-500 leading-relaxed max-w-xs">Curated fashion for the modern individual. Merging heritage craftsmanship with digital innovation.</p>
+</div>
+<div>
+<h4 class="text-[10px] font-bold uppercase tracking-widest text-[#00342b] mb-6">Discovery</h4>
+<ul class="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+<li class="hover:text-[#00342b] transition-colors"><a href="/catalog">New Arrivals</a></li>
+<li class="hover:text-[#00342b] transition-colors"><a href="/catalog">Limited Collections</a></li>
+<li class="hover:text-[#00342b] transition-colors"><a href="#">Sustainability</a></li>
+<li class="hover:text-[#00342b] transition-colors"><a href="/catalog">Archive</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-[10px] font-bold uppercase tracking-widest text-[#00342b] mb-6">Information</h4>
+<ul class="space-y-4 text-sm text-gray-600 dark:text-gray-400">
+<li class="hover:text-[#00342b] transition-colors"><a href="#">About Us</a></li>
+<li class="hover:text-[#00342b] transition-colors"><a href="/contact">Contact</a></li>
+<li class="hover:text-[#00342b] transition-colors"><a href="/shipping">Shipping Info</a></li>
+<li class="hover:text-[#00342b] transition-colors"><a href="/privacy">Privacy Policy</a></li>
+</ul>
+</div>
+<div>
+<h4 class="text-[10px] font-bold uppercase tracking-widest text-[#00342b] mb-6">Newsletter</h4>
+<p class="text-xs text-gray-500 mb-4">Join the atelier list for early access.</p>
+<div class="flex border-b border-primary/20 pb-2">
+<input class="bg-transparent border-none focus:ring-0 text-xs w-full" placeholder="Email Address" type="email" aria-label="Subscribe to newsletter"/>
+<button class="text-primary font-bold uppercase text-[10px] tracking-widest">Join</button>
+</div>
+</div>
+</div>
+<div class="px-12 py-8 border-t border-outline-variant/10 text-center text-[10px] tracking-widest uppercase text-gray-400">
+            © <span id="copyright-year">2026</span> Digital Atelier. All Rights Reserved.
+        </div>
+</footer>
+<script src="/js/app.js"></script>
+<script>
+    document.getElementById('copyright-year').textContent = Math.max(new Date().getFullYear(), 2026);
+    initNavCart();
+    initNavUser();
+
+    const summaryCount = document.getElementById('summary-count');
+    const itemsContainer = document.getElementById('cart-items-container');
+
+    function renderCart() {
+        const items = Cart.getItems();
+        const count = Cart.getCount();
+        const counter = document.getElementById('cart-counter');
+
+        // Update counter
+        counter.textContent = count;
+        if (count > 0) counter.classList.remove('opacity-0');
+        else counter.classList.add('opacity-0');
+
+        summaryCount.textContent = count;
+
+        if (items.length === 0) {
+            itemsContainer.innerHTML = `
+                <div class="py-20 text-center text-secondary italic font-serif">
+                    Your atelier selection is currently empty.
+                    <a href="/catalog" class="block text-primary not-italic font-sans text-xs uppercase tracking-widest font-bold mt-4 border-b border-primary/20 w-fit mx-auto pb-1 hover:border-primary transition-all">Continue Discovery</a>
+                </div>`;
+            updateCalculations([]);
+            return;
+        }
+
+        itemsContainer.innerHTML = items.map((item, i) => `
+            <div class="grid grid-cols-12 py-10 items-center ${i % 2 === 0 ? 'bg-surface-container-low/30 px-4 -mx-4' : 'px-4 -mx-4'}">
+                <div class="col-span-6 flex gap-6 md:gap-8 items-center">
+                    <div class="w-20 h-28 md:w-28 md:h-36 bg-surface-container-high overflow-hidden flex-shrink-0">
+                        <img alt="${item.name}" class="w-full h-full object-cover" src="${item.image}">
+                    </div>
+                    <div class="flex flex-col gap-2 min-w-0">
+                        <h3 class="font-serif text-base md:text-xl text-on-surface truncate">${item.name}</h3>
+                        <p class="text-[10px] text-secondary uppercase tracking-widest">${item.category || ''}</p>
+                        <button onclick="onRemove('${item._id}')" class="text-primary text-[10px] font-bold uppercase tracking-widest mt-2 flex items-center gap-1 hover:opacity-70 transition-opacity w-fit">
+                            <span class="material-symbols-outlined text-[14px]">close</span> Remove
+                        </button>
+                    </div>
+                </div>
+                <div class="col-span-3 flex justify-center">
+                    <div class="flex items-center border border-outline-variant/30 bg-surface-container-lowest">
+                        <button onclick="onQty('${item._id}', ${item.qty - 1})" class="p-2 text-primary hover:bg-surface-container transition-colors">
+                            <span class="material-symbols-outlined text-xs">remove</span>
+                        </button>
+                        <span class="px-3 font-body text-sm min-w-[2rem] text-center">${item.qty}</span>
+                        <button onclick="onQty('${item._id}', ${item.qty + 1})" class="p-2 text-primary hover:bg-surface-container transition-colors">
+                            <span class="material-symbols-outlined text-xs">add</span>
+                        </button>
+                    </div>
+                </div>
+                <div class="col-span-3 text-right font-serif text-base md:text-lg text-primary">$${(item.price * item.qty).toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
+            </div>
+        `).join('');
+
+        updateCalculations(items);
+    }
+
+    function updateCalculations(items) {
+        const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
+        const tax = subtotal * 0.08;
+        const shipping = subtotal > 0 ? 15 : 0;
+        const total = subtotal + tax + shipping;
+
+        document.getElementById('subtotal-amount').textContent = `$${subtotal.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        document.getElementById('tax-amount').textContent = `$${tax.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        document.getElementById('total-amount').textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+    }
+
+    function onRemove(id) {
+        Cart.removeItem(id);
+        renderCart();
+    }
+
+    function onQty(id, qty) {
+        Cart.updateQty(id, qty);
+        renderCart();
+    }
+
+    // Checkout button
+    const checkoutBtn = document.querySelector('button[onclick*="checkout"], a[href*="checkout"]');
+    if (!checkoutBtn) {
+        // find the checkout/place order button by text
+        document.querySelectorAll('button').forEach(btn => {
+            if (btn.textContent.toLowerCase().includes('order') || btn.textContent.toLowerCase().includes('checkout')) {
+                btn.addEventListener('click', handleCheckout);
+            }
+        });
+    }
+
+    async function handleCheckout() {
+        if (!Auth.isLoggedIn()) {
+            window.location.href = '/login?redirect=/cart';
+            return;
+        }
+        const items = Cart.getItems();
+        if (!items.length) { alert('Your cart is empty.'); return; }
+        alert('Order placement coming soon! Thank you for shopping at the Digital Atelier.');
+    }
+
+    renderCart();
+</script>
+</body></html>
