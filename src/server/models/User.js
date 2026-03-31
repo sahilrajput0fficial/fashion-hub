@@ -20,7 +20,13 @@ const userSchema = mongoose.Schema({
         required: true,
         enum: ['user', 'admin'],
         default: 'user'
-    }
+    },
+    wishlist: [{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
+    }],
+    googleId: String,
+    facebookId: String
 }, {
     timestamps: true
 });

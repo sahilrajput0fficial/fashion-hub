@@ -8,6 +8,10 @@ const productRoutes = require('./routes/productRoutes');
 const userRoutes = require('./routes/userRoutes');
 const cartRoutes = require('./routes/cartRoutes');
 const orderRoutes = require('./routes/orderRoutes');
+const wishlistRoutes = require('./routes/wishlistRoutes');
+const newsletterRoutes = require('./routes/newsletterRoutes');
+const adminRoutes = require('./routes/adminRoutes');
+const promoCodeRoutes = require('./routes/promoCodeRoutes');
 
 dotenv.config();
 
@@ -29,6 +33,10 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/cart', cartRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/wishlist', wishlistRoutes);
+app.use('/api/newsletter', newsletterRoutes);
+app.use('/api/admin', adminRoutes);
+app.use('/api/promo-codes', promoCodeRoutes);
 
 // Frontend Routes
 app.get('/', (req, res) => {
@@ -37,6 +45,10 @@ app.get('/', (req, res) => {
 
 app.get('/catalog', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/catalog.html'));
+});
+
+app.get('/admin', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/admin.html'));
 });
 
 app.get('/cart', (req, res) => {
@@ -49,6 +61,10 @@ app.get('/login', (req, res) => {
 
 app.get('/account', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/account.html'));
+});
+
+app.get('/legal', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/legal.html'));
 });
 
 app.get('/product', (req, res) => {

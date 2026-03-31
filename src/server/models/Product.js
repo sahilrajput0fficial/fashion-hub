@@ -31,7 +31,38 @@ const productSchema = mongoose.Schema({
     trending: {
         type: Boolean,
         default: false
-    }
+    },
+    sizes: {
+        type: [String],
+        default: ['XS', 'S', 'M', 'L', 'XL']
+    },
+    colors: {
+        type: [String],
+        default: ['Standard']
+    },
+    reviews: [{
+        name: { type: String, required: true },
+        rating: { type: Number, required: true },
+        comment: { type: String, required: true },
+        user: {
+            type: mongoose.Schema.Types.ObjectId,
+            required: true,
+            ref: 'User'
+        }
+    }],
+    rating: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    numReviews: {
+        type: Number,
+        required: true,
+        default: 0
+    },
+    subscribers: [
+        { type: String }
+    ]
 }, {
     timestamps: true
 });

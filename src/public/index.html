@@ -7,6 +7,22 @@
     <meta content="width=device-width, initial-scale=1.0" name="viewport" />
     <title>Fashion Hub | The Digital Atelier</title>
     <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <meta name="description" content="Fashion Hub - A premium digital atelier for artisanal clothing, footwear, and accessories. Discover timeless elegance and conscious craftsmanship." />
+    <meta property="og:title" content="Fashion Hub | The Digital Atelier" />
+    <meta property="og:description" content="Explore our curated collection of artisanal modern fashion." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://localhost:8000/" />
+    <meta property="og:image" content="http://localhost:8000/images/og-home.jpg" />
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Fashion Hub",
+      "url": "http://localhost:8000/",
+      "logo": "http://localhost:8000/images/logo.png",
+      "description": "A digital atelier committed to timeless elegance."
+    }
+    </script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -103,13 +119,17 @@
                 <div class="hidden md:flex gap-8 items-center">
                     <a class="text-[#00342b] dark:text-[#004d40] border-b border-[#00342b] pb-1 tracking-widest uppercase text-[10px] font-semibold" href="/">Home</a>
                     <a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/catalog">Catalog</a>
-                    <a id="account-nav-link" class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/login">Sign In</a>
+                    <a id="account-nav-link" class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 flex items-center" href="/login">Sign In</a>
                 </div>
             </div>
             <div class="flex items-center gap-6">
                 <div class="hidden lg:block relative">
-                    <input class="bg-surface-container-high border-none px-6 py-2 w-64 text-sm focus:ring-0" placeholder="Search the collection..." type="text" />
+                    <input id="search-input" class="bg-surface-container-high border-none px-6 py-2 w-64 text-sm focus:ring-0" placeholder="Search the collection..." type="text" />
                 </div>
+                <button id="theme-toggle" class="hover:scale-110 transition-transform duration-200" aria-label="Toggle Dark Mode">
+                    <span id="theme-icon-dark" class="material-symbols-outlined text-[#00342b] dark:text-primary-fixed hidden">dark_mode</span>
+                    <span id="theme-icon-light" class="material-symbols-outlined text-[#00342b] dark:text-primary-fixed">light_mode</span>
+                </button>
                 <button class="relative hover:scale-95 duration-200 transition-transform" id="cart-button" onclick="window.location.href='/cart'" aria-label="View Shopping Cart">
                     <span class="material-symbols-outlined text-[#00342b]">shopping_cart</span>
                     <span id="cart-counter" class="absolute -top-2 -right-2 bg-primary text-on-primary text-[8px] font-bold rounded-full w-4 h-4 flex items-center justify-center opacity-0 transition-opacity duration-300">0</span>
@@ -160,7 +180,7 @@
                     class="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-primary/40 to-transparent">
                     <h3 class="text-white text-3xl font-serif mb-2">Clothing</h3>
                     <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
-                        href="#">Explore Collection</a>
+                        href="/catalog?category=Clothing">Explore Collection</a>
                 </div>
             </div>
             <div class="md:col-span-5 flex flex-col gap-8">
@@ -173,7 +193,7 @@
                         class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-primary/40 to-transparent">
                         <h3 class="text-white text-2xl font-serif mb-2">Footwear</h3>
                         <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
-                            href="#">View Styles</a>
+                            href="/catalog?category=Footwear">View Styles</a>
                     </div>
                 </div>
                 <!-- Tertiary Category -->
@@ -185,7 +205,7 @@
                         class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-primary/40 to-transparent">
                         <h3 class="text-white text-2xl font-serif mb-2">Accessories</h3>
                         <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
-                            href="#">Discover Detail</a>
+                            href="/catalog?category=Accessories">Discover Detail</a>
                     </div>
                 </div>
             </div>
@@ -207,16 +227,16 @@
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBekhdLsjWdek26bjIACGcHvBFnEGcXyiNJ-rJrhemlRoJAygb2p8D_aBf-5dPJ2DuWZyRRdCzKlzRwgGjHsaDSfiq-ej1oOiLMMLGtk97oo_oPoBRIh1BAsMIybLf53f9n2cZEtiUpDaSbyfMxrv64H7g9gv-Eos62PHIvh24hm74R_KiCeARR6upCmo64TodQL_NXICHfdNKa2hxdfIkvhhKfisG_EAbB3b7RBNgTRfZfWojO5CazkB89XEwzp02IlD-TXcHUzDo" />
                         <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button
+                                onclick="onAddToCart({_id: 'trending-1', name: 'Structured Silk Blouse', price: 240, image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBekhdLsjWdek26bjIACGcHvBFnEGcXyiNJ-rJrhemlRoJAygb2p8D_aBf-5dPJ2DuWZyRRdCzKlzRwgGjHsaDSfiq-ej1oOiLMMLGtk97oo_oPoBRIh1BAsMIybLf53f9n2cZEtiUpDaSbyfMxrv64H7g9gv-Eos62PHIvh24hm74R_KiCeARR6upCmo64TodQL_NXICHfdNKa2hxdfIkvhhKfisG_EAbB3b7RBNgTRfZfWojO5CazkB89XEwzp02IlD-TXcHUzDo', category: 'Clothing' })"
                                 class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors"
                                 aria-label="Add to cart">
-                                <span class="material-symbols-outlined text-sm"
-                                    data-icon="shopping_bag">shopping_bag</span>
+                                <span class="material-symbols-outlined text-sm">shopping_bag</span>
                             </button>
                         </div>
                     </div>
                     <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">New Arrival</p>
                     <h3 class="text-sm font-medium text-on-surface mb-2">Structured Silk Blouse</h3>
-                    <p class="text-sm font-serif">$240.00</p>
+                    <p class="text-sm font-serif">₹18,500</p>
                 </div>
                 <!-- Product 2 -->
                 <div class="group">
@@ -226,16 +246,16 @@
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeAceXBY92HEuuYkVXUmebgLWuS9W0juc37-5qZCC_vNidIEAU575ChVXBXqX2O1y1bbFSKW4G7V38G3WcJxrWybzq8rFRvtJouUOKaPVTI_W-LENgGM6jBJ1OVrEXZs5RNORxJikApE5-ujOaY42x8KPdmTHSxdd-pDERkcDx7OnTPoOPtMs7970QMX9wHQ6mpaMVdgOLNSlMSrMnk6zqrPsfSd_P0XwD35px1BqrKpWqA33bVLKq3AXe1sqzkAfqRbU05B-8Dy8" />
                         <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button
+                                onclick="onAddToCart({_id: 'trending-2', name: 'Atelier Wool Overcoat', price: 850, image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCeAceXBY92HEuuYkVXUmebgLWuS9W0juc37-5qZCC_vNidIEAU575ChVXBXqX2O1y1bbFSKW4G7V38G3WcJxrWybzq8rFRvtJouUOKaPVTI_W-LENgGM6jBJ1OVrEXZs5RNORxJikApE5-ujOaY42x8KPdmTHSxdd-pDERkcDx7OnTPoOPtMs7970QMX9wHQ6mpaMVdgOLNSlMSrMnk6zqrPsfSd_P0XwD35px1BqrKpWqA33bVLKq3AXe1sqzkAfqRbU05B-8Dy8', category: 'Limited Edition' })"
                                 class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors"
                                 aria-label="Add to cart">
-                                <span class="material-symbols-outlined text-sm"
-                                    data-icon="shopping_bag">shopping_bag</span>
+                                <span class="material-symbols-outlined text-sm">shopping_bag</span>
                             </button>
                         </div>
                     </div>
                     <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">Limited Edition</p>
                     <h3 class="text-sm font-medium text-on-surface mb-2">Atelier Wool Overcoat</h3>
-                    <p class="text-sm font-serif">$850.00</p>
+                    <p class="text-sm font-serif">₹85,000</p>
                 </div>
                 <!-- Product 3 -->
                 <div class="group">
@@ -245,16 +265,16 @@
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGf0pBXBAaijvFw4M34YvS_CDf0j4ZUvnn7sEy1pcTYDYBlMeZkdaC1aSEAFRLpUFuJZvdiSDL1RR3yc_EocOtFGi9QGwStiSg1OwFxEDBsCuxaER30qK6YINAs6zT48wS38jlUhCwsFF5zhg4lIeYb4gH50e27l8igDv2IAKjh9g1a5dtIN7ZvP3iauPywNJphD0Mh1m84wA-bGljlkKFKjQdt0aN5ssgf2JTmeIWsoVkwxZeJi29GuNeQsWEhXzcBeRPiAHBVno" />
                         <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button
+                                onclick="onAddToCart({_id: 'trending-3', name: 'High-Rise Linen Trouser', price: 185, image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBGf0pBXBAaijvFw4M34YvS_CDf0j4ZUvnn7sEy1pcTYDYBlMeZkdaC1aSEAFRLpUFuJZvdiSDL1RR3yc_EocOtFGi9QGwStiSg1OwFxEDBsCuxaER30qK6YINAs6zT48wS38jlUhCwsFF5zhg4lIeYb4gH50e27l8igDv2IAKjh9g1a5dtIN7ZvP3iauPywNJphD0Mh1m84wA-bGljlkKFKjQdt0aN5ssgf2JTmeIWsoVkwxZeJi29GuNeQsWEhXzcBeRPiAHBVno', category: 'Core Collection' })"
                                 class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors"
                                 aria-label="Add to cart">
-                                <span class="material-symbols-outlined text-sm"
-                                    data-icon="shopping_bag">shopping_bag</span>
+                                <span class="material-symbols-outlined text-sm">shopping_bag</span>
                             </button>
                         </div>
                     </div>
                     <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">Core Collection</p>
                     <h3 class="text-sm font-medium text-on-surface mb-2">High-Rise Linen Trouser</h3>
-                    <p class="text-sm font-serif">$185.00</p>
+                    <p class="text-sm font-serif">₹8,500</p>
                 </div>
                 <!-- Product 4 -->
                 <div class="group">
@@ -264,16 +284,16 @@
                             src="https://lh3.googleusercontent.com/aida-public/AB6AXuBoPGnoMxAmv9fE42rcT4sUxbLtUhpUn2QL23Aou8_Vs_4giTKseyEEeBnKDwcIyJASh341cVxwJvMSpefYJ-ZMabmMEYwZjNsM_74aXRrbQqtHRxHE7K0k7IWT-e8yYuYpJxA-vO0EqPK0cykKwGqiG1Ybc0OwXxoYx9lEw7A4Or6rLrz_vUAaE1myFlufWBMHpPjZD0Hh_4Oq-baEoVlZEXwaJSU7IfjCOnTAegeyVFbhqvBdclG06WhVi-9oygUxEopzTW6MXHM" />
                         <div class="absolute bottom-4 right-4 opacity-0 group-hover:opacity-100 transition-opacity">
                             <button
+                                onclick="onAddToCart({_id: 'trending-4', name: 'Pebbled Leather Tote', price: 420, image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBoPGnoMxAmv9fE42rcT4sUxbLtUhpUn2QL23Aou8_Vs_4giTKseyEEeBnKDwcIyJASh341cVxwJvMSpefYJ-ZMabmMEYwZjNsM_74aXRrbQqtHRxHE7K0k7IWT-e8yYuYpJxA-vO0EqPK0cykKwGqiG1Ybc0OwXxoYx9lEw7A4Or6rLrz_vUAaE1myFlufWBMHpPjZD0Hh_4Oq-baEoVlZEXwaJSU7IfjCOnTAegeyVFbhqvBdclG06WhVi-9oygUxEopzTW6MXHM', category: 'Accessories' })"
                                 class="bg-surface-container-lowest p-3 shadow-sm hover:bg-primary hover:text-white transition-colors"
                                 aria-label="Add to cart">
-                                <span class="material-symbols-outlined text-sm"
-                                    data-icon="shopping_bag">shopping_bag</span>
+                                <span class="material-symbols-outlined text-sm">shopping_bag</span>
                             </button>
                         </div>
                     </div>
                     <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">Accessories</p>
                     <h3 class="text-sm font-medium text-on-surface mb-2">Pebbled Leather Tote</h3>
-                    <p class="text-sm font-serif">$420.00</p>
+                    <p class="text-sm font-serif">₹24,500</p>
                 </div>
             </div>
         </div>
@@ -304,7 +324,7 @@
                         every piece leaving our atelier is designed to last a lifetime, not just a season.
                     </p>
                     <a class="text-primary text-[10px] uppercase tracking-widest font-bold border-b-2 border-primary w-fit pb-1 hover:pb-2 transition-all"
-                        href="#">
+                        href="/legal#about">
                         Read Our Story
                     </a>
                 </div>
@@ -324,37 +344,38 @@
                 <h4 class="text-[10px] uppercase tracking-widest font-bold text-[#00342b] mb-6">Explore</h4>
                 <ul class="flex flex-col gap-4">
                     <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
-                            href="#">About Us</a></li>
+                            href="/legal#about">About Us</a></li>
                     <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
-                            href="#">Contact</a></li>
+                            href="/legal#contact">Contact</a></li>
                     <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
-                            href="#">Shipping Info</a></li>
+                            href="/legal#shipping">Shipping Info</a></li>
                     <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
-                            href="#">Privacy Policy</a></li>
+                            href="/legal#privacy">Privacy Policy</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-[10px] uppercase tracking-widest font-bold text-[#00342b] mb-6">Collections</h4>
                 <ul class="flex flex-col gap-4">
                     <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
-                            href="#">New Arrivals</a></li>
+                            href="/catalog?sort=newest">New Arrivals</a></li>
                     <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
-                            href="#">Essentials</a></li>
+                            href="/catalog?category=Clothing">Essentials</a></li>
                     <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
-                            href="#">Tailoring</a></li>
+                            href="/catalog?category=Footwear">Footwear</a></li>
                     <li><a class="text-sm text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-opacity"
-                            href="#">Archive</a></li>
+                            href="/catalog?sort=popular">Popular</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="text-[10px] uppercase tracking-widest font-bold text-[#00342b] mb-6">Newsletter</h4>
                 <p class="text-xs text-gray-500 mb-4">Join our inner circle for exclusive previews.</p>
                 <div class="flex gap-2">
-                    <input class="bg-surface-container border-none text-xs w-full py-3" placeholder="Your email"
+                    <input id="newsletter-email" class="bg-surface-container border-none text-xs w-full py-3" placeholder="Your email"
                         type="email" />
-                    <button
+                    <button onclick="handleNewsletterSubscribe()"
                         class="bg-[#00342b] text-white px-4 text-xs font-bold uppercase tracking-widest">Join</button>
                 </div>
+                <p id="newsletter-msg" class="hidden text-[9px] uppercase tracking-widest mt-2"></p>
             </div>
         </div>
         <div
@@ -369,6 +390,9 @@
     </footer>
     <script src="/js/app.js"></script>
     <script>
+        // Theme
+        Theme.init();
+
         // Year
         const yr = Math.max(new Date().getFullYear(), 2026);
         document.getElementById('current-year-banner').textContent = yr;
@@ -381,7 +405,8 @@
         // Trending Products (live from API)
         async function loadTrendingProducts() {
             try {
-                const products = await apiFetch('/api/products');
+                const data = await apiFetch('/api/products');
+                const products = data.products || [];
                 const trendingGrid = document.getElementById('trending-grid');
                 if (!trendingGrid) return;
                 const trending = products.filter(p => p.trending);
@@ -397,10 +422,21 @@
                         </div>
                         <p class="text-[10px] uppercase tracking-tighter text-secondary mb-1">${product.category}</p>
                         <h3 class="text-sm font-medium text-on-surface mb-2">${product.name}</h3>
-                        <p class="text-sm font-serif">$${product.price.toLocaleString()}.00</p>
+                        <p class="text-sm font-serif">₹${product.price.toLocaleString('en-IN')}</p>
                     </div>
                 `).join('');
             } catch (e) { console.error('Could not load products', e); }
+        }
+
+        // Navigation Search
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) {
+            searchInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter') {
+                    const query = e.target.value.trim();
+                    if (query) window.location.href = `/catalog?keyword=${encodeURIComponent(query)}`;
+                }
+            });
         }
 
         function onAddToCart(product) {
@@ -418,6 +454,24 @@
                 if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth' }); }
             });
         });
+
+        async function handleNewsletterSubscribe() {
+            const email = document.getElementById('newsletter-email').value;
+            const msg = document.getElementById('newsletter-msg');
+            if (!email) return;
+            try {
+                await apiFetch('/api/newsletter/subscribe', {
+                    method: 'POST',
+                    body: JSON.stringify({ email })
+                });
+                msg.textContent = 'Welcome to the atelier.';
+                msg.className = 'text-[9px] uppercase tracking-widest mt-2 text-primary block';
+                document.getElementById('newsletter-email').value = '';
+            } catch (err) {
+                msg.textContent = err.message;
+                msg.className = 'text-[9px] uppercase tracking-widest mt-2 text-error block';
+            }
+        }
 
         loadTrendingProducts();
     </script>

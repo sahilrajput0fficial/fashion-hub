@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html class="light" lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Mission Control | Fashion Hub Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,500;0,600;1,500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+    tailwind.config = {
+        darkMode: "class",
+        theme: {
+            extend: {
+                colors: {
+                    "primary": "#00342b", "on-primary": "#ffffff",
+                    "surface": "#f9f9f7", "surface-container-low": "#f4f4f2", 
+                    "surface-container": "#eeeeec", "surface-container-lowest": "#ffffff",
+                    "secondary": "#5f5e5e", "outline-variant": "#bfc9c4", "on-surface": "#1a1c1b",
+                    "error": "#ba1a1a", "success": "#2e7d32", "info": "#0277bd"
+                },
+                fontFamily: { "headline": ["Noto Serif"], "body": ["Inter"] },
+            }
+        }
+    }
+    </script>
+    <style>
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 200, 'GRAD' 0, 'opsz' 24; font-size: 20px; }
+        body { font-family: 'Inter', sans-serif; }
+        h1, h2, h3, .font-serif { font-family: 'Noto Serif', serif; }
+        .sidebar-link.active { background: #00342b; color: white; }
+        .module-card { transition: all 0.3s ease; }
+        .module-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px -10px rgba(0,0,0,0.1); }
+        .glass-panel { background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(12px); border: 1px solid rgba(0,0,0,0.05); }
+    </style>
+</head>
+<body class="bg-surface text-on-surface antialiased min-h-screen flex">
+
+    <!-- Sidebar -->
+    <aside class="w-64 bg-surface-container-lowest border-r border-outline-variant/30 flex flex-col sticky top-0 h-screen">
+        <div class="p-8">
+            <a href="/" class="text-xl font-serif font-semibold tracking-tighter text-primary">Fashion Hub</a>
+            <p class="text-[9px] uppercase tracking-[0.3em] font-bold text-secondary mt-2 opacity-60">Admin Terminal</p>
+        </div>
+
+        <nav class="flex-grow px-4 space-y-2">
+            <button onclick="showModule('overview')" id="nav-overview" class="sidebar-link active w-full flex items-center gap-4 px-4 py-3 text-xs font-bold uppercase tracking-widest text-secondary hover:text-primary transition-all">
+                <span class="material-symbols-outlined">dashboard</span> Overview
+            </button>
+            <button onclick="showModule('inventory')" id="nav-inventory" class="sidebar-link w-full flex items-center gap-4 px-4 py-3 text-xs font-bold uppercase tracking-widest text-secondary hover:text-primary transition-all">
+                <span class="material-symbols-outlined">inventory_2</span> Inventory
+            </button>
+            <button onclick="showModule('orders')" id="nav-orders" class="sidebar-link w-full flex items-center gap-4 px-4 py-3 text-xs font-bold uppercase tracking-widest text-secondary hover:text-primary transition-all">
+                <span class="material-symbols-outlined">shopping_cart_checkout</span> Orders
+            </button>
+            <button onclick="showModule('users')" id="nav-users" class="sidebar-link w-full flex items-center gap-4 px-4 py-3 text-xs font-bold uppercase tracking-widest text-secondary hover:text-primary transition-all">
+                <span class="material-symbols-outlined">group</span> Customers
+            </button>
+            <button onclick="showModule('promos')" id="nav-promos" class="sidebar-link w-full flex items-center gap-4 px-4 py-3 text-xs font-bold uppercase tracking-widest text-secondary hover:text-primary transition-all">
+                <span class="material-symbols-outlined">sell</span> Promotions
+            </button>
+        </nav>
+
+        <div class="p-4 border-t border-outline-variant/20">
+            <button onclick="handleLogout()" class="w-full flex items-center gap-4 px-4 py-3 text-xs font-bold uppercase tracking-widest text-error hover:opacity-70 transition-all">
+                <span class="material-symbols-outlined">logout</span> Exit
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="flex-grow p-12 overflow-y-auto">
+        
+        <!-- Header -->
+        <header class="flex justify-between items-end mb-12">
+            <div>
+                <h1 id="module-title" class="text-4xl font-serif">Mission Control</h1>
+                <p id="module-subtitle" class="text-secondary italic text-sm mt-1">Real-time performance and operational metrics.</p>
+            </div>
+            <div id="header-actions"></div>
+        </header>
+
+        <!-- Module: Overview -->
+        <div id="module-overview" class="module-view space-y-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="glass-panel p-8 module-card">
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-4">Total Revenue</p>
+                    <h3 id="stat-sales" class="text-3xl font-serif text-primary">₹0</h3>
+                    <p class="text-[10px] text-success font-bold mt-2">Live Balance</p>
+                </div>
+                <div class="glass-panel p-8 module-card">
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-4">Orders</p>
+                    <h3 id="stat-orders" class="text-3xl font-serif text-primary">0</h3>
+                    <p class="text-[10px] text-info font-bold mt-2">Processed</p>
+                </div>
+                <div class="glass-panel p-8 module-card">
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-4">Customers</p>
+                    <h3 id="stat-users" class="text-3xl font-serif text-primary">0</h3>
+                    <p class="text-[10px] text-secondary font-bold mt-2">Active Members</p>
+                </div>
+                <div class="glass-panel p-8 module-card">
+                    <p class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-4">Low Stock</p>
+                    <h3 id="stat-lowstock" class="text-3xl font-serif text-error">0</h3>
+                    <p class="text-[10px] text-error font-bold mt-2">Requires Attention</p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div class="glass-panel p-10">
+                    <h2 class="text-xl font-serif mb-8">Recent Orders</h2>
+                    <div id="recent-orders-list" class="space-y-6">
+                        <!-- Dynamic list -->
+                    </div>
+                </div>
+                <div class="glass-panel p-10">
+                    <h2 class="text-xl font-serif mb-8">Quick Actions</h2>
+                    <div class="grid grid-cols-2 gap-4">
+                        <button onclick="showModule('inventory'); openAddProductModal();" class="p-6 border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all flex flex-col items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">add_box</span>
+                            <span class="text-[10px] uppercase tracking-widest font-bold">New Product</span>
+                        </button>
+                        <button onclick="showModule('promos'); openAddPromoModal();" class="p-6 border border-outline-variant hover:border-primary hover:bg-primary/5 transition-all flex flex-col items-center gap-3">
+                            <span class="material-symbols-outlined text-primary">confirmation_number</span>
+                            <span class="text-[10px] uppercase tracking-widest font-bold">Create Promo</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Module: Inventory -->
+        <div id="module-inventory" class="module-view hidden space-y-8">
+            <div class="flex justify-between items-center">
+                <div class="relative w-72">
+                    <span class="material-symbols-outlined absolute left-4 top-1/2 -translate-y-1/2 text-secondary opacity-50">search</span>
+                    <input type="text" id="inventory-search" placeholder="Search pieces..." class="w-full bg-surface-container border-0 text-sm py-3 pl-12 pr-4 focus:ring-1 focus:ring-primary">
+                </div>
+                <button onclick="openAddProductModal()" class="bg-primary text-on-primary px-8 py-3 text-[10px] uppercase tracking-widest font-bold">New Piece</button>
+            </div>
+            <div class="glass-panel overflow-hidden">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-surface-container-low border-b border-outline-variant/30">
+                        <tr class="text-[10px] uppercase tracking-widest font-bold text-secondary">
+                            <th class="px-8 py-5">Product</th>
+                            <th class="px-8 py-5">Category</th>
+                            <th class="px-8 py-5">Price</th>
+                            <th class="px-8 py-5">Stock</th>
+                            <th class="px-8 py-5">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="inventory-list" class="divide-y divide-outline-variant/10">
+                        <!-- Dynamic rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Module: Orders -->
+        <div id="module-orders" class="module-view hidden">
+            <div class="glass-panel overflow-hidden">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-surface-container-low border-b border-outline-variant/30">
+                        <tr class="text-[10px] uppercase tracking-widest font-bold text-secondary">
+                            <th class="px-8 py-5">ID</th>
+                            <th class="px-8 py-5">Customer</th>
+                            <th class="px-8 py-5">Total</th>
+                            <th class="px-8 py-5">Status</th>
+                            <th class="px-8 py-5">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="orders-list" class="divide-y divide-outline-variant/10">
+                        <!-- Dynamic rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Module: Users -->
+        <div id="module-users" class="module-view hidden">
+             <div class="glass-panel overflow-hidden">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-surface-container-low border-b border-outline-variant/30">
+                        <tr class="text-[10px] uppercase tracking-widest font-bold text-secondary">
+                            <th class="px-8 py-5">Guest/Member</th>
+                            <th class="px-8 py-5">Email</th>
+                            <th class="px-8 py-5">Role</th>
+                            <th class="px-8 py-5">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="users-list" class="divide-y divide-outline-variant/10">
+                        <!-- Dynamic rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Module: Promotions -->
+        <div id="module-promos" class="module-view hidden">
+            <div class="glass-panel overflow-hidden">
+                <table class="w-full text-left text-sm">
+                    <thead class="bg-surface-container-low border-b border-outline-variant/30">
+                        <tr class="text-[10px] uppercase tracking-widest font-bold text-secondary">
+                            <th class="px-8 py-5">Code</th>
+                            <th class="px-8 py-5">Discount</th>
+                            <th class="px-8 py-5">Status</th>
+                            <th class="px-8 py-5">Expiry</th>
+                            <th class="px-8 py-5">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="promos-list" class="divide-y divide-outline-variant/10">
+                        <!-- Dynamic rows -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Modals -->
+    <!-- Product Modal -->
+    <div id="product-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-all duration-500">
+        <div class="absolute inset-0 bg-primary/20 backdrop-blur-md" onclick="closeProductModal()"></div>
+        <div class="relative glass-panel p-12 max-w-2xl w-full shadow-2xl">
+            <h2 id="product-modal-title" class="text-2xl font-serif mb-8">Add Piece</h2>
+            <form id="product-form" onsubmit="handleProductSubmit(event)" class="grid grid-cols-2 gap-6">
+                <div class="col-span-2">
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Name</label>
+                    <input type="text" name="name" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 focus:ring-1 focus:ring-primary">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Price (₹)</label>
+                    <input type="number" name="price" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 focus:ring-1 focus:ring-primary">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Stock</label>
+                    <input type="number" name="stock" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 focus:ring-1 focus:ring-primary">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Category</label>
+                    <input type="text" name="category" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 focus:ring-1 focus:ring-primary">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Image URL</label>
+                    <input type="text" name="image" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 focus:ring-1 focus:ring-primary">
+                </div>
+                <div class="col-span-2">
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Description</label>
+                    <textarea name="description" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 h-24 focus:ring-1 focus:ring-primary"></textarea>
+                </div>
+                <div class="col-span-2 flex justify-end gap-4 mt-4">
+                    <button type="button" onclick="closeProductModal()" class="px-8 py-3 text-[10px] uppercase tracking-widest font-bold text-secondary">Cancel</button>
+                    <button type="submit" class="bg-primary text-on-primary px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:opacity-90">Save Piece</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Promo Modal -->
+    <div id="promo-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-all duration-500">
+        <div class="absolute inset-0 bg-primary/20 backdrop-blur-md" onclick="closePromoModal()"></div>
+        <div class="relative glass-panel p-12 max-w-md w-full shadow-2xl">
+            <h2 id="promo-modal-title" class="text-2xl font-serif mb-8">Generate Promo</h2>
+            <form id="promo-form" onsubmit="handlePromoSubmit(event)" class="space-y-6">
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Code</label>
+                    <input type="text" name="code" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 focus:ring-1 focus:ring-primary uppercase">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Discount (%)</label>
+                    <input type="number" name="discountPercent" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 focus:ring-1 focus:ring-primary">
+                </div>
+                <div>
+                    <label class="text-[10px] uppercase tracking-widest font-bold text-secondary mb-2 block">Expiry Date</label>
+                    <input type="date" name="expiryDate" required class="w-full bg-surface border-outline-variant/30 text-sm py-3 px-4 focus:ring-1 focus:ring-primary">
+                </div>
+                <div class="flex justify-end gap-4 mt-4">
+                    <button type="button" onclick="closePromoModal()" class="px-8 py-3 text-[10px] uppercase tracking-widest font-bold text-secondary">Cancel</button>
+                    <button type="submit" class="bg-primary text-on-primary px-8 py-3 text-[10px] uppercase tracking-widest font-bold hover:opacity-90">Activate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Order Detail Modal -->
+    <div id="order-modal" class="fixed inset-0 z-[100] flex items-center justify-center hidden opacity-0 transition-all duration-500">
+        <div class="absolute inset-0 bg-primary/20 backdrop-blur-md" onclick="closeOrderModal()"></div>
+        <div class="relative glass-panel p-12 max-w-3xl w-full shadow-2xl overflow-y-auto max-h-[90vh]">
+            <h2 class="text-2xl font-serif mb-8 italic">Order Manifest</h2>
+            <div id="order-detail-content" class="space-y-8 text-sm">
+                <!-- Dynamic content -->
+            </div>
+            <div class="flex justify-end mt-8 border-t border-outline-variant/20 pt-8">
+                <button onclick="closeOrderModal()" class="bg-primary text-on-primary px-8 py-3 text-[10px] uppercase tracking-widest font-bold">Close Manifest</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="/js/app.js"></script>
+    <script src="/js/admin.js"></script>
+</body>
+</html>

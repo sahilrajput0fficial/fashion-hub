@@ -34,11 +34,16 @@ const Auth = {
 const Cart = {
     getItems: () => {
         const items = localStorage.getItem('fashionHub_cart');
-        return items ? JSON.parse(items) : [];
+        const parsed = items ? JSON.parse(items) : [];
+        console.log('Cart Items Retrieved:', parsed);
+        return parsed;
     },
     setItems: (items) => {
+        console.log('Cart Items Setting:', items);
         localStorage.setItem('fashionHub_cart', JSON.stringify(items));
         localStorage.setItem('cartCount', items.reduce((sum, i) => sum + i.qty, 0));
+        // Force header update
+        initNavCart();
     },
     addItem: (product, qty = 1) => {
         const items = Cart.getItems();
@@ -78,11 +83,45 @@ const Cart = {
     }
 };
 
+const Wishlist = {
+    toggle: async (productId) => {
+        if (!Auth.isLoggedIn()) {
+            window.location.href = '/login';
+            return;
+        }
+        try {
+            // Check if already in wishlist (client side check for UI toggle)
+            const currentWishlist = await apiFetch('/api/wishlist');
+            const exists = currentWishlist.find(p => p._id === productId);
+            if (exists) {
+                await apiFetch(`/api/wishlist/${productId}`, { method: 'DELETE' });
+                return false; // Removed
+            } else {
+                await apiFetch(`/api/wishlist/${productId}`, { method: 'POST' });
+                return true; // Added
+            }
+        } catch (error) {
+            console.error('Wishlist error:', error);
+            return null;
+        }
+    },
+    getItems: async () => {
+        if (!Auth.isLoggedIn()) return [];
+        return await apiFetch('/api/wishlist');
+    }
+};
+
 async function apiFetch(endpoint, options = {}) {
     const token = Auth.getToken();
     const headers = { 'Content-Type': 'application/json' };
     if (token) headers['Authorization'] = `Bearer ${token}`;
     const res = await fetch(`${API_BASE}${endpoint}`, { ...options, headers });
+    
+    if (res.status === 401) {
+        Auth.clearSession();
+        window.location.href = '/login';
+    }
+
     const data = await res.json();
     if (!res.ok) throw new Error(data.message || 'API Error');
     return data;
@@ -102,11 +141,76 @@ function initNavUser() {
     const user = Auth.getUser();
     const accountLink = document.getElementById('account-nav-link');
     if (!accountLink) return;
+    
     if (user) {
-        accountLink.textContent = user.name.split(' ')[0];
+        accountLink.innerHTML = `
+            <span class="flex items-center gap-2 uppercase tracking-widest text-[10px] font-semibold">
+                <span class="material-symbols-outlined text-[18px]">person</span>
+                <span class="hidden sm:inline">Account</span>
+            </span>
+        `;
         accountLink.href = '/account';
     } else {
-        accountLink.textContent = 'Sign In';
+        accountLink.innerHTML = `
+            <span class="flex items-center gap-2 uppercase tracking-widest text-[10px] font-semibold">
+                <span class="material-symbols-outlined text-[18px]">login</span>
+                <span class="hidden sm:inline">Sign In</span>
+            </span>
+        `;
         accountLink.href = '/login';
     }
 }
+
+
+const Theme = {
+    init: () => {
+        const theme = localStorage.getItem('fashionHub_theme') || 'light';
+        Theme.apply(theme);
+
+        const toggle = document.getElementById('theme-toggle');
+        if (toggle) {
+            toggle.onclick = () => {
+                const current = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+                Theme.apply(current);
+            };
+        }
+    },
+    apply: (theme) => {
+        const darkIcon = document.getElementById('theme-icon-dark');
+        const lightIcon = document.getElementById('theme-icon-light');
+
+        if (theme === 'dark') {
+            document.documentElement.classList.add('dark');
+            if (darkIcon) darkIcon.classList.remove('hidden');
+            if (lightIcon) lightIcon.classList.add('hidden');
+        } else {
+            document.documentElement.classList.remove('dark');
+            if (darkIcon) darkIcon.classList.add('hidden');
+            if (lightIcon) lightIcon.classList.remove('hidden');
+        }
+        localStorage.setItem('fashionHub_theme', theme);
+    }
+};
+
+const LazyLoader = {
+    init: () => {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const img = entry.target;
+                    if (img.dataset.src) {
+                        img.src = img.dataset.src;
+                        img.removeAttribute('data-src');
+                    }
+                    observer.unobserve(img);
+                }
+            });
+        });
+
+        document.querySelectorAll('img[data-src]').forEach(img => observer.observe(img));
+    }
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+    LazyLoader.init();
+});

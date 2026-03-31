@@ -3,8 +3,12 @@
 <html class="light" lang="en"><head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Catalog | Fashion Hub</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>Catalog | Fashion Hub</title>
+    <meta name="description" content="Browse our exclusive collection of artisanal outerwear, ready-to-wear, and accessories. Crafted with precision for the modern silhouette." />
+    <meta property="og:title" content="The Collection | Fashion Hub" />
+    <meta property="og:description" content="Discover artisanal garments crafted with heritage techniques." />
+    <meta property="og:image" content="http://localhost:8000/images/og-catalog.jpg" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:wght@500;600&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
@@ -92,13 +96,17 @@
 <div class="hidden md:flex items-center space-x-12">
 <a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 text-xs tracking-widest uppercase font-label" href="/">Home</a>
 <a class="text-[#00342b] dark:text-[#004d40] border-b border-[#00342b] pb-1 text-xs tracking-widest uppercase font-label" href="/catalog">Catalog</a>
-<a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 text-xs tracking-widest uppercase font-label" href="/account">Account</a>
+<a id="account-nav-link" class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 text-xs tracking-widest uppercase font-label" href="/account">Account</a>
 </div>
 <div class="flex items-center space-x-6">
 <div class="hidden md:block relative">
 <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">search</span>
-<input class="bg-surface-container-high border-none py-2 pl-10 pr-4 text-sm w-48 focus:ring-0 focus:w-64 transition-all duration-300" placeholder="Search..." type="text" aria-label="Search collection"/>
+<input id="search-input" class="bg-surface-container-high border-none py-2 pl-10 pr-4 text-sm w-48 focus:ring-0 focus:w-64 transition-all duration-300" placeholder="Search..." type="text" aria-label="Search collection"/>
 </div>
+<button id="theme-toggle" class="hover:scale-110 transition-transform duration-200" aria-label="Toggle Dark Mode">
+    <span id="theme-icon-dark" class="material-symbols-outlined text-[#00342b] dark:text-primary-fixed hidden">dark_mode</span>
+    <span id="theme-icon-light" class="material-symbols-outlined text-[#00342b] dark:text-primary-fixed">light_mode</span>
+</button>
 <button class="relative hover:scale-95 duration-200" id="cart-button" onclick="window.location.href='/cart'" aria-label="View shopping cart">
 <span class="material-symbols-outlined text-[#00342b]">shopping_cart</span>
 <span id="cart-counter" class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-opacity duration-300">0</span>
@@ -120,8 +128,11 @@
 <p class="text-on-surface-variant max-w-lg italic font-serif">A curated selection of artisanal garments, designed for the modern silhouette and crafted with heritage techniques.</p>
 </div>
 <div class="flex items-center gap-4 text-xs tracking-widest uppercase font-label border-b border-outline-variant/30 pb-2">
-<span class="text-on-surface-variant">Sort by:</span>
-<button class="text-primary font-semibold flex items-center gap-1" aria-haspopup="listbox">New Arrivals <span class="material-symbols-outlined !text-sm">keyboard_arrow_down</span></button>
+<select id="sort-select" onchange="applyFilters()" class="bg-transparent border-none focus:ring-0 text-primary font-semibold text-xs tracking-widest uppercase cursor-pointer">
+  <option value="newest">New Arrivals</option>
+  <option value="price-asc">Price: Low to High</option>
+  <option value="price-desc">Price: High to Low</option>
+</select>
 </div>
 </div>
 </div>
@@ -132,38 +143,40 @@
 <!-- Categories -->
 <section>
 <h3 class="text-xs tracking-widest uppercase font-label text-primary font-bold mb-6">Categories</h3>
-<ul class="space-y-4 text-sm text-on-surface-variant">
-<li><button class="hover:text-primary transition-colors flex justify-between w-full"><span>All Pieces</span><span class="text-[10px]">(124)</span></button></li>
-<li><button class="text-primary font-semibold transition-colors flex justify-between w-full"><span>Ready-to-Wear</span><span class="text-[10px]">(42)</span></button></li>
-<li><button class="hover:text-primary transition-colors flex justify-between w-full"><span>Signature Outerwear</span><span class="text-[10px]">(18)</span></button></li>
-<li><button class="hover:text-primary transition-colors flex justify-between w-full"><span>Accessories</span><span class="text-[10px]">(36)</span></button></li>
-<li><button class="hover:text-primary transition-colors flex justify-between w-full"><span>Footwear</span><span class="text-[10px]">(28)</span></button></li>
+<ul id="category-filters" class="space-y-4 text-sm text-on-surface-variant">
+<li><button onclick="setCategory('')" class="hover:text-primary transition-colors flex justify-between w-full"><span>All Pieces</span></button></li>
+<li><button onclick="setCategory('Ready-to-Wear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Ready-to-Wear</span></button></li>
+<li><button onclick="setCategory('Outerwear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Outerwear</span></button></li>
+<li><button onclick="setCategory('Knitwear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Knitwear</span></button></li>
+<li><button onclick="setCategory('Eveningwear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Eveningwear</span></button></li>
+<li><button onclick="setCategory('Athleisure')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Athleisure</span></button></li>
+<li><button onclick="setCategory('Accessories')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Accessories</span></button></li>
+<li><button onclick="setCategory('Footwear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Footwear</span></button></li>
 </ul>
 </section>
 <!-- Price Range -->
 <section>
 <h3 class="text-xs tracking-widest uppercase font-label text-primary font-bold mb-6">Price Range</h3>
 <div class="px-2">
-<input class="w-full accent-primary h-1 bg-surface-container-high rounded-none appearance-none cursor-pointer" max="2000" min="0" type="range" aria-label="Filter by price"/>
+<input id="price-range" oninput="document.getElementById('price-display').textContent = '₹' + parseInt(this.value).toLocaleString('en-IN')" class="w-full accent-primary h-1 bg-surface-container-high rounded-none appearance-none cursor-pointer" max="200000" min="0" step="1000" type="range" value="200000" aria-label="Filter by price"/>
 <div class="flex justify-between mt-4 text-[10px] font-label tracking-widest text-on-surface-variant">
-<span>$0</span>
-<span>$2000+</span>
+<span>₹0</span>
+<span id="price-display">₹2,00,000</span>
 </div>
 </div>
 </section>
 <!-- Sizes -->
 <section>
 <h3 class="text-xs tracking-widest uppercase font-label text-primary font-bold mb-6">Size Selection</h3>
-<div class="grid grid-cols-4 gap-2">
-<button class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all" aria-label="Select Size XS">XS</button>
-<button class="aspect-square border border-primary text-primary text-[10px]" aria-label="Select Size S">S</button>
-<button class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all" aria-label="Select Size M">M</button>
-<button class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all" aria-label="Select Size L">L</button>
-<button class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all" aria-label="Select Size XL">XL</button>
-<button class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all" aria-label="Select Size XXL">XXL</button>
+<div id="size-filters" class="grid grid-cols-4 gap-2">
+<button onclick="setSize('XS', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">XS</button>
+<button onclick="setSize('S', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">S</button>
+<button onclick="setSize('M', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">M</button>
+<button onclick="setSize('L', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">L</button>
+<button onclick="setSize('XL', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">XL</button>
 </div>
 </section>
-<button class="w-full bg-primary text-on-primary py-4 text-xs tracking-widest uppercase font-label hover:opacity-90 transition-opacity">Apply Filters</button>
+<button onclick="applyFilters()" class="w-full bg-primary text-on-primary py-4 text-xs tracking-widest uppercase font-label hover:opacity-90 transition-opacity">Apply Filters</button>
 </div>
 </aside>
 <!-- Product Grid -->
@@ -178,7 +191,7 @@
 <div class="space-y-1 px-1">
 <p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">Outerwear</p>
 <h3 class="title-md font-body group-hover:text-primary transition-colors">Structured Wool Overcoat</h3>
-<p class="text-sm font-medium text-primary">$1,250</p>
+<p class="text-sm font-medium text-primary">₹85,000</p>
 </div>
 </div>
 <!-- Product Card 2 -->
@@ -189,7 +202,7 @@
 <div class="space-y-1 px-1">
 <p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">Ready-to-Wear</p>
 <h3 class="title-md font-body group-hover:text-primary transition-colors">Liquid Silk Blouse</h3>
-<p class="text-sm font-medium text-primary">$420</p>
+<p class="text-sm font-medium text-primary">₹18,500</p>
 </div>
 </div>
 <!-- Product Card 3 -->
@@ -200,7 +213,7 @@
 <div class="space-y-1 px-1">
 <p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">Footwear</p>
 <h3 class="title-md font-body group-hover:text-primary transition-colors">Atelier Leather Pump</h3>
-<p class="text-sm font-medium text-primary">$680</p>
+<p class="text-sm font-medium text-primary">₹42,000</p>
 </div>
 </div>
 <!-- ... Rest of the cards ... -->
@@ -208,20 +221,8 @@
 <!-- Note: I will use the user's full code for the final file write -->
 </div>
 <!-- Pagination -->
-<div class="mt-32 flex justify-center items-center space-x-8">
-<button class="text-xs tracking-widest uppercase font-label text-on-surface-variant hover:text-primary flex items-center gap-2" aria-label="Previous Page">
-<span class="material-symbols-outlined !text-sm">arrow_back</span> Prev
-                    </button>
-<div class="flex items-center space-x-4">
-<button class="w-8 h-8 flex items-center justify-center text-xs font-label text-primary font-bold border-b-2 border-primary">01</button>
-<button class="w-8 h-8 flex items-center justify-center text-xs font-label text-on-surface-variant hover:text-primary transition-colors">02</button>
-<button class="w-8 h-8 flex items-center justify-center text-xs font-label text-on-surface-variant hover:text-primary transition-colors">03</button>
-<span class="text-on-surface-variant">...</span>
-<button class="w-8 h-8 flex items-center justify-center text-xs font-label text-on-surface-variant hover:text-primary transition-colors">12</button>
-</div>
-<button class="text-xs tracking-widest uppercase font-label text-on-surface-variant hover:text-primary flex items-center gap-2" aria-label="Next Page">
-                        Next <span class="material-symbols-outlined !text-sm">arrow_forward</span>
-</button>
+<div id="pagination-container" class="mt-32 flex justify-center items-center space-x-8">
+    <!-- Controls injected by JS -->
 </div>
 </section>
 </div>
@@ -236,17 +237,17 @@
 <div class="space-y-4">
 <h4 class="text-xs tracking-widest uppercase font-label text-primary font-bold">Discover</h4>
 <div class="flex flex-col space-y-2 text-sm">
-<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/">About Us</a>
-<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/contact">Contact</a>
-<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/journal">Journal</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/legal#about">About Us</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/legal#contact">Contact</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/catalog">Collections</a>
 </div>
 </div>
 <div class="space-y-4">
 <h4 class="text-xs tracking-widest uppercase font-label text-primary font-bold">Support</h4>
 <div class="flex flex-col space-y-2 text-sm">
-<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/shipping">Shipping Info</a>
-<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/privacy">Privacy Policy</a>
-<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/terms">Terms of Service</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/legal#shipping">Shipping Info</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/legal#privacy">Privacy Policy</a>
+<a class="text-gray-600 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300" href="/legal#contact">Support</a>
 </div>
 </div>
 <div class="space-y-6">
@@ -263,6 +264,7 @@
 </footer>
 <script src="/js/app.js"></script>
 <script>
+    Theme.init();
     document.getElementById('copyright-year').textContent = Math.max(new Date().getFullYear(), 2026);
     initNavCart();
     initNavUser();
@@ -271,31 +273,162 @@
     const accountNavLink = document.querySelector('a[href="/account"]');
     if (accountNavLink && !Auth.isLoggedIn()) accountNavLink.href = '/login';
 
-    async function loadCatalog() {
+    let currentPage = 1;
+    let totalPages = 1;
+
+    let currentFilters = {
+        keyword: '',
+        category: '',
+        maxPrice: 200000,
+        size: '',
+        sort: 'newest'
+    };
+
+    function setCategory(cat) {
+        currentFilters.category = cat;
+        // Update UI
+        const buttons = document.querySelectorAll('#category-filters button');
+        buttons.forEach(btn => {
+            if (btn.textContent.includes(cat === '' ? 'All Pieces' : cat)) {
+                btn.classList.add('text-primary', 'font-semibold');
+            } else {
+                btn.classList.remove('text-primary', 'font-semibold');
+            }
+        });
+        applyFilters();
+    }
+
+    function setSize(sz, btn) {
+        if (currentFilters.size === sz) {
+            currentFilters.size = '';
+            btn.classList.remove('border-primary', 'text-primary');
+        } else {
+            document.querySelectorAll('#size-filters button').forEach(b => b.classList.remove('border-primary', 'text-primary'));
+            currentFilters.size = sz;
+            btn.classList.add('border-primary', 'text-primary');
+        }
+        applyFilters();
+    }
+
+    function applyFilters() {
+        currentFilters.keyword = document.getElementById('search-input').value;
+        currentFilters.maxPrice = document.getElementById('price-range').value;
+        currentFilters.sort = document.getElementById('sort-select').value;
+
+        const params = new URLSearchParams();
+        if (currentFilters.keyword) params.append('keyword', currentFilters.keyword);
+        if (currentFilters.category) params.append('category', currentFilters.category);
+        if (currentFilters.maxPrice < 200000) params.append('maxPrice', currentFilters.maxPrice);
+        if (currentFilters.size) params.append('size', currentFilters.size);
+        if (currentFilters.sort) params.append('sort', currentFilters.sort);
+        params.append('page', currentPage);
+
+        loadCatalog(params.toString());
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    async function loadCatalog(queryString = '') {
         try {
-            const products = await apiFetch('/api/products');
+            const data = await apiFetch(`/api/products?${queryString}`);
+            const products = data.products || [];
+            currentPage = data.page || 1;
+            totalPages = data.pages || 1;
+
             const productGrid = document.getElementById('product-grid');
             if (!productGrid) return;
+            
+            if (products.length === 0) {
+                productGrid.innerHTML = '<div class="col-span-full text-center py-16 text-secondary italic">No products found matching your criteria.</div>';
+                updatePaginationUI();
+                return;
+            }
+
             productGrid.innerHTML = products.map((product, i) => `
                 <div class="group cursor-pointer ${i % 3 === 2 ? 'lg:translate-y-8' : ''}" onclick="window.location.href='/product?id=${product._id}'">
                     <div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-6 relative">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="${product.image}" alt="${product.name}">
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="${product.image}" alt="${product.name}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&q=80&w=800';">
                         ${product.trending ? '<div class="absolute top-4 left-4 bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1 text-[9px] tracking-[0.2em] uppercase font-label text-primary">Trending</div>' : ''}
+                        <div class="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
+                             <button onclick="event.stopPropagation(); onToggleWishlist('${product._id}', this)" class="bg-surface-container-lowest/80 backdrop-blur-md p-2 rounded-full text-primary hover:scale-110 duration-200">
+                                <span class="material-symbols-outlined !text-sm">favorite</span>
+                             </button>
+                        </div>
                         <button data-id="${product._id}" data-name="${product.name}" data-price="${product.price}" data-image="${product.image}" data-category="${product.category}"
                             onclick="event.stopPropagation(); onAddToCart(this)" class="absolute bottom-4 right-4 bg-primary text-on-primary p-3 shadow-lg opacity-0 group-hover:opacity-100 transition-all duration-300 translate-y-4 group-hover:translate-y-0" aria-label="Add to bag">
                             <span class="material-symbols-outlined !text-sm">shopping_bag</span>
                         </button>
                     </div>
                     <div class="space-y-1 px-1">
-                        <p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">${product.category}</p>
+                        <div class="flex justify-between items-start">
+                            <p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">${product.category}</p>
+                            ${product.rating > 0 ? `
+                                <div class="flex items-center gap-1 text-[10px] text-tertiary">
+                                    <span class="material-symbols-outlined !text-[12px] fill-current">star</span>
+                                    <span>${product.rating.toFixed(1)}</span>
+                                </div>
+                            ` : ''}
+                        </div>
                         <h3 class="title-md font-body group-hover:text-primary transition-colors">${product.name}</h3>
-                        <p class="text-sm font-medium text-primary">$${product.price.toLocaleString()}.00</p>
+                        <p class="text-sm font-medium text-primary">₹${product.price.toLocaleString('en-IN')}</p>
                     </div>
                 </div>
             `).join('');
+            
+            updatePaginationUI();
         } catch (error) {
             console.error('Error loading catalog:', error);
             document.getElementById('product-grid').innerHTML = '<div class="col-span-3 text-center py-16 text-secondary italic">Unable to load products.</div>';
+        }
+    }
+
+    function updatePaginationUI() {
+        const container = document.getElementById('pagination-container');
+        if (!container) return;
+
+        let html = `
+            <button onclick="changePage(-1)" class="text-xs tracking-widest uppercase font-label ${currentPage > 1 ? 'text-on-surface-variant hover:text-primary' : 'text-gray-300 cursor-not-allowed'} flex items-center gap-2" ${currentPage === 1 ? 'disabled' : ''}>
+                <span class="material-symbols-outlined !text-sm">arrow_back</span> Prev
+            </button>
+            <div class="flex items-center space-x-4">
+        `;
+
+        for (let i = 1; i <= totalPages; i++) {
+            html += `
+                <button onclick="goToPage(${i})" class="w-8 h-8 flex items-center justify-center text-xs font-label ${i === currentPage ? 'text-primary font-bold border-b-2 border-primary' : 'text-on-surface-variant hover:text-primary transition-colors'}">${i < 10 ? '0' + i : i}</button>
+            `;
+        }
+
+        html += `
+            </div>
+            <button onclick="changePage(1)" class="text-xs tracking-widest uppercase font-label ${currentPage < totalPages ? 'text-on-surface-variant hover:text-primary' : 'text-gray-300 cursor-not-allowed'} flex items-center gap-2" ${currentPage === totalPages ? 'disabled' : ''}>
+                Next <span class="material-symbols-outlined !text-sm">arrow_forward</span>
+            </button>
+        `;
+
+        container.innerHTML = html;
+    }
+
+    window.changePage = function(delta) {
+        goToPage(currentPage + delta);
+    }
+
+    window.goToPage = function(page) {
+        if (page < 1 || page > totalPages || page === currentPage) return;
+        currentPage = page;
+        applyFilters();
+    }
+
+    async function onToggleWishlist(id, btn) {
+        const added = await Wishlist.toggle(id);
+        if (added !== null) {
+            const icon = btn.querySelector('span');
+            if (added) {
+                icon.style.fontVariationSettings = "'FILL' 1";
+                btn.classList.add('text-error');
+            } else {
+                icon.style.fontVariationSettings = "'FILL' 0";
+                btn.classList.remove('text-error');
+            }
         }
     }
 

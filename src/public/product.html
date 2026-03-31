@@ -3,8 +3,10 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Product | Fashion Hub</title>
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <title>Product | Fashion Hub</title>
+    <meta name="description" content="Discover the details of our artisanal pieces. Ethically sourced materials and European craftsmanship." />
+    <meta property="og:type" content="product" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif:ital,wght@0,500;0,600;1,500&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" rel="stylesheet" />
@@ -49,6 +51,10 @@ tailwind.config = {
       <a id="account-nav-link" class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/login">Sign In</a>
     </div>
     <div class="flex items-center space-x-4">
+      <button id="theme-toggle" class="hover:scale-110 transition-transform duration-200" aria-label="Toggle Dark Mode">
+          <span id="theme-icon-dark" class="material-symbols-outlined text-[#00342b] dark:text-primary-fixed hidden">dark_mode</span>
+          <span id="theme-icon-light" class="material-symbols-outlined text-[#00342b] dark:text-primary-fixed">light_mode</span>
+      </button>
       <button onclick="window.location.href='/cart'" class="relative hover:scale-95 duration-200" aria-label="Cart">
         <span class="material-symbols-outlined text-primary">shopping_cart</span>
         <span id="cart-counter" class="absolute -top-1 -right-1 bg-primary text-on-primary text-[10px] w-4 h-4 rounded-full flex items-center justify-center opacity-0 transition-all duration-300">0</span>
@@ -111,7 +117,7 @@ tailwind.config = {
       <div class="space-y-3">
         <h1 id="product-name" class="text-4xl lg:text-5xl font-serif leading-tight"></h1>
         <div class="flex items-baseline gap-4">
-          <span id="product-price" class="text-2xl font-serif text-primary"></span>
+          <span id="product-price" class="text-2xl font-serif text-primary">₹85,000</span>
         </div>
       </div>
 
@@ -122,14 +128,10 @@ tailwind.config = {
       <div class="space-y-4">
         <div class="flex justify-between items-center">
           <span class="text-xs tracking-widest uppercase font-label">Select Size</span>
-          <button class="text-xs text-primary border-b border-primary/20 hover:border-primary transition-all pb-0.5">Size Guide</button>
+          <button onclick="openSizeGuide()" class="text-xs text-primary border-b border-primary/20 hover:border-primary transition-all pb-0.5">Size Guide</button>
         </div>
-        <div class="flex flex-wrap gap-3">
-          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">XS</button>
-          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">S</button>
-          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center active">M</button>
-          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">L</button>
-          <button onclick="selectSize(this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">XL</button>
+        <div id="product-sizes" class="flex flex-wrap gap-3">
+          <!-- Dynamic sizes -->
         </div>
       </div>
 
@@ -154,9 +156,20 @@ tailwind.config = {
           <span id="btn-text">Add to Bag</span>
         </button>
 
-        <button class="w-full border border-outline-variant py-4 text-xs tracking-widest uppercase font-label hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-3">
-          <span class="material-symbols-outlined !text-base">favorite_border</span>
-          Add to Wishlist
+        <!-- Notify Me (Hidden by default) -->
+        <div id="notify-me-section" class="hidden space-y-4 pt-4 border-t border-outline-variant/20">
+          <p class="text-[10px] uppercase tracking-widest text-secondary font-bold">Sold Out</p>
+          <p class="text-xs text-secondary italic">This masterpiece is currently unavailable. Enter your email to be notified when it returns.</p>
+          <div class="flex gap-2">
+            <input type="email" id="notify-email" placeholder="Email Address" class="flex-grow bg-surface-container-low border-none text-[10px] uppercase tracking-widest px-4 py-3">
+            <button onclick="handleSubscribe()" class="bg-primary text-on-primary px-6 text-[10px] uppercase tracking-widest hover:opacity-90 transition-all">Notify Me</button>
+          </div>
+          <p id="notify-msg" class="hidden text-[9px] uppercase tracking-widest text-primary"></p>
+        </div>
+
+        <button id="wishlist-btn" onclick="onToggleWishlist()" class="w-full border border-outline-variant py-4 text-xs tracking-widest uppercase font-label hover:border-primary hover:text-primary transition-all flex items-center justify-center gap-3">
+          <span id="wishlist-icon" class="material-symbols-outlined !text-base">favorite</span>
+          <span id="wishlist-text">Add to Wishlist</span>
         </button>
       </div>
 
@@ -191,21 +204,73 @@ tailwind.config = {
     <a href="/catalog" class="text-primary text-xs tracking-widest uppercase border-b border-primary pb-1 hover:border-primary/50 transition-all">Return to Catalog</a>
   </div>
 
-  <!-- Related Products -->
+  <!-- Reviews Section -->
   <section class="mt-24 border-t border-outline-variant/30 pt-16">
-    <div class="flex justify-between items-end mb-12">
-      <div>
-        <span class="text-[10px] uppercase tracking-widest text-secondary font-label">You May Also Appreciate</span>
-        <h2 class="text-2xl font-serif mt-2">Related Pieces</h2>
+    <div class="flex flex-col lg:flex-row gap-16">
+      <div class="lg:w-1/3 space-y-6">
+        <h2 class="text-3xl font-serif">Guest Reviews</h2>
+        <div class="flex items-center gap-4">
+          <div id="avg-rating-display" class="text-5xl font-serif text-primary">0.0</div>
+          <div>
+            <div id="stars-display" class="flex text-tertiary"></div>
+            <p id="num-reviews-display" class="text-[10px] uppercase tracking-widest text-secondary mt-1">Based on 0 reviews</p>
+          </div>
+        </div>
+        
+        <!-- Write a Review Form -->
+        <div id="review-form-container" class="bg-surface-container-low p-8 mt-12">
+          <h3 class="text-xs tracking-widest uppercase font-label mb-6">Write a Review</h3>
+          <form id="review-form" onsubmit="handleSubmitReview(event)" class="space-y-4">
+            <div>
+              <label class="block text-[10px] uppercase tracking-widest text-secondary mb-2">Rating</label>
+              <div class="flex gap-2">
+                <button type="button" onclick="setRating(1)" class="star-btn text-outline-variant hover:text-tertiary"><span class="material-symbols-outlined !text-2xl">star</span></button>
+                <button type="button" onclick="setRating(2)" class="star-btn text-outline-variant hover:text-tertiary"><span class="material-symbols-outlined !text-2xl">star</span></button>
+                <button type="button" onclick="setRating(3)" class="star-btn text-outline-variant hover:text-tertiary"><span class="material-symbols-outlined !text-2xl">star</span></button>
+                <button type="button" onclick="setRating(4)" class="star-btn text-outline-variant hover:text-tertiary"><span class="material-symbols-outlined !text-2xl">star</span></button>
+                <button type="button" onclick="setRating(5)" class="star-btn text-outline-variant hover:text-tertiary"><span class="material-symbols-outlined !text-2xl">star</span></button>
+              </div>
+            </div>
+            <div>
+              <label class="block text-[10px] uppercase tracking-widest text-secondary mb-2">Comment</label>
+              <textarea id="review-comment" required class="w-full bg-surface border-outline-variant/30 focus:border-primary text-sm p-4 h-32" placeholder="Share your experience..."></textarea>
+            </div>
+            <button type="submit" class="w-full bg-primary text-on-primary py-3 text-[10px] uppercase tracking-widest font-label hover:opacity-90">Post Review</button>
+          </form>
+        </div>
       </div>
-      <a href="/catalog" class="text-xs uppercase tracking-widest font-label text-secondary hover:text-primary transition-colors border-b border-outline-variant pb-1">View All</a>
+
+      <div id="reviews-list" class="lg:w-2/3 divide-y divide-outline-variant/20">
+        <!-- Dynamic reviews -->
+      </div>
     </div>
-    <div id="related-grid" class="grid grid-cols-2 md:grid-cols-4 gap-8"></div>
   </section>
+
+  <!-- Related Products -->
 </main>
 
-<footer class="w-full mt-20 bg-surface-container-low py-10">
-  <p class="text-center text-[10px] tracking-widest uppercase text-secondary">© <span id="copyright-year">2026</span> Digital Atelier. All Rights Reserved.</p>
+<footer class="w-full mt-20 bg-surface-container-low py-16 px-12 border-t border-black/5">
+    <div class="max-w-[1440px] mx-auto grid grid-cols-1 md:grid-cols-3 gap-12">
+        <div>
+            <h4 class="text-[10px] uppercase tracking-widest font-bold text-primary mb-6">Atelier</h4>
+            <ul class="flex flex-col gap-3 text-sm text-secondary">
+                <li><a href="/legal#about" class="hover:text-primary transition-colors">Our Story</a></li>
+                <li><a href="/legal#contact" class="hover:text-primary transition-colors">Contact</a></li>
+                <li><a href="/catalog" class="hover:text-primary transition-colors">Collections</a></li>
+            </ul>
+        </div>
+        <div>
+            <h4 class="text-[10px] uppercase tracking-widest font-bold text-primary mb-6">Support</h4>
+            <ul class="flex flex-col gap-3 text-sm text-secondary">
+                <li><a href="/legal#shipping" class="hover:text-primary transition-colors">Shipping & Returns</a></li>
+                <li><a href="/legal#privacy" class="hover:text-primary transition-colors">Privacy Policy</a></li>
+                <li><a href="/legal#contact" class="hover:text-primary transition-colors">Customer Care</a></li>
+            </ul>
+        </div>
+        <div class="text-right">
+            <p class="text-[10px] tracking-widest uppercase text-secondary">© <span id="copyright-year-footer">2026</span> Digital Atelier.</p>
+        </div>
+    </div>
 </footer>
 
 <!-- Add to Cart Toast -->
@@ -215,11 +280,92 @@ tailwind.config = {
   <button onclick="window.location.href='/cart'" class="ml-4 border-l border-white/20 pl-4 text-[10px] uppercase tracking-widest hover:opacity-70 pointer-events-auto">View Bag</button>
 </div>
 
+<!-- Size Guide Modal -->
+<div id="size-guide-modal" class="fixed inset-0 z-[100] flex items-center justify-center opacity-0 pointer-events-none transition-all duration-500 scale-95">
+    <div class="absolute inset-0 bg-primary/20 backdrop-blur-md" onclick="closeSizeGuide()"></div>
+    <div class="relative bg-surface p-12 max-w-2xl w-full shadow-2xl border border-outline-variant/30 overflow-hidden">
+        <div class="absolute top-0 right-0 p-6">
+            <button onclick="closeSizeGuide()" class="text-primary hover:rotate-90 transition-transform duration-300">
+                <span class="material-symbols-outlined">close</span>
+            </button>
+        </div>
+        
+        <h2 class="text-3xl font-serif text-primary mb-8 tracking-tight">Atelier Size Guide</h2>
+        
+        <div class="overflow-x-auto">
+            <table class="w-full text-left text-sm font-label border-collapse">
+                <thead>
+                    <tr class="border-b border-primary/10">
+                        <th class="py-4 text-[10px] tracking-widest uppercase text-primary font-bold">Label</th>
+                        <th class="py-4 text-[10px] tracking-widest uppercase text-primary font-bold">Chest (cm)</th>
+                        <th class="py-4 text-[10px] tracking-widest uppercase text-primary font-bold">Waist (cm)</th>
+                        <th class="py-4 text-[10px] tracking-widest uppercase text-primary font-bold">Hips (cm)</th>
+                    </tr>
+                </thead>
+                <tbody class="text-on-surface-variant">
+                    <tr class="border-b border-outline-variant/10">
+                        <td class="py-4 font-bold text-primary">XS</td>
+                        <td class="py-4">82 - 86</td>
+                        <td class="py-4">64 - 68</td>
+                        <td class="py-4">90 - 94</td>
+                    </tr>
+                    <tr class="border-b border-outline-variant/10">
+                        <td class="py-4 font-bold text-primary">S</td>
+                        <td class="py-4">88 - 92</td>
+                        <td class="py-4">70 - 74</td>
+                        <td class="py-4">96 - 100</td>
+                    </tr>
+                    <tr class="border-b border-outline-variant/10">
+                        <td class="py-4 font-bold text-primary">M</td>
+                        <td class="py-4">94 - 98</td>
+                        <td class="py-4">76 - 80</td>
+                        <td class="py-4">102 - 106</td>
+                    </tr>
+                    <tr class="border-b border-outline-variant/10">
+                        <td class="py-4 font-bold text-primary">L</td>
+                        <td class="py-4">100 - 104</td>
+                        <td class="py-4">82 - 86</td>
+                        <td class="py-4">108 - 112</td>
+                    </tr>
+                    <tr>
+                        <td class="py-4 font-bold text-primary">XL</td>
+                        <td class="py-4">106 - 110</td>
+                        <td class="py-4">88 - 92</td>
+                        <td class="py-4">114 - 118</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="mt-12 p-6 bg-surface-container-low border-l-2 border-primary italic text-[11px] text-on-surface-variant leading-relaxed">
+            Note: Our silhouettes are designed with architectural precision. If you are between sizes, we recommend selecting the larger size for a structured drape or the smaller size for a more defined fit.
+        </div>
+    </div>
+</div>
+
 <script src="/js/app.js"></script>
 <script>
-  document.getElementById('copyright-year').textContent = Math.max(new Date().getFullYear(), 2026);
+  Theme.init();
+  const yr = Math.max(new Date().getFullYear(), 2026);
+  const cpFooter = document.getElementById('copyright-year-footer');
+  if (cpFooter) cpFooter.textContent = yr;
+  
   initNavCart();
   initNavUser();
+
+  function openSizeGuide() {
+    const modal = document.getElementById('size-guide-modal');
+    modal.classList.remove('opacity-0', 'pointer-events-none', 'scale-95');
+    modal.classList.add('opacity-100', 'scale-100');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeSizeGuide() {
+    const modal = document.getElementById('size-guide-modal');
+    modal.classList.add('opacity-0', 'pointer-events-none', 'scale-95');
+    modal.classList.remove('opacity-100', 'scale-100');
+    document.body.style.overflow = '';
+  }
 
   // Get product ID from URL ?id=xxxx
   const params = new URLSearchParams(window.location.search);
@@ -227,7 +373,8 @@ tailwind.config = {
 
   let currentProduct = null;
   let currentQty = 1;
-  let selectedSize = 'M';
+  let selectedSize = '';
+  let selectedRating = 0;
 
   async function loadProduct() {
     if (!productId) { showError(); return; }
@@ -238,7 +385,7 @@ tailwind.config = {
       document.getElementById('breadcrumb-name').textContent = product.name;
       document.getElementById('product-name').textContent = product.name;
       document.getElementById('product-category').textContent = product.category;
-      document.getElementById('product-price').textContent = `$${product.price.toLocaleString()}.00`;
+      document.getElementById('product-price').textContent = `₹${product.price.toLocaleString('en-IN')}`;
       document.getElementById('product-description').textContent = product.description;
       document.getElementById('product-img-main').src = product.image;
       document.getElementById('product-img-main').alt = product.name;
@@ -247,17 +394,40 @@ tailwind.config = {
       if (product.trending) document.getElementById('trending-badge').classList.remove('hidden');
       if (product.stock === 0) {
         const btn = document.getElementById('add-to-cart-btn');
-        btn.disabled = true;
-        btn.classList.add('opacity-40', 'cursor-not-allowed');
-        document.getElementById('btn-text').textContent = 'Out of Stock';
+        btn.classList.add('hidden');
+        document.getElementById('notify-me-section').classList.remove('hidden');
       }
 
-      // Thumbnails (use same image for now; can be extended with image arrays)
-      document.getElementById('product-thumbnails').innerHTML = `
-        <div class="w-20 h-28 overflow-hidden border-2 border-primary cursor-pointer">
-          <img src="${product.image}" alt="${product.name}" class="w-full h-full object-cover">
+      // Sizes
+      const sizeContainer = document.getElementById('product-sizes');
+      sizeContainer.innerHTML = (product.sizes || ['XS', 'S', 'M', 'L', 'XL']).map(s => `
+        <button onclick="selectSize('${s}', this)" class="size-btn border border-outline-variant w-12 h-12 text-xs tracking-wider hover:border-primary transition-colors flex items-center justify-center">${s}</button>
+      `).join('');
+      // Auto-select first size
+      const firstBtn = sizeContainer.querySelector('button');
+      if (firstBtn) selectSize((product.sizes && product.sizes[0]) || 'M', firstBtn);
+
+      // Wishlist Check
+      checkWishlistStatus();
+
+      // Reviews
+      renderReviews();
+
+      // Thumbnails (Dynamic or fallbacks)
+      const thumbs = [product.image];
+      // Add some 'alternate perspective' placeholders if no real alternates exist
+      if (!product.images || product.images.length === 0) {
+          thumbs.push(product.image); // Duplicate for UI balance
+      } else {
+          product.images.forEach(img => thumbs.push(img));
+      }
+
+      document.getElementById('product-thumbnails').innerHTML = thumbs.map((src, i) => `
+        <div onclick="document.getElementById('product-img-main').src='${src}'; this.parentElement.querySelectorAll('div').forEach(d=>d.classList.remove('border-primary')); this.classList.add('border-primary')" 
+             class="w-20 h-28 overflow-hidden border-2 ${i === 0 ? 'border-primary' : 'border-transparent'} cursor-pointer hover:border-primary/50 transition-colors">
+          <img src="${src}" alt="${product.name} perspective ${i+1}" class="w-full h-full object-cover">
         </div>
-      `;
+      `).join('');
 
       document.getElementById('loading-state').classList.add('hidden');
       document.getElementById('product-content').classList.remove('hidden');
@@ -265,6 +435,89 @@ tailwind.config = {
       loadRelated(product);
     } catch (e) {
       showError();
+    }
+  }
+
+  async function checkWishlistStatus() {
+    if (!Auth.isLoggedIn()) return;
+    try {
+        const items = await Wishlist.getItems();
+        const isWishlisted = items.some(p => p._id === productId);
+        const icon = document.getElementById('wishlist-icon');
+        const text = document.getElementById('wishlist-text');
+        if (isWishlisted) {
+            icon.style.fontVariationSettings = "'FILL' 1";
+            icon.classList.add('text-error');
+            text.textContent = 'In Wishlist';
+        } else {
+            icon.style.fontVariationSettings = "'FILL' 0";
+            icon.classList.remove('text-error');
+            text.textContent = 'Add to Wishlist';
+        }
+    } catch (err) { console.error(err); }
+  }
+
+  async function onToggleWishlist() {
+    const added = await Wishlist.toggle(productId);
+    if (added !== null) checkWishlistStatus();
+  }
+
+  function renderReviews() {
+    const avgRating = currentProduct.rating || 0;
+    const numReviews = currentProduct.numReviews || 0;
+    document.getElementById('avg-rating-display').textContent = avgRating.toFixed(1);
+    document.getElementById('num-reviews-display').textContent = `Based on ${numReviews} reviews`;
+    
+    let starsHtml = '';
+    for (let i = 1; i <= 5; i++) {
+        starsHtml += `<span class="material-symbols-outlined !text-sm ${i <= Math.round(avgRating) ? 'fill-current' : ''}">star</span>`;
+    }
+    document.getElementById('stars-display').innerHTML = starsHtml;
+
+    const list = document.getElementById('reviews-list');
+    if (currentProduct.reviews && currentProduct.reviews.length > 0) {
+        list.innerHTML = currentProduct.reviews.map(r => `
+          <div class="py-8 space-y-3">
+            <div class="flex justify-between items-center">
+              <div class="flex text-tertiary">
+                ${Array(5).fill(0).map((_, i) => `<span class="material-symbols-outlined !text-xs ${i < r.rating ? 'fill-current' : ''}">star</span>`).join('')}
+              </div>
+              <span class="text-[10px] uppercase tracking-widest text-secondary">${new Date(r.createdAt || Date.now()).toLocaleDateString()}</span>
+            </div>
+            <h4 class="text-xs font-bold uppercase tracking-widest">${r.name}</h4>
+            <p class="text-sm text-secondary leading-relaxed">${r.comment}</p>
+          </div>
+        `).join('');
+    } else {
+        list.innerHTML = '<div class="py-16 text-center text-secondary italic">No reviews yet for this piece.</div>';
+    }
+  }
+
+  function setRating(r) {
+    selectedRating = r;
+    const btns = document.querySelectorAll('.star-btn');
+    btns.forEach((btn, i) => {
+        if (i < r) btn.classList.replace('text-outline-variant', 'text-tertiary');
+        else btn.classList.replace('text-tertiary', 'text-outline-variant');
+    });
+  }
+
+  async function handleSubmitReview(e) {
+    e.preventDefault();
+    if (!Auth.isLoggedIn()) { window.location.href = '/login'; return; }
+    if (selectedRating === 0) { alert('Please select a rating'); return; }
+    
+    const comment = document.getElementById('review-comment').value;
+    try {
+        await apiFetch(`/api/products/${productId}/reviews`, {
+            method: 'POST',
+            body: JSON.stringify({ rating: selectedRating, comment })
+        });
+        loadProduct();
+        document.getElementById('review-form').reset();
+        setRating(0);
+    } catch (err) {
+        alert(err.message);
     }
   }
 
@@ -288,16 +541,16 @@ tailwind.config = {
           </div>
           <p class="text-[10px] uppercase tracking-widest text-secondary mb-1">${p.category}</p>
           <h3 class="text-sm font-body hover:text-primary transition-colors">${p.name}</h3>
-          <p class="text-sm font-serif text-primary mt-1">$${p.price.toLocaleString()}.00</p>
+          <p class="text-sm font-serif text-primary mt-1">₹${p.price.toLocaleString('en-IN')}</p>
         </div>
       `).join('');
     } catch(e) { /* silent */ }
   }
 
-  function selectSize(btn) {
+  function selectSize(sz, btn) {
     document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    selectedSize = btn.textContent.trim();
+    selectedSize = sz;
   }
 
   function changeQty(delta) {
@@ -307,13 +560,9 @@ tailwind.config = {
 
   function handleAddToCart() {
     if (!currentProduct) return;
-    for (let i = 0; i < currentQty; i++) {
-      Cart.addItem({ ...currentProduct, size: selectedSize }, 1);
-    }
-    Cart.setItems(Cart.getItems()); // force recalculate
+    Cart.addItem({ ...currentProduct, size: selectedSize }, currentQty);
     initNavCart();
     showToast();
-
     const btn = document.getElementById('add-to-cart-btn');
     btn.classList.add('opacity-80');
     document.getElementById('btn-text').textContent = '✓ Added to Bag';
@@ -340,6 +589,23 @@ tailwind.config = {
     const counter = document.getElementById('cart-counter');
     counter.classList.add('cart-pop');
     counter.addEventListener('animationend', () => counter.classList.remove('cart-pop'), { once: true });
+  }
+
+  async function handleSubscribe() {
+    const email = document.getElementById('notify-email').value;
+    if (!email) return;
+    try {
+        await apiFetch(`/api/products/${productId}/subscribe`, {
+            method: 'POST',
+            body: JSON.stringify({ email })
+        });
+        const msg = document.getElementById('notify-msg');
+        msg.textContent = 'Invitation accepted. We will notify you.';
+        msg.classList.remove('hidden');
+        document.getElementById('notify-email').value = '';
+    } catch (err) {
+        alert(err.message);
+    }
   }
 
   loadProduct();

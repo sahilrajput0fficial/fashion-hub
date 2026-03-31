@@ -1,4 +1,5 @@
 const Product = require('../models/Product');
+const { sendBackInStockAlert } = require('../utils/emailService');
 const connectDB = require('../config/db');
 
 // @desc    Fetch all products
@@ -7,8 +8,47 @@ const connectDB = require('../config/db');
 const getProducts = async (req, res) => {
     try {
         await connectDB();
-        const products = await Product.find({});
-        res.json(products);
+        
+        const page = Number(req.query.page) || 1;
+        const limit = Number(req.query.limit) || 12;
+        const skip = (page - 1) * limit;
+
+        const keyword = req.query.keyword ? {
+            name: {
+                $regex: req.query.keyword,
+                $options: 'i'
+            }
+        } : {};
+
+        const category = req.query.category ? { category: req.query.category } : {};
+        
+        const minPrice = req.query.minPrice ? { price: { $gte: Number(req.query.minPrice) } } : {};
+        const maxPrice = req.query.maxPrice ? { price: { ...minPrice.price, $lte: Number(req.query.maxPrice) } } : {};
+        
+        const priceFilter = req.query.maxPrice ? maxPrice : minPrice;
+
+        const size = req.query.size ? { sizes: req.query.size } : {};
+
+        let query = { ...keyword, ...category, ...priceFilter, ...size };
+
+        let sort = {};
+        if (req.query.sort === 'price-low') sort = { price: 1 };
+        else if (req.query.sort === 'price-high') sort = { price: -1 };
+        else if (req.query.sort === 'newest') sort = { createdAt: -1 };
+        else if (req.query.sort === 'popular') sort = { rating: -1 };
+
+        const count = await Product.countDocuments(query);
+        const products = await Product.find(query)
+            .sort(sort)
+            .limit(limit)
+            .skip(skip);
+
+        res.json({
+            products,
+            page,
+            pages: Math.ceil(count / limit),
+            total: count
+        });
     } catch (error) {
         console.error('getProducts error:', error.message);
         res.status(500).json({ message: 'Server Error', detail: error.message });
@@ -72,16 +112,65 @@ const updateProduct = async (req, res) => {
     const product = await Product.findById(req.params.id);
 
     if (product) {
-        product.name = name;
-        product.price = price;
-        product.description = description;
-        product.image = image;
-        product.category = category;
-        product.stock = stock;
-        product.trending = trending;
+        const wasOutOfStock = product.stock === 0;
+
+        product.name = name || product.name;
+        product.price = price || product.price;
+        product.description = description || product.description;
+        product.image = image || product.image;
+        product.category = category || product.category;
+        product.stock = stock !== undefined ? stock : product.stock;
+        product.trending = trending !== undefined ? trending : product.trending;
 
         const updatedProduct = await product.save();
+
+        if (wasOutOfStock && updatedProduct.stock > 0 && product.subscribers && product.subscribers.length > 0) {
+            for (const email of product.subscribers) {
+                await sendBackInStockAlert(updatedProduct, email);
+            }
+            product.subscribers = [];
+            await product.save();
+        }
+
         res.json(updatedProduct);
+    } else {
+        res.status(404).json({ message: 'Product not found' });
+    }
+};
+
+// @desc    Create new review
+// @route   POST /api/products/:id/reviews
+// @access  Private
+const createProductReview = async (req, res) => {
+    const { rating, comment } = req.body;
+
+    const product = await Product.findById(req.params.id);
+
+    if (product) {
+        const alreadyReviewed = product.reviews.find(
+            (r) => r.user.toString() === req.user._id.toString()
+        );
+
+        if (alreadyReviewed) {
+            res.status(400).json({ message: 'Product already reviewed' });
+            return;
+        }
+
+        const review = {
+            name: req.user.name,
+            rating: Number(rating),
+            comment,
+            user: req.user._id,
+        };
+
+        product.reviews.push(review);
+        product.numReviews = product.reviews.length;
+        product.rating =
+            product.reviews.reduce((acc, item) => item.rating + acc, 0) /
+            product.reviews.length;
+
+        await product.save();
+        res.status(201).json({ message: 'Review added' });
     } else {
         res.status(404).json({ message: 'Product not found' });
     }
@@ -92,5 +181,26 @@ module.exports = {
     getProductById,
     deleteProduct,
     createProduct,
-    updateProduct
+    updateProduct,
+    createProductReview,
+    subscribeToBackInStock
 };
+
+// @desc    Subscribe to back-in-stock notifications
+// @route   POST /api/products/:id/subscribe
+// @access  Public
+async function subscribeToBackInStock(req, res) {
+    const { email } = req.body;
+    const product = await Product.findById(req.params.id);
+
+    if (product) {
+        if (!product.subscribers.includes(email)) {
+            product.subscribers.push(email);
+            await product.save();
+        }
+        res.json({ message: 'Subscribed successfully' });
+    } else {
+        res.status(404);
+        throw new Error('Product not found');
+    }
+}

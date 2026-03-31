@@ -92,9 +92,13 @@
 <div class="hidden md:flex items-center space-x-12">
 <a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/">Home</a>
 <a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/catalog">Catalog</a>
-<a class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/account">Account</a>
+<a id="account-nav-link" class="text-gray-500 dark:text-gray-400 hover:text-[#00342b] transition-colors duration-300 tracking-widest uppercase text-[10px] font-semibold" href="/account">Account</a>
 </div>
 <div class="flex items-center space-x-6">
+<button id="theme-toggle" class="hover:scale-110 transition-transform duration-200" aria-label="Toggle Dark Mode">
+    <span id="theme-icon-dark" class="material-symbols-outlined text-[#00342b] dark:text-primary-fixed hidden">dark_mode</span>
+    <span id="theme-icon-light" class="material-symbols-outlined text-[#00342b] dark:text-primary-fixed">light_mode</span>
+</button>
 <button class="text-[#00342b] dark:text-[#004d40] transition-transform duration-200 active:scale-95" aria-label="Search">
 <span class="material-symbols-outlined" data-icon="search">search</span>
 </button>
@@ -147,7 +151,7 @@
 <div class="space-y-6 mb-10 pb-10 border-b border-outline-variant/20">
 <div class="flex justify-between items-center text-sm">
 <span class="text-secondary">Subtotal (<span id="summary-count">0</span> items)</span>
-<span class="text-on-surface font-medium" id="subtotal-amount">$0.00</span>
+<span class="text-on-surface font-medium" id="subtotal-amount">₹0.00</span>
 </div>
 <div class="flex justify-between items-center text-sm">
 <span class="text-secondary">Express Shipping</span>
@@ -155,7 +159,7 @@
 </div>
 <div class="flex justify-between items-center text-sm">
 <span class="text-secondary">Estimated Tax</span>
-<span class="text-on-surface font-medium" id="tax-amount">$0.00</span>
+<span class="text-on-surface font-medium" id="tax-amount">₹0.00</span>
 </div>
 </div>
 <!-- Promo Code Input -->
@@ -170,10 +174,10 @@
 <span class="font-serif text-xl text-primary">Total</span>
 <div class="text-right">
 <span class="block text-[10px] text-secondary uppercase tracking-widest mb-1">Tax Included</span>
-<span class="text-3xl font-serif text-primary" id="total-amount">$0.00</span>
+<span class="text-3xl font-serif text-primary" id="total-amount">₹0.00</span>
 </div>
 </div>
-<button class="w-full bg-primary text-on-primary py-5 font-bold uppercase tracking-[0.2em] text-xs hover:bg-primary-container transition-all active:scale-[0.98] duration-200">
+<button onclick="handleCheckout()" class="w-full bg-primary text-on-primary py-5 font-bold uppercase tracking-[0.2em] text-xs hover:bg-primary-container transition-all active:scale-[0.98] duration-200">
                         Proceed to Checkout
                     </button>
 <div class="mt-8 flex flex-col items-center gap-4">
@@ -233,6 +237,7 @@
 </footer>
 <script src="/js/app.js"></script>
 <script>
+    Theme.init();
     document.getElementById('copyright-year').textContent = Math.max(new Date().getFullYear(), 2026);
     initNavCart();
     initNavUser();
@@ -287,7 +292,7 @@
                         </button>
                     </div>
                 </div>
-                <div class="col-span-3 text-right font-serif text-base md:text-lg text-primary">$${(item.price * item.qty).toLocaleString(undefined, {minimumFractionDigits: 2})}</div>
+                <div class="col-span-3 text-right font-serif text-base md:text-lg text-primary">₹${(item.price * item.qty).toLocaleString('en-IN')}</div>
             </div>
         `).join('');
 
@@ -300,9 +305,9 @@
         const shipping = subtotal > 0 ? 15 : 0;
         const total = subtotal + tax + shipping;
 
-        document.getElementById('subtotal-amount').textContent = `$${subtotal.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-        document.getElementById('tax-amount').textContent = `$${tax.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
-        document.getElementById('total-amount').textContent = `$${total.toLocaleString(undefined, {minimumFractionDigits: 2})}`;
+        document.getElementById('subtotal-amount').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+        document.getElementById('tax-amount').textContent = `₹${tax.toLocaleString('en-IN')}`;
+        document.getElementById('total-amount').textContent = `₹${total.toLocaleString('en-IN')}`;
     }
 
     function onRemove(id) {
@@ -316,26 +321,20 @@
     }
 
     // Checkout button
-    const checkoutBtn = document.querySelector('button[onclick*="checkout"], a[href*="checkout"]');
-    if (!checkoutBtn) {
-        // find the checkout/place order button by text
-        document.querySelectorAll('button').forEach(btn => {
-            if (btn.textContent.toLowerCase().includes('order') || btn.textContent.toLowerCase().includes('checkout')) {
-                btn.addEventListener('click', handleCheckout);
-            }
-        });
-    }
-
-    async function handleCheckout() {
-        if (!Auth.isLoggedIn()) {
-            window.location.href = '/login?redirect=/cart';
-            return;
-        }
+    function handleCheckout() {
         const items = Cart.getItems();
-        if (!items.length) { alert('Your cart is empty.'); return; }
-        alert('Order placement coming soon! Thank you for shopping at the Digital Atelier.');
+        if (!items.length) { 
+            alert('Your cart is empty.'); 
+            return; 
+        }
+        // Redirect to checkout page which handles both guest and auth
+        window.location.href = '/checkout.html';
     }
 
-    renderCart();
+    document.addEventListener('DOMContentLoaded', () => {
+        initNavCart();
+        initNavUser();
+        renderCart();
+    });
 </script>
 </body></html>

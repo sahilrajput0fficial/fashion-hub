@@ -41,7 +41,7 @@ tailwind.config = {
     <div class="hidden md:flex items-center space-x-12">
       <a class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/">Home</a>
       <a class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/catalog">Catalog</a>
-      <a class="text-primary border-b border-primary pb-1 text-xs tracking-widest uppercase" href="/account">Account</a>
+      <a id="account-nav-link" class="text-primary border-b border-primary pb-1 text-xs tracking-widest uppercase" href="/account">Account</a>
     </div>
     <div class="flex items-center space-x-4">
       <button onclick="window.location.href='/cart'" class="relative hover:scale-95 duration-200">
@@ -60,9 +60,14 @@ tailwind.config = {
       <h1 class="text-4xl font-serif mt-2">My Atelier</h1>
       <p id="welcome-name" class="text-secondary italic mt-1 text-sm"></p>
     </div>
-    <button onclick="handleLogout()" class="flex items-center gap-2 text-xs tracking-widest uppercase font-label text-secondary hover:text-primary border border-outline-variant px-6 py-3 transition-colors">
-      <span class="material-symbols-outlined text-sm">logout</span> Sign Out
-    </button>
+      <div class="flex gap-4">
+        <button id="admin-dash-btn" onclick="window.location.href='/admin'" class="hidden flex items-center gap-2 text-xs tracking-widest uppercase font-label bg-primary text-on-primary px-6 py-3 transition-colors hover:opacity-90">
+          <span class="material-symbols-outlined text-sm">dashboard</span> Mission Control
+        </button>
+        <button onclick="handleLogout()" class="flex items-center gap-2 text-xs tracking-widest uppercase font-label text-secondary hover:text-primary border border-outline-variant px-6 py-3 transition-colors">
+          <span class="material-symbols-outlined text-sm">logout</span> Sign Out
+        </button>
+      </div>
   </div>
 
   <!-- Tabs -->
@@ -138,6 +143,7 @@ tailwind.config = {
     document.getElementById('profile-role').value = user.role;
     if (user.role === 'admin') {
       document.getElementById('tab-admin-products').classList.remove('hidden');
+      document.getElementById('admin-dash-btn').classList.remove('hidden');
     }
   }
 
@@ -176,10 +182,8 @@ tailwind.config = {
               ${order.isDelivered ? 'Delivered' : order.isPaid ? 'Processing' : 'Pending'}
             </span>
           </div>
-          <div class="flex justify-between text-sm">
             <span class="text-secondary">Total</span>
-            <span class="font-serif font-medium">$${order.totalPrice?.toFixed(2)}</span>
-          </div>
+            <span class="font-serif font-medium">₹${order.totalPrice?.toLocaleString('en-IN')}</span>
           <p class="text-[10px] text-secondary">${new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
         </div>
       `).join('');
@@ -209,7 +213,7 @@ tailwind.config = {
               <tr class="hover:bg-surface-container-low/50 transition-colors">
                 <td class="py-4 pr-6 font-medium">${p.name}</td>
                 <td class="py-4 pr-6 text-secondary">${p.category}</td>
-                <td class="py-4 pr-6 font-serif">$${p.price}</td>
+                <td class="py-4 pr-6 font-serif">₹${p.price.toLocaleString('en-IN')}</td>
                 <td class="py-4 pr-6 ${p.stock < 5 ? 'text-amber-600 font-bold' : ''}">${p.stock}</td>
                 <td class="py-4 pr-6">${p.trending ? '✓' : '—'}</td>
                 <td class="py-4">

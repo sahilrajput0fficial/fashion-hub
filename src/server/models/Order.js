@@ -3,8 +3,12 @@ const mongoose = require('mongoose');
 const orderSchema = mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        required: true,
+        required: false, // Optional for guest checkout
         ref: 'User'
+    },
+    guestInfo: {
+        name: { type: String },
+        email: { type: String }
     },
     orderItems: [
         {
@@ -29,6 +33,12 @@ const orderSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    paymentResult: {
+        id: { type: String },
+        status: { type: String },
+        update_time: { type: String },
+        email_address: { type: String }
+    },
     taxPrice: {
         type: Number,
         required: true,
@@ -42,6 +52,13 @@ const orderSchema = mongoose.Schema({
     totalPrice: {
         type: Number,
         required: true,
+        default: 0.0
+    },
+    promoCode: {
+        type: String
+    },
+    discountPrice: {
+        type: Number,
         default: 0.0
     },
     isPaid: {
