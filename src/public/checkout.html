@@ -86,11 +86,14 @@
                     </div>
                     <div class="col-span-2">
                         <label class="block text-[10px] uppercase tracking-widest text-secondary mb-2">Country</label>
-                        <select id="country" class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary py-4 px-6 text-sm">
-                            <option>United Kingdom</option>
-                            <option>United States</option>
-                            <option>France</option>
-                            <option>Italy</option>
+                        <select id="country" required class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary py-4 px-6 text-sm">
+                            <option value="">Select Country</option>
+                        </select>
+                    </div>
+                    <div class="col-span-2">
+                        <label class="block text-[10px] uppercase tracking-widest text-secondary mb-2">State / Province</label>
+                        <select id="state" required class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary py-4 px-6 text-sm">
+                            <option value="">Select State</option>
                         </select>
                     </div>
                     <button type="button" onclick="goToPayment()" class="col-span-2 mt-4 bg-primary text-on-primary py-5 text-xs tracking-widest uppercase font-label hover:opacity-90 transition-all">Continue to Payment</button>
@@ -199,6 +202,38 @@
             document.getElementById('firstName').value = user.name ? user.name.split(' ')[0] : '';
             document.getElementById('lastName').value = user.name ? user.name.split(' ').slice(1).join(' ') : '';
         }
+        initLocationPicker();
+    }
+
+    async function initLocationPicker() {
+        const countrySelect = document.getElementById('country');
+        const stateSelect = document.getElementById('state');
+        
+        try {
+            const countries = await LocationService.fetchCountries();
+            countrySelect.innerHTML = '<option value="">Select Country</option>' + 
+                countries.map(c => `<option value="${c}">${c}</option>`).join('');
+            
+            countrySelect.onchange = async () => {
+                const country = countrySelect.value;
+                if (!country) {
+                    stateSelect.innerHTML = '<option value="">Select State</option>';
+                    return;
+                }
+                
+                stateSelect.innerHTML = '<option value="">Loading States...</option>';
+                const states = await LocationService.fetchStates(country);
+                
+                if (states.length > 0) {
+                    stateSelect.innerHTML = '<option value="">Select State</option>' + 
+                        states.map(s => `<option value="${s}">${s}</option>`).join('');
+                } else {
+                    stateSelect.innerHTML = '<option value="Not Applicable">Not Applicable</option>';
+                }
+            };
+        } catch (err) {
+            console.error('Location initialization failed:', err);
+        }
     }
 
     function renderSummary() {
@@ -285,6 +320,7 @@
             const shippingAddress = {
                 address: document.getElementById('address').value,
                 city: document.getElementById('city').value,
+                state: document.getElementById('state').value,
                 postalCode: document.getElementById('postalCode').value,
                 country: document.getElementById('country').value,
             };

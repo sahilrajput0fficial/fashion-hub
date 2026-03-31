@@ -83,6 +83,33 @@ const Cart = {
     }
 };
 
+const LocationService = {
+    fetchCountries: async () => {
+        try {
+            const res = await fetch('https://countriesnow.space/api/v0.1/countries');
+            const data = await res.json();
+            return data.data.map(c => c.country).sort();
+        } catch (err) {
+            console.error('Countries fetch error:', err);
+            return ['United Kingdom', 'United States', 'France', 'Italy']; // Fallback
+        }
+    },
+    fetchStates: async (country) => {
+        try {
+            const res = await fetch('https://countriesnow.space/api/v0.1/countries/states', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ country })
+            });
+            const data = await res.json();
+            return data.data.states.map(s => s.name).sort();
+        } catch (err) {
+            console.error('States fetch error:', err);
+            return [];
+        }
+    }
+};
+
 const Wishlist = {
     toggle: async (productId) => {
         if (!Auth.isLoggedIn()) {

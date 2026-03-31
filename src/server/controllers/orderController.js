@@ -109,6 +109,11 @@ const getMyOrders = async (req, res) => {
 // @route   POST /api/orders/promo
 // @access  Public
 const applyPromoCode = async (req, res) => {
+    const { code } = req.body;
+    if (!code) {
+        res.status(400);
+        throw new Error('Promo code is required');
+    }
     const promo = await PromoCode.findOne({ 
         code: code.trim().toUpperCase(), 
         isActive: true, 

@@ -37,8 +37,8 @@ const sendOrderConfirmation = async (order) => {
 
     await sendEmail({
         to,
-        subject: `Order Confirmed - #${order._id.slice(-6).toUpperCase()}`,
-        text: `Thank you for your order. Total: $${order.totalPrice}. Your collection is being prepared at our digital atelier.`,
+        subject: `Order Confirmed - #${order._id.toString().slice(-6).toUpperCase()}`,
+        text: `Thank you for your order. Total: ₹${order.totalPrice.toLocaleString('en-IN')}. Your collection is being prepared at our digital atelier.`,
         html: `<h1>Order Confirmed</h1><p>Thank you for choosing Fashion Hub. Your order for <strong>$${order.totalPrice}</strong> is now processing.</p>`
     });
 };
