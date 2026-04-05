@@ -20,20 +20,46 @@ const getProducts = async (req, res) => {
             }
         } : {};
 
-        const category = req.query.category ? { category: req.query.category } : {};
-        
-        const minPrice = req.query.minPrice ? { price: { $gte: Number(req.query.minPrice) } } : {};
-        const maxPrice = req.query.maxPrice ? { price: { ...minPrice.price, $lte: Number(req.query.maxPrice) } } : {};
-        
-        const priceFilter = req.query.maxPrice ? maxPrice : minPrice;
+        let query = { ...keyword };
 
-        const size = req.query.size ? { sizes: req.query.size } : {};
+        // Handle multi-select filters (comma-separated strings)
+        const multiFilters = ['category', 'gender', 'season', 'brand', 'material', 'fit', 'occasion', 'style', 'sustainability'];
+        multiFilters.forEach(filter => {
+            if (req.query[filter]) {
+                const values = req.query[filter].split(',');
+                query[filter] = { $in: values };
+            }
+        });
 
-        let query = { ...keyword, ...category, ...priceFilter, ...size };
+        // Specific array fields
+        if (req.query.size) {
+            query.sizes = { $in: req.query.size.split(',') };
+        }
+        if (req.query.color) {
+            query.colors = { $in: req.query.color.split(',') };
+        }
+
+        // Price range
+        if (req.query.minPrice || req.query.maxPrice) {
+            query.price = {};
+            if (req.query.minPrice) query.price.$gte = Number(req.query.minPrice);
+            if (req.query.maxPrice) query.price.$lte = Number(req.query.maxPrice);
+        }
+
+        // Boolean filters
+        if (req.query.isSale === 'true') {
+            query.isSale = true;
+        }
+        if (req.query.inStock === 'true') {
+            query.stock = { $gt: 0 };
+        }
+        if (req.query.trending === 'true') {
+            query.trending = true;
+        }
 
         let sort = {};
-        if (req.query.sort === 'price-low') sort = { price: 1 };
-        else if (req.query.sort === 'price-high') sort = { price: -1 };
+        if (req.query.sort === 'price-asc') sort = { price: 1 };
+        else if (req.query.sort === 'price-desc') sort = { price: -1 };
         else if (req.query.sort === 'newest') sort = { createdAt: -1 };
         else if (req.query.sort === 'popular') sort = { rating: -1 };
 

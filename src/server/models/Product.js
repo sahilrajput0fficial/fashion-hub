@@ -23,6 +23,18 @@ const productSchema = mongoose.Schema({
         type: String,
         required: true
     },
+    gender: {
+        type: String,
+        required: true,
+        enum: ['Men', 'Women', 'Unisex'],
+        default: 'Unisex'
+    },
+    season: {
+        type: String,
+        required: true,
+        enum: ['Winter', 'Summer', 'All-Season'],
+        default: 'All-Season'
+    },
     stock: {
         type: Number,
         required: true,
@@ -62,7 +74,39 @@ const productSchema = mongoose.Schema({
     },
     subscribers: [
         { type: String }
-    ]
+    ],
+    brand: {
+        type: String,
+        trim: true
+    },
+    material: {
+        type: String,
+        trim: true
+    },
+    fit: {
+        type: String,
+        trim: true
+    },
+    occasion: {
+        type: String,
+        trim: true
+    },
+    style: {
+        type: String,
+        trim: true
+    },
+    sustainability: {
+        type: [String],
+        default: []
+    },
+    isSale: {
+        type: Boolean,
+        default: false
+    },
+    discountPercent: {
+        type: Number,
+        default: 0
+    }
 }, {
     timestamps: true
 });

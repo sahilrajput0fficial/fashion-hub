@@ -1,7 +1,5 @@
 # Fashion Hub — Project Report
-### A Complete Guide for Non-Technical Readers
-**Prepared by:** Digital Atelier Development Team  
-**Date:** March 2026  
+**Prepared by:** 
 **Project:** Fashion Hub — The Digital Atelier E-Commerce Platform
 
 ---
@@ -449,9 +447,4 @@ Customer visits fashionhub.com
 ✅ **GitHub Hosted** — the complete code is version-controlled and shareable  
 
 ---
-
-*This report was prepared to provide a full overview of the Fashion Hub project for non-technical stakeholders. All features described are fully implemented and operational.*
-
-**GitHub Repository:** `https://github.com/sahilrajput0fficial/fashion-hub`  
 **Local Address:** `http://localhost:3000`  
-**© 2026 Digital Atelier. All Rights Reserved.**

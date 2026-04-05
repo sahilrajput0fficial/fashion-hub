@@ -1,0 +1,177 @@
+{
+  "filters": [
+    {
+      "id": "gender",
+      "label": "Gender",
+      "type": "single-select",
+      "control": "pills",
+      "defaultExpanded": true,
+      "options": [
+        { "label": "All", "value": "All" },
+        { "label": "Men", "value": "Men" },
+        { "label": "Women", "value": "Women" },
+        { "label": "Unisex", "value": "Unisex" }
+      ]
+    },
+    {
+      "id": "category",
+      "label": "Category",
+      "type": "multi-select",
+      "control": "checkbox-list",
+      "defaultExpanded": true,
+      "options": [
+        { "label": "Outerwear", "value": "Outerwear" },
+        { "label": "Ready-to-Wear", "value": "Ready-to-Wear" },
+        { "label": "Eveningwear", "value": "Eveningwear" },
+        { "label": "Knitwear", "value": "Knitwear" },
+        { "label": "Athleisure", "value": "Athleisure" },
+        { "label": "Footwear", "value": "Footwear" },
+        { "label": "Accessories", "value": "Accessories" }
+      ]
+    },
+    {
+      "id": "season",
+      "label": "Season",
+      "type": "multi-select",
+      "control": "checkbox-list",
+      "defaultExpanded": true,
+      "options": [
+        { "label": "All Seasons", "value": "All-Season" },
+        { "label": "Winter Collection", "value": "Winter" },
+        { "label": "Summer Collection", "value": "Summer" }
+      ]
+    },
+    {
+      "id": "size",
+      "label": "Size",
+      "type": "multi-select",
+      "control": "grid",
+      "defaultExpanded": true,
+      "options": [
+        { "label": "XS", "value": "XS" },
+        { "label": "S", "value": "S" },
+        { "label": "M", "value": "M" },
+        { "label": "L", "value": "L" },
+        { "label": "XL", "value": "XL" },
+        { "label": "XXL", "value": "XXL" }
+      ]
+    },
+    {
+      "id": "color",
+      "label": "Color Palette",
+      "type": "multi-select",
+      "control": "swatch",
+      "defaultExpanded": true,
+      "options": [
+        { "label": "Noir (Black)", "value": "Black", "hex": "#000000" },
+        { "label": "Blanc (White)", "value": "White", "hex": "#FFFFFF" },
+        { "label": "Slate Grey", "value": "Grey", "hex": "#708090" },
+        { "label": "Navy Blue", "value": "Navy", "hex": "#000080" },
+        { "label": "Forest Green", "value": "Green", "hex": "#228B22" },
+        { "label": "Earth Brown", "value": "Brown", "hex": "#8B4513" },
+        { "label": "Burgundy", "value": "Burgundy", "hex": "#800020" },
+        { "label": "Oatmeal (Beige)", "value": "Beige", "hex": "#F5F5DC" }
+      ]
+    },
+    {
+      "id": "price",
+      "label": "Price Range",
+      "type": "range",
+      "control": "slider",
+      "min": 0,
+      "max": 200000,
+      "step": 5000,
+      "symbol": "₹",
+      "defaultExpanded": true
+    },
+    {
+      "id": "brand",
+      "label": "Brand / Atelier",
+      "type": "multi-select",
+      "control": "checkbox-list",
+      "defaultExpanded": false,
+      "limit": 8,
+      "options": [
+        { "label": "Heritage Atelier", "value": "Heritage" },
+        { "label": "Minimalist Co.", "value": "Minimalist" },
+        { "label": "Atelier X", "value": "Atelier X" },
+        { "label": "Zenith Performance", "value": "Zenith" },
+        { "label": "Fashion Hub", "value": "Fashion Hub" },
+        { "label": "Urban Luxe", "value": "Urban Luxe" }
+      ]
+    },
+    {
+      "id": "material",
+      "label": "Fabric & Material",
+      "type": "multi-select",
+      "control": "checkbox-list",
+      "defaultExpanded": false,
+      "limit": 5,
+      "options": [
+        { "label": "Silk", "value": "Silk" },
+        { "label": "Cashmere", "value": "Cashmere" },
+        { "label": "Merino Wool", "value": "Wool" },
+        { "label": "Organic Cotton", "value": "Cotton" },
+        { "label": "Italian Leather", "value": "Leather" },
+        { "label": "Linen", "value": "Linen" },
+        { "label": "High-Tech Technical", "value": "Technical" }
+      ]
+    },
+    {
+      "id": "fit",
+      "label": "Fit & Silhouette",
+      "type": "multi-select",
+      "control": "checkbox-list",
+      "defaultExpanded": false,
+      "options": [
+        { "label": "Tailored", "value": "Tailored" },
+        { "label": "Regular Fit", "value": "Regular Fit" },
+        { "label": "Relaxed Fit", "value": "Relaxed Fit" },
+        { "label": "Slim Fit", "value": "Slim Fit" },
+        { "label": "Oversized", "value": "Oversized" }
+      ]
+    },
+    {
+      "id": "occasion",
+      "label": "Occasion",
+      "type": "multi-select",
+      "control": "checkbox-list",
+      "defaultExpanded": false,
+      "options": [
+        { "label": "Formal / Evening", "value": "Formal" },
+        { "label": "Casual Daywear", "value": "Casual" },
+        { "label": "Professional / Work", "value": "Work" },
+        { "label": "Activewear", "value": "Active" },
+        { "label": "Lounge", "value": "Lounge" }
+      ]
+    },
+    {
+      "id": "sustainability",
+      "label": "Sustainability Tags",
+      "type": "multi-select",
+      "control": "checkbox-list",
+      "defaultExpanded": false,
+      "options": [
+        { "label": "Recycled Material", "value": "Recycled" },
+        { "label": "Ethically Sourced", "value": "Ethical Source" },
+        { "label": "Organic Material", "value": "Organic" },
+        { "label": "Hand-crafted", "value": "Hand-crafted" },
+        { "label": "Vegan / Cruelty-Free", "value": "Vegan" }
+      ]
+    },
+    {
+      "id": "inStock",
+      "label": "In Stock Only",
+      "type": "boolean",
+      "defaultExpanded": true,
+      "description": "Show only products currently available for shipping."
+    },
+    {
+      "id": "isSale",
+      "label": "Sale & Offers",
+      "type": "boolean",
+      "defaultExpanded": true,
+      "description": "Browse discounted seasonal items."
+    }
+  ]
+}

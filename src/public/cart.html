@@ -166,9 +166,14 @@
 <div class="mb-10">
 <label class="label-sm text-[10px] font-bold tracking-widest uppercase text-secondary block mb-3">Promo Code</label>
 <div class="flex bg-surface-container-high">
-<input class="bg-transparent border-none focus:ring-0 text-xs tracking-widest px-4 py-4 w-full placeholder:text-outline-variant" placeholder="ENTER CODE" type="text" aria-label="Promo code"/>
-<button class="bg-primary text-on-primary px-6 text-[10px] font-bold uppercase tracking-widest hover:bg-primary-container transition-colors">Apply</button>
+<input id="promo-input" class="bg-transparent border-none focus:ring-0 text-xs tracking-widest px-4 py-4 w-full placeholder:text-outline-variant" placeholder="ENTER CODE" type="text" aria-label="Promo code"/>
+<button onclick="handleApplyPromo()" class="bg-primary text-on-primary px-6 text-[10px] font-bold uppercase tracking-widest hover:bg-primary-container transition-colors">Apply</button>
 </div>
+<p id="promo-message" class="hidden text-[9px] uppercase tracking-widest mt-3"></p>
+</div>
+<div id="discount-row" class="hidden flex justify-between items-center text-sm mb-6">
+<span class="text-tertiary">Promotional Discount</span>
+<span class="text-tertiary font-medium" id="discount-amount">-₹0.00</span>
 </div>
 <div class="flex justify-between items-end mb-12">
 <span class="font-serif text-xl text-primary">Total</span>
@@ -241,6 +246,8 @@
     document.getElementById('copyright-year').textContent = Math.max(new Date().getFullYear(), 2026);
     initNavCart();
     initNavUser();
+    
+    let appliedPromo = null;
 
     const summaryCount = document.getElementById('summary-count');
     const itemsContainer = document.getElementById('cart-items-container');
@@ -275,7 +282,10 @@
                     </div>
                     <div class="flex flex-col gap-2 min-w-0">
                         <h3 class="font-serif text-base md:text-xl text-on-surface truncate">${item.name}</h3>
-                        <p class="text-[10px] text-secondary uppercase tracking-widest">${item.category || ''}</p>
+                        <div class="flex gap-3 text-[10px] text-secondary uppercase tracking-widest">
+                            <span>${item.category || ''}</span>
+                            ${item.size ? `<span class="text-outline">/</span> <span>Size: ${item.size}</span>` : ''}
+                        </div>
                         <button onclick="onRemove('${item._id}')" class="text-primary text-[10px] font-bold uppercase tracking-widest mt-2 flex items-center gap-1 hover:opacity-70 transition-opacity w-fit">
                             <span class="material-symbols-outlined text-[14px]">close</span> Remove
                         </button>
@@ -301,9 +311,19 @@
 
     function updateCalculations(items) {
         const subtotal = items.reduce((sum, item) => sum + item.price * item.qty, 0);
-        const tax = subtotal * 0.08;
+        let discount = 0;
+        
+        if (appliedPromo) {
+            discount = (subtotal * appliedPromo.discountPercent) / 100;
+            document.getElementById('discount-row').classList.remove('hidden');
+            document.getElementById('discount-amount').textContent = `-₹${discount.toLocaleString('en-IN')}`;
+        } else {
+            document.getElementById('discount-row').classList.add('hidden');
+        }
+
+        const tax = (subtotal - discount) * 0.08;
         const shipping = subtotal > 0 ? 15 : 0;
-        const total = subtotal + tax + shipping;
+        const total = (subtotal - discount) + tax + shipping;
 
         document.getElementById('subtotal-amount').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
         document.getElementById('tax-amount').textContent = `₹${tax.toLocaleString('en-IN')}`;
@@ -319,6 +339,28 @@
         Cart.updateQty(id, qty);
         renderCart();
     }
+    
+    async function handleApplyPromo() {
+        const input = document.getElementById('promo-input');
+        const msg = document.getElementById('promo-message');
+        const code = input.value.trim();
+        
+        if (!code) return;
+        
+        try {
+            const res = await apiFetch('/api/orders/promo', {
+                method: 'POST',
+                body: JSON.stringify({ code })
+            });
+            appliedPromo = res;
+            msg.textContent = `PROMO APPLIED: ${res.discountPercent}% OFF`;
+            msg.className = 'text-[9px] uppercase tracking-widest mt-3 text-primary block';
+            renderCart();
+        } catch (err) {
+            msg.textContent = 'Invalid or expired code';
+            msg.className = 'text-[9px] uppercase tracking-widest mt-3 text-error block';
+        }
+    }
 
     // Checkout button
     function handleCheckout() {
@@ -327,7 +369,13 @@
             alert('Your cart is empty.'); 
             return; 
         }
-        // Redirect to checkout page which handles both guest and auth
+        
+        if (!Auth.isLoggedIn()) {
+            console.log('Redirecting to login...');
+            window.location.href = '/login.html?redirect=checkout.html';
+            return;
+        }
+
         window.location.href = '/checkout.html';
     }
 

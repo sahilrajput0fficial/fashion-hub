@@ -161,11 +161,11 @@
 
                     <div class="flex justify-between text-xs text-secondary">
                         <span class="tracking-widest uppercase">Subtotal</span>
-                        <span id="subtotal-display">$0.00</span>
+                        <span id="subtotal-display">₹0.00</span>
                     </div>
                     <div id="discount-row" class="hidden flex justify-between text-xs text-tertiary">
                         <span class="tracking-widest uppercase">Discount</span>
-                        <span id="discount-display">-$0.00</span>
+                        <span id="discount-display">-₹0.00</span>
                     </div>
                     <div class="flex justify-between text-xs text-secondary">
                         <span class="tracking-widest uppercase">Shipping</span>
@@ -173,7 +173,7 @@
                     </div>
                     <div class="flex justify-between text-sm font-bold pt-4 border-t border-outline-variant/10">
                         <span class="tracking-widest uppercase">Total</span>
-                        <span id="total-display">$0.00</span>
+                        <span id="total-display">₹0.00</span>
                     </div>
                 </div>
             </div>
@@ -188,6 +188,10 @@
     let appliedPromo = null;
 
     function initCheckout() {
+        if (!Auth.isLoggedIn()) {
+            window.location.href = '/login.html?redirect=checkout.html';
+            return;
+        }
         cart = Cart.getItems();
         if (cart.length === 0) {
             window.location.href = '/catalog';
@@ -244,9 +248,11 @@
                     <img src="${item.image}" alt="${item.name}" class="w-full h-full object-cover">
                 </div>
                 <div class="flex-grow">
-                    <h4 class="text-xs font-bold uppercase tracking-widest">${item.name}</h4>
-                    <p class="text-[10px] text-secondary mt-1">Size: ${item.size || 'M'} × ${item.qty}</p>
-                    <p class="text-[10px] font-serif text-primary mt-1">$${(item.price * item.qty).toLocaleString()}.00</p>
+                    <h4 class="text-[10px] font-bold uppercase tracking-[0.1em] text-on-surface line-clamp-1">${item.name}</h4>
+                    <p class="text-[9px] text-secondary mt-1 uppercase tracking-widest">
+                        Size: ${item.size || 'M'} <span class="text-outline-variant/30 px-2">|</span> Qty: ${item.qty}
+                    </p>
+                    <p class="text-[10px] font-serif text-primary mt-1">₹${(item.price * item.qty).toLocaleString('en-IN')}</p>
                 </div>
             </div>
         `).join('');
@@ -260,11 +266,11 @@
         if (appliedPromo) {
             discount = (subtotal * appliedPromo.discountPercent) / 100;
             document.getElementById('discount-row').classList.remove('hidden');
-            document.getElementById('discount-display').textContent = `-$${discount.toLocaleString()}.00`;
+            document.getElementById('discount-display').textContent = `-₹${discount.toLocaleString('en-IN')}`;
         }
         
-        document.getElementById('subtotal-display').textContent = `$${subtotal.toLocaleString()}.00`;
-        document.getElementById('total-display').textContent = `$${(subtotal - discount).toLocaleString()}.00`;
+        document.getElementById('subtotal-display').textContent = `₹${subtotal.toLocaleString('en-IN')}`;
+        document.getElementById('total-display').textContent = `₹${(subtotal - discount).toLocaleString('en-IN')}`;
     }
 
     async function handleApplyPromo() {
@@ -325,11 +331,6 @@
                 country: document.getElementById('country').value,
             };
 
-            const guestInfo = !Auth.isLoggedIn() ? {
-                name: `${document.getElementById('firstName').value} ${document.getElementById('lastName').value}`,
-                email: document.getElementById('email').value
-            } : null;
-
             const orderData = {
                 orderItems: cart.map(i => ({ ...i, product: i._id })),
                 shippingAddress,
@@ -339,7 +340,7 @@
                 shippingPrice: 0,
                 totalPrice: subtotal, // Backend handles discount subtraction
                 promoCode: appliedPromo ? appliedPromo.code : null,
-                guestInfo
+                guestInfo: null
             };
 
             const order = await apiFetch('/api/orders', {

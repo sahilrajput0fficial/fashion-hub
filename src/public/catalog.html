@@ -84,6 +84,8 @@
         body { font-family: 'Inter', sans-serif; }
         h1, h2, h3, .font-serif { font-family: 'Noto Serif', serif; }
         .no-scrollbar::-webkit-scrollbar { display: none; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-in { animation: fadeIn 0.3s ease-out forwards; }
     </style>
 </head>
 <body class="bg-surface text-on-surface antialiased">
@@ -127,98 +129,46 @@
 <h1 class="text-5xl font-semibold text-primary tracking-tight mb-2">The Collection</h1>
 <p class="text-on-surface-variant max-w-lg italic font-serif">A curated selection of artisanal garments, designed for the modern silhouette and crafted with heritage techniques.</p>
 </div>
-<div class="flex items-center gap-4 text-xs tracking-widest uppercase font-label border-b border-outline-variant/30 pb-2">
+<div class="flex items-center gap-6 text-xs tracking-widest uppercase font-label">
+<button onclick="clearAllFilters()" class="text-on-surface-variant hover:text-primary transition-colors flex items-center gap-1">
+    <span class="material-symbols-outlined !text-[14px]">refresh</span> Clear All
+</button>
+<div class="flex items-center gap-4 border-b border-outline-variant/30 pb-2">
 <select id="sort-select" onchange="applyFilters()" class="bg-transparent border-none focus:ring-0 text-primary font-semibold text-xs tracking-widest uppercase cursor-pointer">
   <option value="newest">New Arrivals</option>
   <option value="price-asc">Price: Low to High</option>
   <option value="price-desc">Price: High to Low</option>
+  <option value="popular">Most Popular</option>
 </select>
 </div>
 </div>
 </div>
+</div>
+
 <div class="flex flex-col md:flex-row gap-16">
-<!-- Filter Side Panel -->
+<!-- Dynamic Filter Side Panel -->
 <aside class="w-full md:w-64 flex-shrink-0">
-<div class="sticky top-32 space-y-12">
-<!-- Categories -->
-<section>
-<h3 class="text-xs tracking-widest uppercase font-label text-primary font-bold mb-6">Categories</h3>
-<ul id="category-filters" class="space-y-4 text-sm text-on-surface-variant">
-<li><button onclick="setCategory('')" class="hover:text-primary transition-colors flex justify-between w-full"><span>All Pieces</span></button></li>
-<li><button onclick="setCategory('Ready-to-Wear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Ready-to-Wear</span></button></li>
-<li><button onclick="setCategory('Outerwear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Outerwear</span></button></li>
-<li><button onclick="setCategory('Knitwear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Knitwear</span></button></li>
-<li><button onclick="setCategory('Eveningwear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Eveningwear</span></button></li>
-<li><button onclick="setCategory('Athleisure')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Athleisure</span></button></li>
-<li><button onclick="setCategory('Accessories')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Accessories</span></button></li>
-<li><button onclick="setCategory('Footwear')" class="hover:text-primary transition-colors flex justify-between w-full"><span>Footwear</span></button></li>
-</ul>
-</section>
-<!-- Price Range -->
-<section>
-<h3 class="text-xs tracking-widest uppercase font-label text-primary font-bold mb-6">Price Range</h3>
-<div class="px-2">
-<input id="price-range" oninput="document.getElementById('price-display').textContent = '₹' + parseInt(this.value).toLocaleString('en-IN')" class="w-full accent-primary h-1 bg-surface-container-high rounded-none appearance-none cursor-pointer" max="200000" min="0" step="1000" type="range" value="200000" aria-label="Filter by price"/>
-<div class="flex justify-between mt-4 text-[10px] font-label tracking-widest text-on-surface-variant">
-<span>₹0</span>
-<span id="price-display">₹2,00,000</span>
-</div>
-</div>
-</section>
-<!-- Sizes -->
-<section>
-<h3 class="text-xs tracking-widest uppercase font-label text-primary font-bold mb-6">Size Selection</h3>
-<div id="size-filters" class="grid grid-cols-4 gap-2">
-<button onclick="setSize('XS', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">XS</button>
-<button onclick="setSize('S', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">S</button>
-<button onclick="setSize('M', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">M</button>
-<button onclick="setSize('L', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">L</button>
-<button onclick="setSize('XL', this)" class="aspect-square border border-outline-variant/30 text-[10px] hover:border-primary hover:text-primary transition-all">XL</button>
-</div>
-</section>
-<button onclick="applyFilters()" class="w-full bg-primary text-on-primary py-4 text-xs tracking-widest uppercase font-label hover:opacity-90 transition-opacity">Apply Filters</button>
+<div id="filter-sidebar" class="sticky top-32 space-y-8 no-scrollbar max-h-[80vh] overflow-y-auto pr-2">
+    <!-- Filters will be injected here from filter_schema.json -->
+    <div id="filter-loading" class="animate-pulse space-y-8">
+        <div class="h-4 bg-surface-container w-1/3"></div>
+        <div class="h-20 bg-surface-container w-full"></div>
+        <div class="h-4 bg-surface-container w-1/3"></div>
+        <div class="h-20 bg-surface-container w-full"></div>
+    </div>
 </div>
 </aside>
-<!-- Product Grid -->
+
+<!-- Main Results Area -->
 <section class="flex-1">
-<div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
-<!-- Product Card 1 (Featured Asymmetry) -->
-<div class="group cursor-pointer">
-<div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-6 relative">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="high-end fashion editorial shot of a woman in a beige wool coat against a minimalist architectural background with soft shadows" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeLWO2WTqipyxNvF97CukutVsaQxXyatEMNFfeQilMrjlAFGCXKi-3tlTl2p-hq7iFC7WLUCQROyTdJtp4aFLRwLyeFdsIoD557GaRL0j6PBLuKGzufKWEIi-Ka_nRu4u4wk297gD7rjXovejw3Ob8-Wh4RJrIuytomsbVBLvwiJEDdKrDD6nnysv6QNz6gcxrtjYklyydJuxg4h0weTV4U5EPsaPROJJ1BzSSqQ24ZLvYX7YRPyRjUk-m0kxacRnDO6VTMznHbY0"/>
-<div class="absolute top-4 left-4 bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1 text-[9px] tracking-[0.2em] uppercase font-label text-primary">New Season</div>
+<!-- Active Filter Chips -->
+<div id="active-filters-container" class="mb-10 flex flex-wrap gap-2 empty:hidden">
+    <!-- Active filter chips injected by JS -->
 </div>
-<div class="space-y-1 px-1">
-<p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">Outerwear</p>
-<h3 class="title-md font-body group-hover:text-primary transition-colors">Structured Wool Overcoat</h3>
-<p class="text-sm font-medium text-primary">₹85,000</p>
-</div>
-</div>
-<!-- Product Card 2 -->
-<div class="group cursor-pointer">
-<div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-6">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="clean product shot of a white silk blouse draped elegantly over a chair in a sunlit bright studio space" src="https://lh3.googleusercontent.com/aida-public/AB6AXuD4nJnI9C7Hioc35RDb0GJgymWRBCj_G5SiwOQ3l9PJv3SQ0PN4M9KSXZ6fqlHwvhQNPL8KF9ShNCwp3MTO23Ku7qm9Dd4I2b4iqvwx2kojvmfLK2heS8NvmDnwMaaSDTSjqOThtqfFBVC2aSjMZ9k-K1Opcjm-ycfZtLwXKaCLg2A8JgBkMSCy1ijrwNafS1oUzaQijGzpVfSBFBt2L3gdpvBO5VtJUmnRfHhAXkuK5Ev6N7XpzxS4kadhJ0GVDNG5qIB8IkC5pvE"/>
-</div>
-<div class="space-y-1 px-1">
-<p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">Ready-to-Wear</p>
-<h3 class="title-md font-body group-hover:text-primary transition-colors">Liquid Silk Blouse</h3>
-<p class="text-sm font-medium text-primary">₹18,500</p>
-</div>
-</div>
-<!-- Product Card 3 -->
-<div class="group cursor-pointer lg:translate-y-8">
-<div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-6">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" data-alt="close up of handmade leather high heel shoes with intricate stitching on a neutral stone surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiYrnkTF6Kig-VhJnwEoslIb-7lQ_EegWgT6A-Vt31nUgAo0XJDEARZwDKXnlvQKTWoZhqe4orrhuIKOobC36miBptWL5twuEOZH6LdeYKHv4AWJEXiKw_caUVV6FSukaDUj6gEKlB-ro5czfUk4Wkz7MVyc9L-X6POS5cJSkyI6cjsYu-SazAHddLy_DdmjAjd4w0KaYT8hcBDnQkOFuiJXxh4IeWdeyBJ45iqx_oB0FDGP_8djlB8g7CAo4Bwo7E3ycQJRpcIvE"/>
-</div>
-<div class="space-y-1 px-1">
-<p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">Footwear</p>
-<h3 class="title-md font-body group-hover:text-primary transition-colors">Atelier Leather Pump</h3>
-<p class="text-sm font-medium text-primary">₹42,000</p>
-</div>
-</div>
-<!-- ... Rest of the cards ... -->
-<!-- (Omitted for brevity in this tool call, but I will include them in the actual file) -->
-<!-- Note: I will use the user's full code for the final file write -->
+
+<!-- Product Grid -->
+<div id="product-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16 transition-opacity duration-300">
+    <!-- Products injected by JS -->
 </div>
 <!-- Pagination -->
 <div id="pagination-container" class="mt-32 flex justify-center items-center space-x-8">
@@ -275,56 +225,303 @@
 
     let currentPage = 1;
     let totalPages = 1;
+    let filterSchema = [];
+    let expandedSections = {}; 
+    let listLimits = {}; 
 
     let currentFilters = {
         keyword: '',
-        category: '',
+        category: [],
+        gender: [],
+        season: [],
+        brand: [],
+        material: [],
+        fit: [],
+        occasion: [],
+        size: [],
+        color: [],
+        sustainability: [],
+        minPrice: 0,
         maxPrice: 200000,
-        size: '',
+        isSale: false,
+        inStock: false,
         sort: 'newest'
     };
 
-    function setCategory(cat) {
-        currentFilters.category = cat;
-        // Update UI
-        const buttons = document.querySelectorAll('#category-filters button');
-        buttons.forEach(btn => {
-            if (btn.textContent.includes(cat === '' ? 'All Pieces' : cat)) {
-                btn.classList.add('text-primary', 'font-semibold');
-            } else {
-                btn.classList.remove('text-primary', 'font-semibold');
+    async function loadFilterSchema() {
+        try {
+            const response = await fetch('/config/filter_schema.json');
+            const data = await response.json();
+            filterSchema = data.filters;
+            
+            filterSchema.forEach(f => {
+                expandedSections[f.id] = f.defaultExpanded !== undefined ? f.defaultExpanded : true;
+                if (f.limit) listLimits[f.id] = true; 
+            });
+            
+            renderFilterSidebar();
+        } catch (error) {
+            console.error('Error loading filter schema:', error);
+            document.getElementById('filter-sidebar').innerHTML = '<p class="text-xs text-secondary italic">Unable to load filters.</p>';
+        }
+    }
+
+    function renderFilterSidebar() {
+        const sidebar = document.getElementById('filter-sidebar');
+        if (!sidebar) return;
+
+        sidebar.innerHTML = '';
+        
+        filterSchema.forEach(filter => {
+            const isExpanded = expandedSections[filter.id];
+            const section = document.createElement('section');
+            section.className = `border-b border-outline-variant/10 pb-6 transition-all duration-300`;
+            
+            let header = `
+                <div class="flex items-center justify-between cursor-pointer group mb-4" onclick="toggleSection('${filter.id}')">
+                    <h3 class="text-[10px] tracking-widest uppercase font-label text-primary font-bold group-hover:text-primary/70 transition-colors">${filter.label}</h3>
+                    <span class="material-symbols-outlined !text-sm transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}">expand_more</span>
+                </div>
+            `;
+            
+            let content = `<div class="${isExpanded ? 'block animate-in' : 'hidden'}">`;
+            
+            if (filter.type === 'single-select' && filter.control === 'pills') {
+                content += `<div class="flex flex-wrap gap-2">
+                    ${filter.options.map(opt => `
+                        <button onclick="toggleFilter('${filter.id}', '${opt.value}', true)" 
+                            class="px-4 py-2 text-[10px] tracking-widest uppercase font-label transition-all ${
+                                (currentFilters[filter.id].includes(opt.value) || (opt.value === 'All' && currentFilters[filter.id].length === 0))
+                                ? 'bg-primary text-on-primary' 
+                                : 'bg-surface-container hover:bg-surface-container-high text-on-surface-variant'
+                            }">
+                            ${opt.label}
+                        </button>
+                    `).join('')}
+                </div>`;
             }
+            else if (filter.type === 'multi-select' && filter.control === 'checkbox-list') {
+                const isLimited = listLimits[filter.id];
+                const displayOptions = (isLimited && filter.limit) ? filter.options.slice(0, filter.limit) : filter.options;
+                
+                content += `<ul class="space-y-3">
+                    ${displayOptions.map(opt => `
+                        <li class="flex items-center gap-3">
+                            <input type="checkbox" id="${filter.id}-${opt.value}" 
+                                ${currentFilters[filter.id].includes(opt.value) ? 'checked' : ''}
+                                onchange="toggleFilter('${filter.id}', '${opt.value}')"
+                                class="w-3.5 h-3.5 text-primary border-outline-variant/30 focus:ring-0 rounded-none cursor-pointer">
+                            <label for="${filter.id}-${opt.value}" class="text-[12px] text-on-surface-variant cursor-pointer hover:text-primary transition-colors">${opt.label}</label>
+                        </li>
+                    `).join('')}
+                </ul>`;
+
+                if (filter.limit && filter.options.length > filter.limit) {
+                    content += `
+                        <button onclick="toggleLimit('${filter.id}')" class="mt-4 text-[10px] tracking-widest uppercase font-label text-primary/60 hover:text-primary transition-colors flex items-center gap-1">
+                            ${isLimited ? 'Show ' + (filter.options.length - filter.limit) + ' More' : 'Show Less'}
+                            <span class="material-symbols-outlined !text-[10px]">${isLimited ? 'add' : 'remove'}</span>
+                        </button>
+                    `;
+                }
+            }
+            else if (filter.type === 'range' && filter.control === 'slider') {
+                content += `
+                <div class="px-2 pb-2">
+                    <input id="price-range" oninput="updatePriceDisplay(this.value)" 
+                        onchange="currentFilters.maxPrice = this.value; applyFilters()"
+                        class="w-full accent-primary h-1 bg-surface-container-high rounded-none appearance-none cursor-pointer" 
+                        max="${filter.max}" min="${filter.min}" step="${filter.step}" 
+                        type="range" value="${currentFilters.maxPrice}" aria-label="Filter by price"/>
+                    <div class="flex justify-between mt-4 text-[10px] font-label tracking-widest text-on-surface-variant">
+                        <span>${filter.symbol}0</span>
+                        <span id="price-display">${filter.symbol}${parseInt(currentFilters.maxPrice).toLocaleString('en-IN')}</span>
+                    </div>
+                </div>`;
+            }
+            else if (filter.type === 'multi-select' && filter.control === 'grid') {
+                content += `<div class="grid grid-cols-4 gap-2">
+                    ${filter.options.map(opt => `
+                        <button onclick="toggleFilter('${filter.id}', '${opt.value}')"
+                            class="aspect-square border flex items-center justify-center text-[10px] transition-all
+                            ${currentFilters[filter.id].includes(opt.value) ? 'border-primary bg-primary text-on-primary' : 'border-outline-variant/30 text-on-surface-variant hover:border-primary hover:text-primary'}">
+                            ${opt.label}
+                        </button>
+                    `).join('')}
+                </div>`;
+            }
+            else if (filter.type === 'multi-select' && filter.control === 'swatch') {
+                content += `<div class="flex flex-wrap gap-2.5">
+                    ${filter.options.map(opt => `
+                        <button onclick="toggleFilter('${filter.id}', '${opt.value}')"
+                            title="${opt.label}"
+                            class="w-6 h-6 rounded-full border border-outline-variant/30 p-0.5 transition-transform hover:scale-110
+                            ${currentFilters[filter.id].includes(opt.value) ? 'ring-1 ring-primary ring-offset-2' : ''}">
+                            <div class="w-full h-full rounded-full" style="background-color: ${opt.hex}; border: 1px solid rgba(0,0,0,0.1)"></div>
+                        </button>
+                    `).join('')}
+                </div>`;
+            }
+            else if (filter.type === 'boolean') {
+                const isChecked = currentFilters[filter.id];
+                content += `
+                <div class="flex items-center justify-between group py-1">
+                    <span class="text-[11px] text-on-surface-variant/80">${filter.description || ''}</span>
+                    <button onclick="toggleBooleanFilter('${filter.id}')"
+                        class="w-9 min-w-[36px] h-5 rounded-full relative transition-colors duration-300 ${isChecked ? 'bg-primary' : 'bg-surface-container-high'}">
+                        <div class="absolute top-1 left-1 w-3 h-3 rounded-full bg-white transition-transform duration-300 ${isChecked ? 'translate-x-4' : ''}"></div>
+                    </button>
+                </div>`;
+            }
+            
+            content += '</div>';
+            section.innerHTML = header + content;
+            sidebar.appendChild(section);
         });
+    }
+
+    function toggleSection(id) {
+        expandedSections[id] = !expandedSections[id];
+        renderFilterSidebar();
+    }
+
+    function toggleLimit(id) {
+        listLimits[id] = !listLimits[id];
+        renderFilterSidebar();
+    }
+
+    function updatePriceDisplay(val) {
+        document.getElementById('price-display').textContent = '₹' + parseInt(val).toLocaleString('en-IN');
+    }
+
+    function toggleFilter(category, value, isSingle = false) {
+        if (value === 'All') {
+            currentFilters[category] = [];
+        } else if (isSingle) {
+            currentFilters[category] = [value];
+        } else {
+            const index = currentFilters[category].indexOf(value);
+            if (index > -1) {
+                currentFilters[category].splice(index, 1);
+            } else {
+                currentFilters[category].push(value);
+            }
+        }
+        renderFilterSidebar();
+        renderActiveChips();
         applyFilters();
     }
 
-    function setSize(sz, btn) {
-        if (currentFilters.size === sz) {
-            currentFilters.size = '';
-            btn.classList.remove('border-primary', 'text-primary');
-        } else {
-            document.querySelectorAll('#size-filters button').forEach(b => b.classList.remove('border-primary', 'text-primary'));
-            currentFilters.size = sz;
-            btn.classList.add('border-primary', 'text-primary');
+    function toggleBooleanFilter(id) {
+        currentFilters[id] = !currentFilters[id];
+        renderFilterSidebar();
+        renderActiveChips();
+        applyFilters();
+    }
+
+    function renderActiveChips() {
+        const container = document.getElementById('active-filters-container');
+        if (!container) return;
+
+        container.innerHTML = '';
+        
+        let hasFilters = false;
+        const categories = ['category', 'gender', 'season', 'brand', 'material', 'fit', 'occasion', 'size', 'color', 'sustainability'];
+        
+        categories.forEach(cat => {
+            currentFilters[cat].forEach(val => {
+                hasFilters = true;
+                const chip = document.createElement('div');
+                chip.className = 'flex items-center gap-2 bg-primary/5 border border-primary/10 px-3 py-1.5 text-[10px] tracking-widest uppercase font-label text-primary animate-in';
+                chip.innerHTML = `
+                    <span>${val}</span>
+                    <button onclick="toggleFilter('${cat}', '${val}')" class="hover:text-error transition-colors">
+                        <span class="material-symbols-outlined !text-[12px]">close</span>
+                    </button>
+                `;
+                container.appendChild(chip);
+            });
+        });
+
+        if (currentFilters.maxPrice < 200000) {
+            hasFilters = true;
+            const chip = document.createElement('div');
+            chip.className = 'flex items-center gap-2 bg-primary/5 border border-primary/10 px-3 py-1.5 text-[10px] tracking-widest uppercase font-label text-primary';
+            chip.innerHTML = `
+                <span>Under ₹${parseInt(currentFilters.maxPrice).toLocaleString('en-IN')}</span>
+                <button onclick="currentFilters.maxPrice = 200000; renderFilterSidebar(); renderActiveChips(); applyFilters();" class="hover:text-error transition-colors">
+                    <span class="material-symbols-outlined !text-[12px]">close</span>
+                </button>
+            `;
+            container.appendChild(chip);
         }
+
+        if (currentFilters.isSale) {
+            hasFilters = true;
+            const chip = document.createElement('div');
+            chip.className = 'flex items-center gap-2 bg-primary/5 border border-primary/10 px-3 py-1.5 text-[10px] tracking-widest uppercase font-label text-primary';
+            chip.innerHTML = `
+                <span>On Sale</span>
+                <button onclick="toggleBooleanFilter('isSale')" class="hover:text-error transition-colors">
+                    <span class="material-symbols-outlined !text-[12px]">close</span>
+                </button>
+            `;
+            container.appendChild(chip);
+        }
+    }
+
+    function clearAllFilters() {
+        currentFilters = {
+            keyword: '',
+            category: [],
+            gender: [],
+            season: [],
+            brand: [],
+            material: [],
+            fit: [],
+            occasion: [],
+            size: [],
+            color: [],
+            sustainability: [],
+            minPrice: 0,
+            maxPrice: 200000,
+            isSale: false,
+            inStock: false,
+            sort: 'newest'
+        };
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) searchInput.value = '';
+        
+        renderFilterSidebar();
+        renderActiveChips();
         applyFilters();
     }
 
     function applyFilters() {
-        currentFilters.keyword = document.getElementById('search-input').value;
-        currentFilters.maxPrice = document.getElementById('price-range').value;
+        const searchInput = document.getElementById('search-input');
+        if (searchInput) currentFilters.keyword = searchInput.value;
+        
         currentFilters.sort = document.getElementById('sort-select').value;
 
         const params = new URLSearchParams();
         if (currentFilters.keyword) params.append('keyword', currentFilters.keyword);
-        if (currentFilters.category) params.append('category', currentFilters.category);
+        
+        const multiSelects = ['category', 'gender', 'season', 'brand', 'material', 'fit', 'occasion', 'size', 'color', 'sustainability'];
+        multiSelects.forEach(cat => {
+            if (currentFilters[cat].length > 0) {
+                params.append(cat, currentFilters[cat].join(','));
+            }
+        });
+
         if (currentFilters.maxPrice < 200000) params.append('maxPrice', currentFilters.maxPrice);
-        if (currentFilters.size) params.append('size', currentFilters.size);
+        if (currentFilters.isSale) params.append('isSale', 'true');
+        if (currentFilters.inStock) params.append('inStock', 'true');
         if (currentFilters.sort) params.append('sort', currentFilters.sort);
+        
         params.append('page', currentPage);
 
+        document.getElementById('product-grid').style.opacity = '0.5';
         loadCatalog(params.toString());
-        window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     async function loadCatalog(queryString = '') {
@@ -337,17 +534,22 @@
             const productGrid = document.getElementById('product-grid');
             if (!productGrid) return;
             
+            productGrid.style.opacity = '1';
+
             if (products.length === 0) {
-                productGrid.innerHTML = '<div class="col-span-full text-center py-16 text-secondary italic">No products found matching your criteria.</div>';
+                productGrid.innerHTML = '<div class="col-span-full text-center py-32"><span class="material-symbols-outlined text-outline-variant text-4xl mb-4">search_off</span><p class="text-secondary italic">No products matched your criteria. Try clearing some filters.</p></div>';
                 updatePaginationUI();
                 return;
             }
 
             productGrid.innerHTML = products.map((product, i) => `
-                <div class="group cursor-pointer ${i % 3 === 2 ? 'lg:translate-y-8' : ''}" onclick="window.location.href='/product?id=${product._id}'">
+                <div class="group cursor-pointer" onclick="window.location.href='/product?id=${product._id}'">
                     <div class="aspect-[3/4] overflow-hidden bg-surface-container-low mb-6 relative">
-                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="${product.image}" alt="${product.name}" onerror="this.onerror=null; this.src='https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&q=80&w=800';">
-                        ${product.trending ? '<div class="absolute top-4 left-4 bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1 text-[9px] tracking-[0.2em] uppercase font-label text-primary">Trending</div>' : ''}
+                        <img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700" src="${product.image}" alt="${product.name}" onerror="this.onerror=null; console.log(this.src); this.src='https://images.unsplash.com/photo-1548142813-c348350df52b?auto=format&fit=crop&q=80&w=800';">
+                        <div class="absolute top-4 left-4 flex flex-col gap-2">
+                             ${product.isSale ? `<div class="bg-primary text-on-primary px-3 py-1 text-[9px] tracking-[0.2em] uppercase font-label">Sale ${product.discountPercent}%</div>` : ''}
+                             ${product.trending ? '<div class="bg-surface-container-lowest/80 backdrop-blur-md px-3 py-1 text-[9px] tracking-[0.2em] uppercase font-label text-primary">Trending</div>' : ''}
+                        </div>
                         <div class="absolute top-4 right-4 flex flex-col gap-2 opacity-0 group-hover:opacity-100 transition-opacity">
                              <button onclick="event.stopPropagation(); onToggleWishlist('${product._id}', this)" class="bg-surface-container-lowest/80 backdrop-blur-md p-2 rounded-full text-primary hover:scale-110 duration-200">
                                 <span class="material-symbols-outlined !text-sm">favorite</span>
@@ -360,7 +562,7 @@
                     </div>
                     <div class="space-y-1 px-1">
                         <div class="flex justify-between items-start">
-                            <p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">${product.category}</p>
+                            <p class="text-[10px] tracking-widest uppercase font-label text-on-surface-variant">${product.brand || product.category}</p>
                             ${product.rating > 0 ? `
                                 <div class="flex items-center gap-1 text-[10px] text-tertiary">
                                     <span class="material-symbols-outlined !text-[12px] fill-current">star</span>
@@ -369,7 +571,10 @@
                             ` : ''}
                         </div>
                         <h3 class="title-md font-body group-hover:text-primary transition-colors">${product.name}</h3>
-                        <p class="text-sm font-medium text-primary">₹${product.price.toLocaleString('en-IN')}</p>
+                        <div class="flex items-center gap-2">
+                            <p class="text-sm font-medium text-primary">₹${product.price.toLocaleString('en-IN')}</p>
+                            ${product.isSale ? `<p class="text-xs text-on-surface-variant/40 line-through">₹${((product.price * 100) / (100 - product.discountPercent)).toLocaleString('en-IN')}</p>` : ''}
+                        </div>
                     </div>
                 </div>
             `).join('');
@@ -384,6 +589,11 @@
     function updatePaginationUI() {
         const container = document.getElementById('pagination-container');
         if (!container) return;
+
+        if (totalPages <= 1) {
+            container.innerHTML = '';
+            return;
+        }
 
         let html = `
             <button onclick="changePage(-1)" class="text-xs tracking-widest uppercase font-label ${currentPage > 1 ? 'text-on-surface-variant hover:text-primary' : 'text-gray-300 cursor-not-allowed'} flex items-center gap-2" ${currentPage === 1 ? 'disabled' : ''}>
@@ -442,16 +652,66 @@
         };
         Cart.addItem(product);
         initNavCart();
-        // Flash the counter
         const counter = document.getElementById('cart-counter');
         counter.classList.add('scale-125');
         setTimeout(() => counter.classList.remove('scale-125'), 200);
-        // Pulse the button
         btn.innerHTML = '<span class="material-symbols-outlined !text-sm">check</span>';
         setTimeout(() => { btn.innerHTML = '<span class="material-symbols-outlined !text-sm">shopping_bag</span>'; }, 1200);
     }
 
-    loadCatalog();
+    document.getElementById('search-input').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') applyFilters();
+    });
+
+    // Read URL query params and apply them as initial filters
+    function applyURLParams() {
+        const params = new URLSearchParams(window.location.search);
+
+        // Keyword / search
+        const keyword = params.get('keyword');
+        if (keyword) {
+            currentFilters.keyword = keyword;
+            const searchInput = document.getElementById('search-input');
+            if (searchInput) searchInput.value = keyword;
+        }
+
+        // Sort
+        const sort = params.get('sort');
+        if (sort) {
+            currentFilters.sort = sort;
+            const sortSelect = document.getElementById('sort-select');
+            if (sortSelect) sortSelect.value = sort;
+        }
+
+        // Multi-select filters (comma-separated)
+        const multiSelects = ['category', 'gender', 'season', 'brand', 'material', 'fit', 'occasion', 'size', 'color', 'sustainability'];
+        multiSelects.forEach(cat => {
+            const val = params.get(cat);
+            if (val) {
+                currentFilters[cat] = val.split(',').map(v => v.trim()).filter(Boolean);
+            }
+        });
+
+        // Price range
+        const maxPrice = params.get('maxPrice');
+        if (maxPrice) currentFilters.maxPrice = Number(maxPrice);
+        const minPrice = params.get('minPrice');
+        if (minPrice) currentFilters.minPrice = Number(minPrice);
+
+        // Boolean filters
+        if (params.get('isSale') === 'true') currentFilters.isSale = true;
+        if (params.get('inStock') === 'true') currentFilters.inStock = true;
+    }
+
+    // Load filter schema first, then apply URL params so sidebar renders with correct active state
+    async function init() {
+        await loadFilterSchema();  // renders sidebar
+        applyURLParams();          // overwrite currentFilters with URL values
+        renderFilterSidebar();     // re-render sidebar with active highlights
+        renderActiveChips();       // show filter badge chips
+        applyFilters();            // fire API with correct filters
+    }
+
+    init();
 </script>
 </body></html>
-

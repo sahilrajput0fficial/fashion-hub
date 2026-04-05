@@ -160,53 +160,70 @@
             </div>
         </div>
     </section>
-    <!-- Featured Categories: Asymmetric Bento Grid -->
+    <!-- Gender & Season Exploration -->
     <section class="py-32 px-8 max-w-[1440px] mx-auto bg-surface">
         <div class="flex flex-col md:flex-row justify-between items-end mb-16">
             <div>
-                <span class="text-[10px] uppercase tracking-widest font-bold text-primary">Curated Series</span>
-                <h2 class="text-4xl font-medium mt-2">Essential Categories</h2>
+                <span class="text-[10px] uppercase tracking-widest font-bold text-primary">Discover the Collection</span>
+                <h2 class="text-4xl font-medium mt-2">Tailored for Every Perspective</h2>
             </div>
-            <p class="text-secondary max-w-sm text-sm italic">Meticulously selected pieces that define the modern
-                wardrobe foundation.</p>
+            <p class="text-secondary max-w-sm text-sm italic">Explore our meticulously curated lines, defined by gender and intentional seasonal craftsmanship.</p>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-12 gap-8 min-h-[700px]">
-            <!-- Main Category -->
-            <div class="md:col-span-7 relative group overflow-hidden bg-surface-container-low">
-                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                    data-alt="Editorial close up of high-quality silk and wool clothing textures layered beautifully on a model."
-                    src="https://lh3.googleusercontent.com/aida-public/AB6AXuDX504_A-VCJOQgvKwE9q0Ki_mv0540nddYxG03d2_lVoWEntVHp6ppRqxArcs8KFCSX2JwErzpQlOsd6NFdB7T3Yb_tMl7r8_4nXIgobpToTMGStUQBDFpp0CghdXFswQcfuMWeO4Rpe6vUwXhhmmF7g1P9vFzlowUY9j4rvnB73bQVbYmEmc2H5eB_-EIHjQQvb7z9RSjNMPyQKeVB8rJKKLdUAUJG2seS77uh28_uoIZYMNjXCzupDJyoVE86OuENzXJZiWKt8E" />
-                <div
-                    class="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-primary/40 to-transparent">
-                    <h3 class="text-white text-3xl font-serif mb-2">Clothing</h3>
-                    <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
-                        href="/catalog?category=Clothing">Explore Collection</a>
+        
+        <!-- Gender Split -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-24">
+            <div class="relative group h-[600px] overflow-hidden bg-surface-container-low">
+                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
+                    src="/images/products/mens_winter_coat.png" alt="Shop Men's Collection" />
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center p-8">
+                    <span class="text-[10px] uppercase tracking-[0.4em] mb-4 opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0">The Modern Man</span>
+                    <h3 class="text-5xl font-serif mb-8 tracking-tighter">Men's Wear</h3>
+                    <a href="/catalog?gender=Men" class="px-8 py-3 border border-white text-xs uppercase tracking-widest hover:bg-white hover:text-primary transition-all">Explore Men</a>
                 </div>
             </div>
-            <div class="md:col-span-5 flex flex-col gap-8">
-                <!-- Secondary Category -->
-                <div class="h-1/2 relative group overflow-hidden bg-surface-container-low">
-                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                        data-alt="High-end designer footwear arranged artistically on a stone plinth with dramatic shadows."
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuC7_lYgH4JdTB9Gm0rJJkPTfbRGOvyiDEP3xFgRGRhgZ1vyheL6mkiDB60X6GZp8Sv6gCHWG-ibUIMJWpGEvp4ZFsXaM5YjfFpx3vwTJDYdwknAGeYhNyVtetVbK8TweNNzm8o9z2t11Enq2GTseWjvHoFX4ZI8HMcp5s51vSAhIDmTC_CD4OKrcPfrOQcJiUP701ZvnlHhINXHQqfemyGy4iJq6mthirsGWysZSe_GPuLVsU5JnUnSr1jLKT7DQGnzXeqrEyoSyTw" />
-                    <div
-                        class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-primary/40 to-transparent">
-                        <h3 class="text-white text-2xl font-serif mb-2">Footwear</h3>
-                        <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
-                            href="/catalog?category=Footwear">View Styles</a>
-                    </div>
+            <div class="relative group h-[600px] overflow-hidden bg-surface-container-low">
+                <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-1000 scale-105 group-hover:scale-100"
+                    src="/images/products/womens_winter_coat.png" alt="Shop Women's Collection" />
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors"></div>
+                <div class="absolute inset-0 flex flex-col justify-center items-center text-white text-center p-8">
+                    <span class="text-[10px] uppercase tracking-[0.4em] mb-4 opacity-0 group-hover:opacity-100 transition-all translate-y-4 group-hover:translate-y-0">Artisanal Grace</span>
+                    <h3 class="text-5xl font-serif mb-8 tracking-tighter">Women's Wear</h3>
+                    <a href="/catalog?gender=Women" class="px-8 py-3 border border-white text-xs uppercase tracking-widest hover:bg-white hover:text-primary transition-all">Explore Women</a>
                 </div>
-                <!-- Tertiary Category -->
-                <div class="h-1/2 relative group overflow-hidden bg-surface-container-low">
-                    <img class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
-                        data-alt="Minimalist designer accessories and leather goods laid out on a cream linen surface."
-                        src="https://lh3.googleusercontent.com/aida-public/AB6AXuBYPjPmfccM_Lh6WrKIwSieWyD9vAxjC5Ttw5fOU5ceL0t0jI_B2SxL8SCuCBw6xwuFWmPQSvU9VjJEa3Pedpj000_JJjMVHrXsbL_djzz28Y92VX2Tmf-CC2Goj1rzHqyauGCmn-t2fWRl09I7TBjNYHBzWKGWd3BJWET93Op9T53QrA7VHfxdR7uD7SVcz1JNSBt_hVISfc8yKjGbJNWgntlMOeJIkMjudjArfRMMuUKu0mBDiKNmZQ6AJAN0Fg9KcnShJurFpRM" />
-                    <div
-                        class="absolute inset-0 flex flex-col justify-end p-8 bg-gradient-to-t from-primary/40 to-transparent">
-                        <h3 class="text-white text-2xl font-serif mb-2">Accessories</h3>
-                        <a class="text-white text-[10px] uppercase tracking-widest font-semibold border-b border-white w-fit pb-1"
-                            href="/catalog?category=Accessories">Discover Detail</a>
-                    </div>
+            </div>
+        </div>
+
+        <!-- Category Showcase -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+            <div class="relative group aspect-[4/5] overflow-hidden bg-surface-container-low shadow-xl">
+                <img class="w-full h-full object-cover brightness-95 group-hover:brightness-100 transition-all duration-1000 scale-110 group-hover:scale-105"
+                    src="/images/categories/clothing.png" alt="Signature Clothing" />
+                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all"></div>
+                <div class="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 class="text-white text-3xl font-serif mb-2 tracking-tight">Clothing</h3>
+                    <p class="text-white/80 text-[10px] uppercase tracking-[0.3em] font-semibold mb-6">Artisanal Tailoring & Silhouettes</p>
+                    <a href="/catalog?category=Clothing" class="text-white text-[10px] uppercase tracking-[0.2em] font-bold border-b border-white/20 hover:border-white w-fit pb-2 transition-all">Shop Collection</a>
+                </div>
+            </div>
+            <div class="relative group aspect-[4/5] overflow-hidden bg-surface-container-low shadow-xl">
+                <img class="w-full h-full object-cover brightness-95 group-hover:brightness-100 transition-all duration-1000 scale-110 group-hover:scale-105"
+                    src="/images/categories/accessories.png" alt="Luxury Accessories" />
+                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all"></div>
+                <div class="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 class="text-white text-3xl font-serif mb-2 tracking-tight">Accessories</h3>
+                    <p class="text-white/80 text-[10px] uppercase tracking-[0.3em] font-semibold mb-6">Refined Accents & Essentials</p>
+                    <a href="/catalog?category=Accessories" class="text-white text-[10px] uppercase tracking-[0.2em] font-bold border-b border-white/20 hover:border-white w-fit pb-2 transition-all">Shop Collection</a>
+                </div>
+            </div>
+            <div class="relative group aspect-[4/5] overflow-hidden bg-surface-container-low shadow-xl">
+                <img class="w-full h-full object-cover brightness-95 group-hover:brightness-100 transition-all duration-1000 scale-110 group-hover:scale-105"
+                    src="/images/categories/footwear.png" alt="Artisanal Footwear" />
+                <div class="absolute inset-0 bg-black/10 group-hover:bg-transparent transition-all"></div>
+                <div class="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-black/70 to-transparent">
+                    <h3 class="text-white text-3xl font-serif mb-2 tracking-tight">Footwear</h3>
+                    <p class="text-white/80 text-[10px] uppercase tracking-[0.3em] font-semibold mb-6">Handcrafted Modern Classics</p>
+                    <a href="/catalog?category=Footwear" class="text-white text-[10px] uppercase tracking-[0.2em] font-bold border-b border-white/20 hover:border-white w-fit pb-2 transition-all">Shop Collection</a>
                 </div>
             </div>
         </div>
