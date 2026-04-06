@@ -114,12 +114,12 @@ const Wishlist = {
     toggle: async (productId) => {
         if (!Auth.isLoggedIn()) {
             window.location.href = '/login';
-            return;
+            return null; // return null (not undefined) so callers can check reliably
         }
         try {
-            // Check if already in wishlist (client side check for UI toggle)
             const currentWishlist = await apiFetch('/api/wishlist');
-            const exists = currentWishlist.find(p => p._id === productId);
+            // Use string comparison — MongoDB _id is an ObjectId, not a plain string
+            const exists = currentWishlist.find(p => String(p._id) === String(productId));
             if (exists) {
                 await apiFetch(`/api/wishlist/${productId}`, { method: 'DELETE' });
                 return false; // Removed
@@ -132,9 +132,22 @@ const Wishlist = {
             return null;
         }
     },
+    isInWishlist: async (productId) => {
+        if (!Auth.isLoggedIn()) return false;
+        try {
+            const items = await apiFetch('/api/wishlist');
+            return items.some(p => String(p._id) === String(productId));
+        } catch {
+            return false;
+        }
+    },
     getItems: async () => {
         if (!Auth.isLoggedIn()) return [];
-        return await apiFetch('/api/wishlist');
+        try {
+            return await apiFetch('/api/wishlist');
+        } catch {
+            return [];
+        }
     }
 };
 

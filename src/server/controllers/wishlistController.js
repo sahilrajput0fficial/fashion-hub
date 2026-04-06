@@ -6,17 +6,24 @@ const connectDB = require('../config/db');
 // @access  Private
 const addToWishlist = async (req, res) => {
     try {
+        if (!req.user) return res.status(401).json({ message: 'Not authorized' });
         await connectDB();
         const user = await User.findById(req.user._id);
-        if (!user.wishlist.includes(req.params.id)) {
-            user.wishlist.push(req.params.id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        const productId = req.params.id;
+        const alreadyIn = user.wishlist.some(id => String(id) === String(productId));
+
+        if (!alreadyIn) {
+            user.wishlist.push(productId);
             await user.save();
             res.status(200).json({ message: 'Added to wishlist' });
         } else {
             res.status(400).json({ message: 'Product already in wishlist' });
         }
     } catch (error) {
-        res.status(500).json({ message: 'Server Error' });
+        console.error('addToWishlist error:', error.stack || error);
+        res.status(500).json({ message: 'Server Error', detail: error.message });
     }
 };
 
@@ -25,13 +32,17 @@ const addToWishlist = async (req, res) => {
 // @access  Private
 const removeFromWishlist = async (req, res) => {
     try {
+        if (!req.user) return res.status(401).json({ message: 'Not authorized' });
         await connectDB();
         const user = await User.findById(req.user._id);
-        user.wishlist = user.wishlist.filter(id => id.toString() !== req.params.id);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+
+        user.wishlist = user.wishlist.filter(id => String(id) !== String(req.params.id));
         await user.save();
         res.status(200).json({ message: 'Removed from wishlist' });
     } catch (error) {
-        res.status(500).json({ message: 'Server Error' });
+        console.error('removeFromWishlist error:', error.stack || error);
+        res.status(500).json({ message: 'Server Error', detail: error.message });
     }
 };
 
@@ -40,11 +51,14 @@ const removeFromWishlist = async (req, res) => {
 // @access  Private
 const getWishlist = async (req, res) => {
     try {
+        if (!req.user) return res.status(401).json({ message: 'Not authorized' });
         await connectDB();
         const user = await User.findById(req.user._id).populate('wishlist');
-        res.json(user.wishlist);
+        if (!user) return res.status(404).json({ message: 'User not found' });
+        res.json(user.wishlist || []);
     } catch (error) {
-        res.status(500).json({ message: 'Server Error' });
+        console.error('getWishlist error:', error.stack || error);
+        res.status(500).json({ message: 'Server Error', detail: error.message });
     }
 };
 

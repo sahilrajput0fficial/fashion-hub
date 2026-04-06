@@ -442,7 +442,7 @@ tailwind.config = {
     if (!Auth.isLoggedIn()) return;
     try {
         const items = await Wishlist.getItems();
-        const isWishlisted = items.some(p => p._id === productId);
+        const isWishlisted = items.some(p => String(p._id) === String(productId));
         const icon = document.getElementById('wishlist-icon');
         const text = document.getElementById('wishlist-text');
         if (isWishlisted) {
