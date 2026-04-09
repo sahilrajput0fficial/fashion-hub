@@ -1,0 +1,3332 @@
+[
+  {
+    "name": "Premium Product 1",
+    "price": 114329,
+    "description": "High-quality fashion item 1 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=1",
+    "category": "Knitwear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 24,
+    "trending": true,
+    "sizes": [
+      "M",
+      "XS",
+      "XL"
+    ],
+    "colors": [
+      "White",
+      "Green",
+      "Beige"
+    ],
+    "brand": "Minimalist",
+    "material": "Silk",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": true,
+    "discountPercent": 8,
+    "rating": "2.9",
+    "numReviews": 70,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 2",
+    "price": 122912,
+    "description": "High-quality fashion item 2 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=2",
+    "category": "Accessories",
+    "gender": "Men",
+    "season": "All-Season",
+    "stock": 22,
+    "trending": false,
+    "sizes": [
+      "M",
+      "XS",
+      "S"
+    ],
+    "colors": [
+      "Green",
+      "White",
+      "Grey"
+    ],
+    "brand": "Atelier X",
+    "material": "Linen",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 45,
+    "rating": "1.8",
+    "numReviews": 23,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 3",
+    "price": 66355,
+    "description": "High-quality fashion item 3 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=3",
+    "category": "Outerwear",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 43,
+    "trending": true,
+    "sizes": [
+      "S",
+      "XS",
+      "XL"
+    ],
+    "colors": [
+      "Green",
+      "Navy",
+      "Burgundy"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Linen",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 19,
+    "rating": "2.4",
+    "numReviews": 61,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 4",
+    "price": 189449,
+    "description": "High-quality fashion item 4 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=4",
+    "category": "Eveningwear",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 38,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "S",
+      "XL"
+    ],
+    "colors": [
+      "Green",
+      "Navy",
+      "Brown"
+    ],
+    "brand": "Heritage",
+    "material": "Wool",
+    "fit": "Regular Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 22,
+    "rating": "3.3",
+    "numReviews": 28,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 5",
+    "price": 177906,
+    "description": "High-quality fashion item 5 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=5",
+    "category": "Accessories",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 41,
+    "trending": false,
+    "sizes": [
+      "M",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "Burgundy",
+      "Black",
+      "Beige"
+    ],
+    "brand": "Minimalist",
+    "material": "Wool",
+    "fit": "Relaxed Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 18,
+    "rating": "1.8",
+    "numReviews": 1,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 6",
+    "price": 55026,
+    "description": "High-quality fashion item 6 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=6",
+    "category": "Eveningwear",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 26,
+    "trending": false,
+    "sizes": [
+      "S",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "Navy",
+      "Beige",
+      "Brown"
+    ],
+    "brand": "Zenith",
+    "material": "Silk",
+    "fit": "Slim Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 33,
+    "rating": "0.6",
+    "numReviews": 39,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 7",
+    "price": 57900,
+    "description": "High-quality fashion item 7 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=7",
+    "category": "Athleisure",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 42,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "L",
+      "XS"
+    ],
+    "colors": [
+      "Navy",
+      "Beige",
+      "Black"
+    ],
+    "brand": "Zenith",
+    "material": "Leather",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [],
+    "isSale": false,
+    "discountPercent": 0,
+    "rating": "1.0",
+    "numReviews": 24,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 8",
+    "price": 60805,
+    "description": "High-quality fashion item 8 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=8",
+    "category": "Footwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 46,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "L",
+      "XL"
+    ],
+    "colors": [
+      "Navy",
+      "Beige",
+      "Grey"
+    ],
+    "brand": "Minimalist",
+    "material": "Cotton",
+    "fit": "Slim Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": true,
+    "discountPercent": 19,
+    "rating": "4.6",
+    "numReviews": 60,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 9",
+    "price": 102304,
+    "description": "High-quality fashion item 9 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=9",
+    "category": "Athleisure",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 48,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "L",
+      "XL"
+    ],
+    "colors": [
+      "Black",
+      "Green",
+      "Grey"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 38,
+    "rating": "4.7",
+    "numReviews": 62,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 10",
+    "price": 155631,
+    "description": "High-quality fashion item 10 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=10",
+    "category": "Accessories",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 45,
+    "trending": true,
+    "sizes": [
+      "XS",
+      "L",
+      "M"
+    ],
+    "colors": [
+      "Brown",
+      "Black",
+      "White"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Leather",
+    "fit": "Regular Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 3,
+    "rating": "3.1",
+    "numReviews": 6,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 11",
+    "price": 113768,
+    "description": "High-quality fashion item 11 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=11",
+    "category": "Accessories",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 31,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "S",
+      "L"
+    ],
+    "colors": [
+      "Beige",
+      "White",
+      "Burgundy"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Wool",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 18,
+    "rating": "3.9",
+    "numReviews": 86,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 12",
+    "price": 16112,
+    "description": "High-quality fashion item 12 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=12",
+    "category": "Eveningwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 29,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "S",
+      "XL"
+    ],
+    "colors": [
+      "Grey",
+      "Navy",
+      "Green"
+    ],
+    "brand": "Minimalist",
+    "material": "Leather",
+    "fit": "Relaxed Fit",
+    "occasion": "Casual",
+    "sustainability": [],
+    "isSale": false,
+    "discountPercent": 36,
+    "rating": "4.6",
+    "numReviews": 45,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 13",
+    "price": 107060,
+    "description": "High-quality fashion item 13 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=13",
+    "category": "Footwear",
+    "gender": "Men",
+    "season": "All-Season",
+    "stock": 1,
+    "trending": true,
+    "sizes": [
+      "M",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "Black",
+      "Burgundy",
+      "White"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Silk",
+    "fit": "Slim Fit",
+    "occasion": "Lounge",
+    "sustainability": [],
+    "isSale": false,
+    "discountPercent": 9,
+    "rating": "4.8",
+    "numReviews": 98,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 14",
+    "price": 46142,
+    "description": "High-quality fashion item 14 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=14",
+    "category": "Eveningwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 21,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "L",
+      "XS"
+    ],
+    "colors": [
+      "Green",
+      "Burgundy",
+      "Brown"
+    ],
+    "brand": "Minimalist",
+    "material": "Cotton",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 20,
+    "rating": "1.5",
+    "numReviews": 55,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 15",
+    "price": 92067,
+    "description": "High-quality fashion item 15 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=15",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 46,
+    "trending": true,
+    "sizes": [
+      "S",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "Green",
+      "Beige",
+      "Black"
+    ],
+    "brand": "Zenith",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 41,
+    "rating": "2.9",
+    "numReviews": 65,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 16",
+    "price": 198791,
+    "description": "High-quality fashion item 16 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=16",
+    "category": "Knitwear",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 1,
+    "trending": false,
+    "sizes": [
+      "M",
+      "S",
+      "L"
+    ],
+    "colors": [
+      "Burgundy",
+      "Brown",
+      "Green"
+    ],
+    "brand": "Zenith",
+    "material": "Linen",
+    "fit": "Oversized",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 20,
+    "rating": "2.4",
+    "numReviews": 54,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 17",
+    "price": 3498,
+    "description": "High-quality fashion item 17 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=17",
+    "category": "Outerwear",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 4,
+    "trending": false,
+    "sizes": [
+      "L",
+      "S",
+      "XS"
+    ],
+    "colors": [
+      "Green",
+      "Brown",
+      "White"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Silk",
+    "fit": "Oversized",
+    "occasion": "Active",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 11,
+    "rating": "1.7",
+    "numReviews": 1,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 18",
+    "price": 76917,
+    "description": "High-quality fashion item 18 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=18",
+    "category": "Accessories",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 18,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "Green",
+      "Black",
+      "Grey"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Silk",
+    "fit": "Regular Fit",
+    "occasion": "Casual",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 34,
+    "rating": "3.0",
+    "numReviews": 2,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 19",
+    "price": 48491,
+    "description": "High-quality fashion item 19 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=19",
+    "category": "Outerwear",
+    "gender": "Men",
+    "season": "Summer",
+    "stock": 47,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "Green",
+      "Black",
+      "Beige"
+    ],
+    "brand": "Zenith",
+    "material": "Wool",
+    "fit": "Oversized",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": false,
+    "discountPercent": 41,
+    "rating": "4.6",
+    "numReviews": 13,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 20",
+    "price": 152472,
+    "description": "High-quality fashion item 20 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=20",
+    "category": "Athleisure",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 18,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "XL",
+      "S"
+    ],
+    "colors": [
+      "Burgundy",
+      "Beige",
+      "Black"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Silk",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": true,
+    "discountPercent": 12,
+    "rating": "5.0",
+    "numReviews": 92,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 21",
+    "price": 50976,
+    "description": "High-quality fashion item 21 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=21",
+    "category": "Ready-to-Wear",
+    "gender": "Men",
+    "season": "Summer",
+    "stock": 19,
+    "trending": false,
+    "sizes": [
+      "L",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "White",
+      "Grey",
+      "Burgundy"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Wool",
+    "fit": "Slim Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 10,
+    "rating": "2.8",
+    "numReviews": 71,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 22",
+    "price": 27661,
+    "description": "High-quality fashion item 22 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=22",
+    "category": "Knitwear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 35,
+    "trending": false,
+    "sizes": [
+      "M",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "White",
+      "Navy",
+      "Black"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 12,
+    "rating": "2.8",
+    "numReviews": 23,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 23",
+    "price": 14006,
+    "description": "High-quality fashion item 23 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=23",
+    "category": "Ready-to-Wear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 39,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "M",
+      "S"
+    ],
+    "colors": [
+      "Brown",
+      "White",
+      "Navy"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Leather",
+    "fit": "Relaxed Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 42,
+    "rating": "4.7",
+    "numReviews": 31,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 24",
+    "price": 167487,
+    "description": "High-quality fashion item 24 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=24",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 28,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "M",
+      "L"
+    ],
+    "colors": [
+      "Green",
+      "Black",
+      "Grey"
+    ],
+    "brand": "Heritage",
+    "material": "Cotton",
+    "fit": "Relaxed Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 4,
+    "rating": "4.5",
+    "numReviews": 50,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 25",
+    "price": 14193,
+    "description": "High-quality fashion item 25 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=25",
+    "category": "Accessories",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 4,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "Grey",
+      "Burgundy",
+      "Brown"
+    ],
+    "brand": "Heritage",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 13,
+    "rating": "2.9",
+    "numReviews": 47,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 26",
+    "price": 63085,
+    "description": "High-quality fashion item 26 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=26",
+    "category": "Outerwear",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 5,
+    "trending": false,
+    "sizes": [
+      "L",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "White",
+      "Brown",
+      "Grey"
+    ],
+    "brand": "Atelier X",
+    "material": "Silk",
+    "fit": "Relaxed Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 19,
+    "rating": "3.1",
+    "numReviews": 5,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 27",
+    "price": 177505,
+    "description": "High-quality fashion item 27 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=27",
+    "category": "Accessories",
+    "gender": "Men",
+    "season": "All-Season",
+    "stock": 7,
+    "trending": false,
+    "sizes": [
+      "L",
+      "XL",
+      "S"
+    ],
+    "colors": [
+      "Brown",
+      "Green",
+      "Grey"
+    ],
+    "brand": "Atelier X",
+    "material": "Silk",
+    "fit": "Slim Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 24,
+    "rating": "1.3",
+    "numReviews": 53,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 28",
+    "price": 139552,
+    "description": "High-quality fashion item 28 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=28",
+    "category": "Eveningwear",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 17,
+    "trending": false,
+    "sizes": [
+      "S",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "White",
+      "Beige",
+      "Black"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Silk",
+    "fit": "Regular Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 35,
+    "rating": "1.5",
+    "numReviews": 66,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 29",
+    "price": 141004,
+    "description": "High-quality fashion item 29 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=29",
+    "category": "Athleisure",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 3,
+    "trending": true,
+    "sizes": [
+      "L",
+      "S",
+      "M"
+    ],
+    "colors": [
+      "Black",
+      "Brown",
+      "Beige"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Leather",
+    "fit": "Oversized",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 42,
+    "rating": "4.3",
+    "numReviews": 22,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 30",
+    "price": 26617,
+    "description": "High-quality fashion item 30 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=30",
+    "category": "Ready-to-Wear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 6,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "L",
+      "S"
+    ],
+    "colors": [
+      "White",
+      "Black",
+      "Navy"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Linen",
+    "fit": "Regular Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": true,
+    "discountPercent": 44,
+    "rating": "2.8",
+    "numReviews": 16,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 31",
+    "price": 156750,
+    "description": "High-quality fashion item 31 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=31",
+    "category": "Eveningwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 15,
+    "trending": false,
+    "sizes": [
+      "L",
+      "XS",
+      "XL"
+    ],
+    "colors": [
+      "Burgundy",
+      "Navy",
+      "White"
+    ],
+    "brand": "Atelier X",
+    "material": "Cotton",
+    "fit": "Relaxed Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 29,
+    "rating": "3.8",
+    "numReviews": 92,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 32",
+    "price": 42523,
+    "description": "High-quality fashion item 32 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=32",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 40,
+    "trending": false,
+    "sizes": [
+      "M",
+      "S",
+      "L"
+    ],
+    "colors": [
+      "Navy",
+      "Burgundy",
+      "White"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Leather",
+    "fit": "Relaxed Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 4,
+    "rating": "2.7",
+    "numReviews": 26,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 33",
+    "price": 168371,
+    "description": "High-quality fashion item 33 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=33",
+    "category": "Ready-to-Wear",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 49,
+    "trending": true,
+    "sizes": [
+      "S",
+      "M",
+      "XS"
+    ],
+    "colors": [
+      "White",
+      "Brown",
+      "Beige"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Silk",
+    "fit": "Oversized",
+    "occasion": "Work",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 43,
+    "rating": "3.5",
+    "numReviews": 47,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 34",
+    "price": 194879,
+    "description": "High-quality fashion item 34 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=34",
+    "category": "Eveningwear",
+    "gender": "Men",
+    "season": "All-Season",
+    "stock": 35,
+    "trending": false,
+    "sizes": [
+      "L",
+      "S",
+      "XL"
+    ],
+    "colors": [
+      "Brown",
+      "White",
+      "Beige"
+    ],
+    "brand": "Minimalist",
+    "material": "Leather",
+    "fit": "Regular Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 34,
+    "rating": "2.4",
+    "numReviews": 43,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 35",
+    "price": 149840,
+    "description": "High-quality fashion item 35 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=35",
+    "category": "Eveningwear",
+    "gender": "Men",
+    "season": "Summer",
+    "stock": 48,
+    "trending": false,
+    "sizes": [
+      "L",
+      "M",
+      "XS"
+    ],
+    "colors": [
+      "Brown",
+      "Green",
+      "Beige"
+    ],
+    "brand": "Minimalist",
+    "material": "Silk",
+    "fit": "Regular Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 13,
+    "rating": "2.5",
+    "numReviews": 97,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 36",
+    "price": 8397,
+    "description": "High-quality fashion item 36 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=36",
+    "category": "Eveningwear",
+    "gender": "Men",
+    "season": "Summer",
+    "stock": 25,
+    "trending": false,
+    "sizes": [
+      "L",
+      "M",
+      "XL"
+    ],
+    "colors": [
+      "Brown",
+      "Burgundy",
+      "Navy"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Linen",
+    "fit": "Relaxed Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": true,
+    "discountPercent": 26,
+    "rating": "4.7",
+    "numReviews": 72,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 37",
+    "price": 5682,
+    "description": "High-quality fashion item 37 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=37",
+    "category": "Outerwear",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 43,
+    "trending": false,
+    "sizes": [
+      "L",
+      "M",
+      "S"
+    ],
+    "colors": [
+      "Black",
+      "Navy",
+      "Green"
+    ],
+    "brand": "Zenith",
+    "material": "Linen",
+    "fit": "Regular Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 32,
+    "rating": "3.7",
+    "numReviews": 72,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 38",
+    "price": 15873,
+    "description": "High-quality fashion item 38 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=38",
+    "category": "Outerwear",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 14,
+    "trending": false,
+    "sizes": [
+      "M",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "Grey",
+      "Navy",
+      "Brown"
+    ],
+    "brand": "Minimalist",
+    "material": "Silk",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 35,
+    "rating": "2.3",
+    "numReviews": 52,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 39",
+    "price": 69056,
+    "description": "High-quality fashion item 39 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=39",
+    "category": "Footwear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 13,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "M",
+      "L"
+    ],
+    "colors": [
+      "Brown",
+      "White",
+      "Burgundy"
+    ],
+    "brand": "Zenith",
+    "material": "Cotton",
+    "fit": "Regular Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 22,
+    "rating": "0.9",
+    "numReviews": 58,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 40",
+    "price": 88238,
+    "description": "High-quality fashion item 40 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=40",
+    "category": "Knitwear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 31,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "M",
+      "XS"
+    ],
+    "colors": [
+      "Brown",
+      "Navy",
+      "White"
+    ],
+    "brand": "Heritage",
+    "material": "Silk",
+    "fit": "Relaxed Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 41,
+    "rating": "1.4",
+    "numReviews": 60,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 41",
+    "price": 118884,
+    "description": "High-quality fashion item 41 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=41",
+    "category": "Accessories",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 9,
+    "trending": true,
+    "sizes": [
+      "XS",
+      "L",
+      "M"
+    ],
+    "colors": [
+      "Green",
+      "Grey",
+      "Navy"
+    ],
+    "brand": "Zenith",
+    "material": "Leather",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 32,
+    "rating": "1.2",
+    "numReviews": 91,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 42",
+    "price": 89530,
+    "description": "High-quality fashion item 42 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=42",
+    "category": "Footwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 36,
+    "trending": true,
+    "sizes": [
+      "S",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "Green",
+      "Black",
+      "Grey"
+    ],
+    "brand": "Minimalist",
+    "material": "Silk",
+    "fit": "Relaxed Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 43,
+    "rating": "1.0",
+    "numReviews": 97,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 43",
+    "price": 36462,
+    "description": "High-quality fashion item 43 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=43",
+    "category": "Athleisure",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 43,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "L",
+      "M"
+    ],
+    "colors": [
+      "Green",
+      "Grey",
+      "Burgundy"
+    ],
+    "brand": "Minimalist",
+    "material": "Leather",
+    "fit": "Relaxed Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": true,
+    "discountPercent": 37,
+    "rating": "2.1",
+    "numReviews": 55,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 44",
+    "price": 197362,
+    "description": "High-quality fashion item 44 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=44",
+    "category": "Outerwear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 6,
+    "trending": true,
+    "sizes": [
+      "S",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "Beige",
+      "White",
+      "Green"
+    ],
+    "brand": "Heritage",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 2,
+    "rating": "2.5",
+    "numReviews": 86,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 45",
+    "price": 190358,
+    "description": "High-quality fashion item 45 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=45",
+    "category": "Athleisure",
+    "gender": "Men",
+    "season": "Summer",
+    "stock": 40,
+    "trending": false,
+    "sizes": [
+      "L",
+      "M",
+      "XL"
+    ],
+    "colors": [
+      "Grey",
+      "Black",
+      "Green"
+    ],
+    "brand": "Minimalist",
+    "material": "Leather",
+    "fit": "Relaxed Fit",
+    "occasion": "Lounge",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 14,
+    "rating": "3.0",
+    "numReviews": 93,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 46",
+    "price": 65871,
+    "description": "High-quality fashion item 46 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=46",
+    "category": "Athleisure",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 0,
+    "trending": false,
+    "sizes": [
+      "M",
+      "XS",
+      "S"
+    ],
+    "colors": [
+      "White",
+      "Beige",
+      "Navy"
+    ],
+    "brand": "Atelier X",
+    "material": "Leather",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 2,
+    "rating": "0.0",
+    "numReviews": 93,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 47",
+    "price": 32288,
+    "description": "High-quality fashion item 47 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=47",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 15,
+    "trending": false,
+    "sizes": [
+      "M",
+      "XS",
+      "S"
+    ],
+    "colors": [
+      "White",
+      "Grey",
+      "Black"
+    ],
+    "brand": "Minimalist",
+    "material": "Silk",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 33,
+    "rating": "1.5",
+    "numReviews": 43,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 48",
+    "price": 188243,
+    "description": "High-quality fashion item 48 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=48",
+    "category": "Ready-to-Wear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 43,
+    "trending": false,
+    "sizes": [
+      "S",
+      "XS",
+      "XL"
+    ],
+    "colors": [
+      "White",
+      "Navy",
+      "Grey"
+    ],
+    "brand": "Zenith",
+    "material": "Technical",
+    "fit": "Slim Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 44,
+    "rating": "2.7",
+    "numReviews": 74,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 49",
+    "price": 27181,
+    "description": "High-quality fashion item 49 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=49",
+    "category": "Ready-to-Wear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 43,
+    "trending": false,
+    "sizes": [
+      "L",
+      "M",
+      "XL"
+    ],
+    "colors": [
+      "Grey",
+      "Brown",
+      "Beige"
+    ],
+    "brand": "Minimalist",
+    "material": "Linen",
+    "fit": "Relaxed Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": false,
+    "discountPercent": 47,
+    "rating": "0.2",
+    "numReviews": 61,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 50",
+    "price": 174678,
+    "description": "High-quality fashion item 50 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=50",
+    "category": "Accessories",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 48,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "White",
+      "Beige",
+      "Green"
+    ],
+    "brand": "Atelier X",
+    "material": "Silk",
+    "fit": "Relaxed Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 33,
+    "rating": "0.0",
+    "numReviews": 70,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 51",
+    "price": 182442,
+    "description": "High-quality fashion item 51 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=51",
+    "category": "Outerwear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 4,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "Green",
+      "Beige",
+      "White"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Cotton",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 10,
+    "rating": "3.2",
+    "numReviews": 29,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 52",
+    "price": 181239,
+    "description": "High-quality fashion item 52 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=52",
+    "category": "Eveningwear",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 39,
+    "trending": false,
+    "sizes": [
+      "S",
+      "XS",
+      "XL"
+    ],
+    "colors": [
+      "Grey",
+      "Green",
+      "Beige"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Linen",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 42,
+    "rating": "1.3",
+    "numReviews": 4,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 53",
+    "price": 105861,
+    "description": "High-quality fashion item 53 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=53",
+    "category": "Ready-to-Wear",
+    "gender": "Men",
+    "season": "Summer",
+    "stock": 25,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "XS",
+      "S"
+    ],
+    "colors": [
+      "Grey",
+      "Navy",
+      "Brown"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Cotton",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 34,
+    "rating": "5.0",
+    "numReviews": 4,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 54",
+    "price": 58568,
+    "description": "High-quality fashion item 54 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=54",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 2,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "Brown",
+      "Beige",
+      "Green"
+    ],
+    "brand": "Atelier X",
+    "material": "Wool",
+    "fit": "Regular Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 26,
+    "rating": "2.6",
+    "numReviews": 55,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 55",
+    "price": 43262,
+    "description": "High-quality fashion item 55 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=55",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 28,
+    "trending": true,
+    "sizes": [
+      "L",
+      "S",
+      "M"
+    ],
+    "colors": [
+      "Brown",
+      "Beige",
+      "Grey"
+    ],
+    "brand": "Atelier X",
+    "material": "Leather",
+    "fit": "Oversized",
+    "occasion": "Casual",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 17,
+    "rating": "2.2",
+    "numReviews": 16,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 56",
+    "price": 93945,
+    "description": "High-quality fashion item 56 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=56",
+    "category": "Footwear",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 2,
+    "trending": false,
+    "sizes": [
+      "M",
+      "S",
+      "XL"
+    ],
+    "colors": [
+      "Brown",
+      "Beige",
+      "Navy"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Technical",
+    "fit": "Regular Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": true,
+    "discountPercent": 29,
+    "rating": "0.9",
+    "numReviews": 47,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 57",
+    "price": 163064,
+    "description": "High-quality fashion item 57 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=57",
+    "category": "Accessories",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 26,
+    "trending": false,
+    "sizes": [
+      "M",
+      "S",
+      "XL"
+    ],
+    "colors": [
+      "Brown",
+      "Grey",
+      "Beige"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Cotton",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 14,
+    "rating": "1.1",
+    "numReviews": 69,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 58",
+    "price": 44733,
+    "description": "High-quality fashion item 58 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=58",
+    "category": "Athleisure",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 8,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "S",
+      "M"
+    ],
+    "colors": [
+      "Brown",
+      "Burgundy",
+      "Green"
+    ],
+    "brand": "Atelier X",
+    "material": "Cotton",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 35,
+    "rating": "0.6",
+    "numReviews": 11,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 59",
+    "price": 37872,
+    "description": "High-quality fashion item 59 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=59",
+    "category": "Eveningwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 49,
+    "trending": true,
+    "sizes": [
+      "S",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "White",
+      "Burgundy",
+      "Beige"
+    ],
+    "brand": "Heritage",
+    "material": "Cotton",
+    "fit": "Slim Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 19,
+    "rating": "5.0",
+    "numReviews": 39,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 60",
+    "price": 191761,
+    "description": "High-quality fashion item 60 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=60",
+    "category": "Accessories",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 42,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "L",
+      "S"
+    ],
+    "colors": [
+      "Black",
+      "Navy",
+      "White"
+    ],
+    "brand": "Heritage",
+    "material": "Wool",
+    "fit": "Relaxed Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 13,
+    "rating": "2.1",
+    "numReviews": 40,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 61",
+    "price": 96155,
+    "description": "High-quality fashion item 61 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=61",
+    "category": "Athleisure",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 9,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "S",
+      "L"
+    ],
+    "colors": [
+      "Black",
+      "Brown",
+      "Navy"
+    ],
+    "brand": "Zenith",
+    "material": "Wool",
+    "fit": "Oversized",
+    "occasion": "Active",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": true,
+    "discountPercent": 10,
+    "rating": "3.7",
+    "numReviews": 51,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 62",
+    "price": 99561,
+    "description": "High-quality fashion item 62 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=62",
+    "category": "Accessories",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 6,
+    "trending": true,
+    "sizes": [
+      "L",
+      "XL",
+      "M"
+    ],
+    "colors": [
+      "White",
+      "Black",
+      "Brown"
+    ],
+    "brand": "Minimalist",
+    "material": "Technical",
+    "fit": "Oversized",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 9,
+    "rating": "1.5",
+    "numReviews": 10,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 63",
+    "price": 140652,
+    "description": "High-quality fashion item 63 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=63",
+    "category": "Outerwear",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 8,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "Beige",
+      "White",
+      "Navy"
+    ],
+    "brand": "Zenith",
+    "material": "Cotton",
+    "fit": "Oversized",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 4,
+    "rating": "2.0",
+    "numReviews": 23,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 64",
+    "price": 18549,
+    "description": "High-quality fashion item 64 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=64",
+    "category": "Athleisure",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 15,
+    "trending": true,
+    "sizes": [
+      "M",
+      "XL",
+      "S"
+    ],
+    "colors": [
+      "Green",
+      "Navy",
+      "White"
+    ],
+    "brand": "Heritage",
+    "material": "Linen",
+    "fit": "Oversized",
+    "occasion": "Work",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 7,
+    "rating": "4.1",
+    "numReviews": 63,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 65",
+    "price": 54830,
+    "description": "High-quality fashion item 65 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=65",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 2,
+    "trending": false,
+    "sizes": [
+      "S",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "Beige",
+      "Black",
+      "Brown"
+    ],
+    "brand": "Minimalist",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 39,
+    "rating": "3.2",
+    "numReviews": 33,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 66",
+    "price": 185684,
+    "description": "High-quality fashion item 66 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=66",
+    "category": "Eveningwear",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 42,
+    "trending": false,
+    "sizes": [
+      "M",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "Beige",
+      "Green",
+      "Navy"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Technical",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 16,
+    "rating": "1.3",
+    "numReviews": 93,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 67",
+    "price": 148208,
+    "description": "High-quality fashion item 67 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=67",
+    "category": "Accessories",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 33,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "Burgundy",
+      "Black",
+      "Grey"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Technical",
+    "fit": "Oversized",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 31,
+    "rating": "4.3",
+    "numReviews": 0,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 68",
+    "price": 91870,
+    "description": "High-quality fashion item 68 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=68",
+    "category": "Ready-to-Wear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 38,
+    "trending": true,
+    "sizes": [
+      "XS",
+      "M",
+      "S"
+    ],
+    "colors": [
+      "Green",
+      "Navy",
+      "Grey"
+    ],
+    "brand": "Heritage",
+    "material": "Wool",
+    "fit": "Relaxed Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 49,
+    "rating": "1.8",
+    "numReviews": 58,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 69",
+    "price": 53002,
+    "description": "High-quality fashion item 69 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=69",
+    "category": "Knitwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 34,
+    "trending": false,
+    "sizes": [
+      "L",
+      "XL",
+      "S"
+    ],
+    "colors": [
+      "Black",
+      "Beige",
+      "Burgundy"
+    ],
+    "brand": "Heritage",
+    "material": "Technical",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": false,
+    "discountPercent": 20,
+    "rating": "1.3",
+    "numReviews": 54,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 70",
+    "price": 192196,
+    "description": "High-quality fashion item 70 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=70",
+    "category": "Ready-to-Wear",
+    "gender": "Men",
+    "season": "All-Season",
+    "stock": 30,
+    "trending": false,
+    "sizes": [
+      "M",
+      "L",
+      "XS"
+    ],
+    "colors": [
+      "Green",
+      "Navy",
+      "Brown"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Leather",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": false,
+    "discountPercent": 49,
+    "rating": "4.1",
+    "numReviews": 43,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 71",
+    "price": 64296,
+    "description": "High-quality fashion item 71 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=71",
+    "category": "Ready-to-Wear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 41,
+    "trending": false,
+    "sizes": [
+      "L",
+      "S",
+      "M"
+    ],
+    "colors": [
+      "Green",
+      "Brown",
+      "Black"
+    ],
+    "brand": "Heritage",
+    "material": "Silk",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 24,
+    "rating": "4.6",
+    "numReviews": 0,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 72",
+    "price": 172407,
+    "description": "High-quality fashion item 72 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=72",
+    "category": "Footwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 24,
+    "trending": false,
+    "sizes": [
+      "L",
+      "S",
+      "M"
+    ],
+    "colors": [
+      "Green",
+      "Brown",
+      "White"
+    ],
+    "brand": "Heritage",
+    "material": "Wool",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 20,
+    "rating": "2.8",
+    "numReviews": 26,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 73",
+    "price": 6474,
+    "description": "High-quality fashion item 73 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=73",
+    "category": "Athleisure",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 42,
+    "trending": false,
+    "sizes": [
+      "L",
+      "S",
+      "XL"
+    ],
+    "colors": [
+      "Green",
+      "Brown",
+      "Beige"
+    ],
+    "brand": "Atelier X",
+    "material": "Linen",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 9,
+    "rating": "0.9",
+    "numReviews": 60,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 74",
+    "price": 101933,
+    "description": "High-quality fashion item 74 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=74",
+    "category": "Outerwear",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 18,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "S",
+      "M"
+    ],
+    "colors": [
+      "Brown",
+      "Grey",
+      "Burgundy"
+    ],
+    "brand": "Zenith",
+    "material": "Cotton",
+    "fit": "Relaxed Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 16,
+    "rating": "3.7",
+    "numReviews": 35,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 75",
+    "price": 112835,
+    "description": "High-quality fashion item 75 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=75",
+    "category": "Eveningwear",
+    "gender": "Men",
+    "season": "Summer",
+    "stock": 25,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "Beige",
+      "Burgundy",
+      "Brown"
+    ],
+    "brand": "Heritage",
+    "material": "Wool",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 19,
+    "rating": "4.5",
+    "numReviews": 27,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 76",
+    "price": 179404,
+    "description": "High-quality fashion item 76 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=76",
+    "category": "Outerwear",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 4,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "XL",
+      "S"
+    ],
+    "colors": [
+      "Grey",
+      "Brown",
+      "Green"
+    ],
+    "brand": "Heritage",
+    "material": "Silk",
+    "fit": "Relaxed Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": true,
+    "discountPercent": 24,
+    "rating": "4.7",
+    "numReviews": 93,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 77",
+    "price": 65354,
+    "description": "High-quality fashion item 77 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=77",
+    "category": "Outerwear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 33,
+    "trending": false,
+    "sizes": [
+      "M",
+      "L",
+      "S"
+    ],
+    "colors": [
+      "White",
+      "Black",
+      "Grey"
+    ],
+    "brand": "Atelier X",
+    "material": "Technical",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Organic",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 4,
+    "rating": "3.8",
+    "numReviews": 70,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 78",
+    "price": 113839,
+    "description": "High-quality fashion item 78 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=78",
+    "category": "Ready-to-Wear",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 12,
+    "trending": true,
+    "sizes": [
+      "XS",
+      "M",
+      "S"
+    ],
+    "colors": [
+      "Navy",
+      "Grey",
+      "Black"
+    ],
+    "brand": "Minimalist",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [],
+    "isSale": false,
+    "discountPercent": 31,
+    "rating": "2.0",
+    "numReviews": 63,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 79",
+    "price": 78910,
+    "description": "High-quality fashion item 79 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=79",
+    "category": "Accessories",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 43,
+    "trending": true,
+    "sizes": [
+      "M",
+      "S",
+      "XL"
+    ],
+    "colors": [
+      "Green",
+      "Burgundy",
+      "White"
+    ],
+    "brand": "Heritage",
+    "material": "Leather",
+    "fit": "Oversized",
+    "occasion": "Active",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 49,
+    "rating": "4.6",
+    "numReviews": 23,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 80",
+    "price": 108969,
+    "description": "High-quality fashion item 80 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=80",
+    "category": "Outerwear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 0,
+    "trending": true,
+    "sizes": [
+      "XS",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "Brown",
+      "Green",
+      "Burgundy"
+    ],
+    "brand": "Atelier X",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 33,
+    "rating": "1.0",
+    "numReviews": 71,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 81",
+    "price": 126529,
+    "description": "High-quality fashion item 81 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=81",
+    "category": "Footwear",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 11,
+    "trending": false,
+    "sizes": [
+      "S",
+      "L",
+      "XL"
+    ],
+    "colors": [
+      "Black",
+      "White",
+      "Navy"
+    ],
+    "brand": "Atelier X",
+    "material": "Wool",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 22,
+    "rating": "2.5",
+    "numReviews": 1,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 82",
+    "price": 58564,
+    "description": "High-quality fashion item 82 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=82",
+    "category": "Accessories",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 2,
+    "trending": true,
+    "sizes": [
+      "L",
+      "XS",
+      "M"
+    ],
+    "colors": [
+      "Brown",
+      "White",
+      "Black"
+    ],
+    "brand": "Minimalist",
+    "material": "Leather",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 8,
+    "rating": "0.6",
+    "numReviews": 63,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 83",
+    "price": 35710,
+    "description": "High-quality fashion item 83 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=83",
+    "category": "Eveningwear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 49,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "S",
+      "L"
+    ],
+    "colors": [
+      "Beige",
+      "Grey",
+      "Black"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Wool",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 30,
+    "rating": "3.4",
+    "numReviews": 89,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 84",
+    "price": 155283,
+    "description": "High-quality fashion item 84 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=84",
+    "category": "Ready-to-Wear",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 41,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "XS",
+      "S"
+    ],
+    "colors": [
+      "Beige",
+      "Burgundy",
+      "Grey"
+    ],
+    "brand": "Atelier X",
+    "material": "Linen",
+    "fit": "Regular Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 35,
+    "rating": "1.1",
+    "numReviews": 26,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 85",
+    "price": 17462,
+    "description": "High-quality fashion item 85 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=85",
+    "category": "Footwear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 0,
+    "trending": false,
+    "sizes": [
+      "M",
+      "XS",
+      "XL"
+    ],
+    "colors": [
+      "White",
+      "Grey",
+      "Navy"
+    ],
+    "brand": "Zenith",
+    "material": "Leather",
+    "fit": "Slim Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": false,
+    "discountPercent": 29,
+    "rating": "5.0",
+    "numReviews": 93,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 86",
+    "price": 184756,
+    "description": "High-quality fashion item 86 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=86",
+    "category": "Ready-to-Wear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 35,
+    "trending": false,
+    "sizes": [
+      "S",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "White",
+      "Grey",
+      "Black"
+    ],
+    "brand": "Minimalist",
+    "material": "Wool",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 40,
+    "rating": "3.4",
+    "numReviews": 39,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 87",
+    "price": 86540,
+    "description": "High-quality fashion item 87 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=87",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "Winter",
+    "stock": 32,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "XS",
+      "S"
+    ],
+    "colors": [
+      "Beige",
+      "Green",
+      "White"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Cotton",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 21,
+    "rating": "3.0",
+    "numReviews": 7,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 88",
+    "price": 106864,
+    "description": "High-quality fashion item 88 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=88",
+    "category": "Knitwear",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 13,
+    "trending": true,
+    "sizes": [
+      "M",
+      "XS",
+      "L"
+    ],
+    "colors": [
+      "Green",
+      "Grey",
+      "Brown"
+    ],
+    "brand": "Minimalist",
+    "material": "Linen",
+    "fit": "Slim Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": false,
+    "discountPercent": 46,
+    "rating": "0.5",
+    "numReviews": 14,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 89",
+    "price": 60276,
+    "description": "High-quality fashion item 89 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=89",
+    "category": "Outerwear",
+    "gender": "Men",
+    "season": "All-Season",
+    "stock": 35,
+    "trending": true,
+    "sizes": [
+      "S",
+      "M",
+      "XS"
+    ],
+    "colors": [
+      "Green",
+      "Grey",
+      "Navy"
+    ],
+    "brand": "Atelier X",
+    "material": "Leather",
+    "fit": "Regular Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 29,
+    "rating": "0.8",
+    "numReviews": 49,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 90",
+    "price": 174889,
+    "description": "High-quality fashion item 90 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=90",
+    "category": "Accessories",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 1,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "XL",
+      "M"
+    ],
+    "colors": [
+      "Black",
+      "Burgundy",
+      "Beige"
+    ],
+    "brand": "Atelier X",
+    "material": "Linen",
+    "fit": "Slim Fit",
+    "occasion": "Lounge",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": false,
+    "discountPercent": 24,
+    "rating": "4.1",
+    "numReviews": 39,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 91",
+    "price": 75398,
+    "description": "High-quality fashion item 91 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=91",
+    "category": "Knitwear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 19,
+    "trending": false,
+    "sizes": [
+      "L",
+      "S",
+      "M"
+    ],
+    "colors": [
+      "White",
+      "Black",
+      "Grey"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Technical",
+    "fit": "Regular Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": true,
+    "discountPercent": 31,
+    "rating": "0.8",
+    "numReviews": 33,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 92",
+    "price": 165449,
+    "description": "High-quality fashion item 92 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=92",
+    "category": "Knitwear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 29,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "XL",
+      "M"
+    ],
+    "colors": [
+      "Navy",
+      "Beige",
+      "White"
+    ],
+    "brand": "Zenith",
+    "material": "Linen",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 33,
+    "rating": "1.6",
+    "numReviews": 24,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 93",
+    "price": 68141,
+    "description": "High-quality fashion item 93 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=93",
+    "category": "Knitwear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 34,
+    "trending": true,
+    "sizes": [
+      "XS",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "Green",
+      "Burgundy",
+      "Black"
+    ],
+    "brand": "Minimalist",
+    "material": "Linen",
+    "fit": "Regular Fit",
+    "occasion": "Work",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 15,
+    "rating": "0.9",
+    "numReviews": 64,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 94",
+    "price": 29467,
+    "description": "High-quality fashion item 94 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=94",
+    "category": "Knitwear",
+    "gender": "Unisex",
+    "season": "Summer",
+    "stock": 28,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "White",
+      "Beige",
+      "Green"
+    ],
+    "brand": "Urban Luxe",
+    "material": "Linen",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [],
+    "isSale": true,
+    "discountPercent": 40,
+    "rating": "2.3",
+    "numReviews": 95,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 95",
+    "price": 156570,
+    "description": "High-quality fashion item 95 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=95",
+    "category": "Athleisure",
+    "gender": "Women",
+    "season": "Summer",
+    "stock": 7,
+    "trending": false,
+    "sizes": [
+      "XS",
+      "S",
+      "XL"
+    ],
+    "colors": [
+      "Burgundy",
+      "White",
+      "Beige"
+    ],
+    "brand": "Minimalist",
+    "material": "Wool",
+    "fit": "Slim Fit",
+    "occasion": "Casual",
+    "sustainability": [
+      "Organic",
+      "Recycled"
+    ],
+    "isSale": false,
+    "discountPercent": 37,
+    "rating": "0.8",
+    "numReviews": 2,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 96",
+    "price": 121024,
+    "description": "High-quality fashion item 96 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=96",
+    "category": "Footwear",
+    "gender": "Women",
+    "season": "All-Season",
+    "stock": 36,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "S",
+      "XS"
+    ],
+    "colors": [
+      "Brown",
+      "Burgundy",
+      "Green"
+    ],
+    "brand": "Atelier X",
+    "material": "Silk",
+    "fit": "Relaxed Fit",
+    "occasion": "Formal",
+    "sustainability": [
+      "Recycled"
+    ],
+    "isSale": true,
+    "discountPercent": 23,
+    "rating": "4.6",
+    "numReviews": 26,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 97",
+    "price": 71003,
+    "description": "High-quality fashion item 97 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=97",
+    "category": "Ready-to-Wear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 3,
+    "trending": true,
+    "sizes": [
+      "XL",
+      "L",
+      "S"
+    ],
+    "colors": [
+      "White",
+      "Green",
+      "Beige"
+    ],
+    "brand": "Minimalist",
+    "material": "Wool",
+    "fit": "Slim Fit",
+    "occasion": "Work",
+    "sustainability": [
+      "Organic"
+    ],
+    "isSale": true,
+    "discountPercent": 35,
+    "rating": "3.4",
+    "numReviews": 9,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 98",
+    "price": 133480,
+    "description": "High-quality fashion item 98 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=98",
+    "category": "Footwear",
+    "gender": "Men",
+    "season": "Winter",
+    "stock": 42,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "L",
+      "S"
+    ],
+    "colors": [
+      "Navy",
+      "Burgundy",
+      "Black"
+    ],
+    "brand": "Minimalist",
+    "material": "Leather",
+    "fit": "Oversized",
+    "occasion": "Formal",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": true,
+    "discountPercent": 21,
+    "rating": "2.0",
+    "numReviews": 54,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 99",
+    "price": 88388,
+    "description": "High-quality fashion item 99 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=99",
+    "category": "Footwear",
+    "gender": "Unisex",
+    "season": "Winter",
+    "stock": 26,
+    "trending": false,
+    "sizes": [
+      "S",
+      "XL",
+      "L"
+    ],
+    "colors": [
+      "Navy",
+      "Beige",
+      "Burgundy"
+    ],
+    "brand": "Zenith",
+    "material": "Technical",
+    "fit": "Relaxed Fit",
+    "occasion": "Active",
+    "sustainability": [
+      "Organic",
+      "Recycled",
+      "Vegan"
+    ],
+    "isSale": false,
+    "discountPercent": 36,
+    "rating": "1.6",
+    "numReviews": 9,
+    "reviews": []
+  },
+  {
+    "name": "Premium Product 100",
+    "price": 150666,
+    "description": "High-quality fashion item 100 with modern aesthetics.",
+    "image": "https://source.unsplash.com/400x400/?fashion,clothing&sig=100",
+    "category": "Knitwear",
+    "gender": "Unisex",
+    "season": "All-Season",
+    "stock": 43,
+    "trending": false,
+    "sizes": [
+      "XL",
+      "S",
+      "M"
+    ],
+    "colors": [
+      "Navy",
+      "Beige",
+      "Burgundy"
+    ],
+    "brand": "Fashion Hub",
+    "material": "Leather",
+    "fit": "Relaxed Fit",
+    "occasion": "Casual",
+    "sustainability": [],
+    "isSale": false,
+    "discountPercent": 10,
+    "rating": "2.7",
+    "numReviews": 66,
+    "reviews": []
+  }
+]

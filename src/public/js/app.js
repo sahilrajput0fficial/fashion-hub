@@ -47,25 +47,31 @@ const Cart = {
     },
     addItem: (product, qty = 1) => {
         const items = Cart.getItems();
-        const existing = items.find(i => i._id === product._id);
+        const itemSize = product.size || 'M';
+        const existing = items.find(i => i._id === product._id && (i.size || 'M') === itemSize);
         if (existing) {
             existing.qty += qty;
         } else {
-            items.push({ ...product, qty });
+            items.push({ ...product, qty, size: itemSize });
         }
         Cart.setItems(items);
         return items;
     },
-    removeItem: (productId) => {
-        const items = Cart.getItems().filter(i => i._id !== productId);
+    removeItem: (productId, size) => {
+        let items = Cart.getItems();
+        if (size) {
+            items = items.filter(i => !(i._id === productId && i.size === size));
+        } else {
+            items = items.filter(i => i._id !== productId);
+        }
         Cart.setItems(items);
         return items;
     },
-    updateQty: (productId, qty) => {
+    updateQty: (productId, qty, size) => {
         const items = Cart.getItems();
-        const item = items.find(i => i._id === productId);
+        const item = items.find(i => i._id === productId && (!size || i.size === size));
         if (item) {
-            if (qty <= 0) return Cart.removeItem(productId);
+            if (qty <= 0) return Cart.removeItem(productId, size);
             item.qty = qty;
         }
         Cart.setItems(items);

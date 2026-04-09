@@ -286,18 +286,18 @@
                             <span>${item.category || ''}</span>
                             ${item.size ? `<span class="text-outline">/</span> <span>Size: ${item.size}</span>` : ''}
                         </div>
-                        <button onclick="onRemove('${item._id}')" class="text-primary text-[10px] font-bold uppercase tracking-widest mt-2 flex items-center gap-1 hover:opacity-70 transition-opacity w-fit">
+                        <button onclick="onRemove('${item._id}', '${item.size}')" class="text-primary text-[10px] font-bold uppercase tracking-widest mt-2 flex items-center gap-1 hover:opacity-70 transition-opacity w-fit">
                             <span class="material-symbols-outlined text-[14px]">close</span> Remove
                         </button>
                     </div>
                 </div>
                 <div class="col-span-3 flex justify-center">
                     <div class="flex items-center border border-outline-variant/30 bg-surface-container-lowest">
-                        <button onclick="onQty('${item._id}', ${item.qty - 1})" class="p-2 text-primary hover:bg-surface-container transition-colors">
+                        <button onclick="onQty('${item._id}', ${item.qty - 1}, '${item.size}')" class="p-2 text-primary hover:bg-surface-container transition-colors">
                             <span class="material-symbols-outlined text-xs">remove</span>
                         </button>
                         <span class="px-3 font-body text-sm min-w-[2rem] text-center">${item.qty}</span>
-                        <button onclick="onQty('${item._id}', ${item.qty + 1})" class="p-2 text-primary hover:bg-surface-container transition-colors">
+                        <button onclick="onQty('${item._id}', ${item.qty + 1}, '${item.size}')" class="p-2 text-primary hover:bg-surface-container transition-colors">
                             <span class="material-symbols-outlined text-xs">add</span>
                         </button>
                     </div>
@@ -330,13 +330,13 @@
         document.getElementById('total-amount').textContent = `₹${total.toLocaleString('en-IN')}`;
     }
 
-    function onRemove(id) {
-        Cart.removeItem(id);
+    function onRemove(id, size) {
+        Cart.removeItem(id, size);
         renderCart();
     }
 
-    function onQty(id, qty) {
-        Cart.updateQty(id, qty);
+    function onQty(id, qty, size) {
+        Cart.updateQty(id, qty, size);
         renderCart();
     }
     

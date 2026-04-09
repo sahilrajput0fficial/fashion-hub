@@ -16,21 +16,22 @@ const getUserCart = async (req, res) => {
 // @route   POST /api/cart
 // @access  Private
 const addToCart = async (req, res) => {
-    const { productId, qty, name, image, price } = req.body;
+    const { productId, qty, name, image, price, size } = req.body;
+    const itemSize = size || 'M';
     let cart = await Cart.findOne({ user: req.user._id });
 
     if (cart) {
-        const itemExists = cart.cartItems.find(x => x.product.toString() === productId);
+        const itemExists = cart.cartItems.find(x => x.product.toString() === productId && x.size === itemSize);
         if (itemExists) {
             itemExists.qty = qty;
         } else {
-            cart.cartItems.push({ product: productId, name, image, price, qty });
+            cart.cartItems.push({ product: productId, name, image, price, qty, size: itemSize });
         }
         await cart.save();
     } else {
         cart = await Cart.create({
             user: req.user._id,
-            cartItems: [{ product: productId, name, image, price, qty }]
+            cartItems: [{ product: productId, name, image, price, qty, size: itemSize }]
         });
     }
     res.status(201).json(cart);
