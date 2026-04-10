@@ -129,6 +129,67 @@ tailwind.config = {
 
 </main>
 
+<!-- Order Details Modal -->
+<div id="order-modal" class="fixed inset-0 z-[60] hidden overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+  <div class="flex items-center justify-center min-h-screen px-4 pt-4 pb-20 text-center sm:block sm:p-0">
+    <div class="fixed inset-0 transition-opacity bg-on-surface/40 backdrop-blur-sm" aria-hidden="true" onclick="closeOrderModal()"></div>
+    <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+    <div class="inline-block align-bottom bg-surface text-left overflow-hidden shadow-2xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full border border-outline-variant/30">
+      <div class="px-8 py-8">
+        <div class="flex justify-between items-start mb-8">
+          <div>
+            <h3 class="text-2xl font-serif text-primary" id="modal-order-id">Order Summary</h3>
+            <p class="text-[10px] tracking-widest uppercase text-secondary mt-1" id="modal-order-date"></p>
+          </div>
+          <button onclick="closeOrderModal()" class="text-secondary hover:text-primary transition-colors">
+            <span class="material-symbols-outlined">close</span>
+          </button>
+        </div>
+        
+        <div id="modal-order-content" class="space-y-8">
+          <!-- Items -->
+          <div>
+            <h4 class="text-[10px] tracking-widest uppercase font-bold text-secondary mb-4 border-b border-outline-variant/20 pb-2">Your Collection</h4>
+            <div id="modal-items-list" class="space-y-4"></div>
+          </div>
+
+          <!-- Shipping & Payment -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h4 class="text-[10px] tracking-widest uppercase font-bold text-secondary mb-3">Shipping Address</h4>
+              <p id="modal-shipping-address" class="text-xs text-on-surface-variant leading-relaxed"></p>
+            </div>
+            <div>
+              <h4 class="text-[10px] tracking-widest uppercase font-bold text-secondary mb-3">Payment Method</h4>
+              <p id="modal-payment-method" class="text-xs text-on-surface-variant capitalize"></p>
+            </div>
+          </div>
+
+          <!-- Summary -->
+          <div class="bg-surface-container-low p-6 space-y-3">
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Subtotal</span>
+              <span id="modal-subtotal"></span>
+            </div>
+            <div class="flex justify-between text-xs">
+              <span class="text-secondary">Shipping</span>
+              <span id="modal-shipping"></span>
+            </div>
+            <div id="modal-promo-row" class="flex justify-between text-xs text-green-700 hidden">
+                <span id="modal-promo-label">Promo Code</span>
+                <span id="modal-discount"></span>
+            </div>
+            <div class="flex justify-between text-sm font-bold border-t border-outline-variant/20 pt-3 text-primary">
+              <span class="font-serif">Grand Total</span>
+              <span id="modal-total" class="font-serif"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
 <footer class="w-full bg-surface-container-low mt-20 py-8 px-8">
   <p class="text-center text-xs text-secondary">© <span id="copyright-year">2026</span> Digital Atelier. All Rights Reserved.</p>
 </footer>
@@ -182,24 +243,123 @@ tailwind.config = {
           </div>`;
         return;
       }
-      container.innerHTML = orders.map(order => `
-        <div class="border border-outline-variant/40 p-6 space-y-3 hover:border-primary/40 transition-colors">
+      container.innerHTML = orders.map(order => {
+        const canCancel = ['Pending', 'Processing'].includes(order.status || 'Pending');
+        const statusColors = {
+          'Pending': 'bg-amber-100 text-amber-800',
+          'Processing': 'bg-blue-100 text-blue-800',
+          'Shipped': 'bg-purple-100 text-purple-800',
+          'Delivered': 'bg-green-100 text-green-800',
+          'Cancelled': 'bg-red-100 text-red-800'
+        };
+        const statusClass = statusColors[order.status] || 'bg-gray-100 text-gray-800';
+
+        return `
+        <div onclick="viewOrder('${order._id}')" class="border border-outline-variant/40 p-6 space-y-4 hover:border-primary/40 transition-all cursor-pointer group">
           <div class="flex justify-between items-start">
             <div>
               <p class="text-[10px] tracking-widest uppercase text-secondary">Order ID</p>
               <p class="font-mono text-xs mt-1 text-on-surface">${order._id}</p>
             </div>
-            <span class="text-[9px] tracking-widest uppercase px-3 py-1 font-bold ${order.isDelivered ? 'bg-green-100 text-green-800' : order.isPaid ? 'bg-blue-100 text-blue-800' : 'bg-amber-100 text-amber-800'}">
-              ${order.isDelivered ? 'Delivered' : order.isPaid ? 'Processing' : 'Pending'}
-            </span>
+            <div class="flex items-center gap-3">
+              <span class="text-[9px] tracking-widest uppercase px-3 py-1 font-bold ${statusClass}">
+                ${order.status || (order.isDelivered ? 'Delivered' : order.isPaid ? 'Processing' : 'Pending')}
+              </span>
+              ${canCancel ? `
+                <button onclick="event.stopPropagation(); cancelOrder('${order._id}')" class="text-[9px] tracking-widest uppercase font-bold text-error border border-error/20 px-3 py-1 hover:bg-error hover:text-white transition-all">
+                  Cancel
+                </button>
+              ` : ''}
+            </div>
           </div>
-            <span class="text-secondary">Total</span>
-            <span class="font-serif font-medium">₹${order.totalPrice?.toLocaleString('en-IN')}</span>
-          <p class="text-[10px] text-secondary">${new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+          
+          <div class="flex justify-between items-end">
+            <div>
+              <p class="text-[10px] tracking-widest uppercase text-secondary mb-1">Date</p>
+              <p class="text-xs text-on-surface">${new Date(order.createdAt).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' })}</p>
+            </div>
+            <div class="text-right">
+              <p class="text-[10px] tracking-widest uppercase text-secondary mb-1">Total</p>
+              <p class="font-serif font-medium text-primary">₹${order.totalPrice?.toLocaleString('en-IN')}</p>
+            </div>
+          </div>
+
+          <div class="pt-4 border-t border-outline-variant/20">
+             <div class="flex -space-x-2 overflow-hidden">
+               ${order.orderItems.map(item => `
+                 <img src="${item.image}" alt="${item.name}" class="inline-block h-10 w-10 object-cover border-2 border-surface" title="${item.name} x${item.qty}">
+               `).join('')}
+             </div>
+          </div>
         </div>
-      `).join('');
+      `}).join('');
     } catch (err) {
       document.getElementById('orders-list').innerHTML = `<div class="py-16 text-center text-secondary italic font-serif">Could not load orders.</div>`;
+    }
+  }
+
+  async function cancelOrder(orderId) {
+    if (!confirm('Are you sure you want to cancel this order?')) return;
+    try {
+      await apiFetch(`/api/orders/${orderId}/cancel`, { method: 'PUT' });
+      loadOrders(); // Refresh the list
+    } catch (err) {
+      alert('Error cancelling order: ' + err.message);
+    }
+  }
+
+  function closeOrderModal() {
+    document.getElementById('order-modal').classList.add('hidden');
+    document.body.style.overflow = 'auto';
+  }
+
+  async function viewOrder(orderId) {
+    try {
+      const order = await apiFetch(`/api/orders/${orderId}`);
+      
+      document.getElementById('modal-order-id').textContent = `Order #${order._id.slice(-8).toUpperCase()}`;
+      document.getElementById('modal-order-date').textContent = new Date(order.createdAt).toLocaleDateString('en-US', { 
+        year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' 
+      });
+
+      // Items
+      const itemsContainer = document.getElementById('modal-items-list');
+      itemsContainer.innerHTML = order.orderItems.map(item => `
+        <div class="flex items-center gap-4">
+          <img src="${item.image}" class="w-16 h-20 object-cover bg-surface-container" alt="${item.name}">
+          <div class="flex-1">
+            <h5 class="text-sm font-medium">${item.name}</h5>
+            <p class="text-[10px] text-secondary uppercase tracking-widest mt-1">Size: ${item.size || 'M'} | Qty: ${item.qty}</p>
+          </div>
+          <p class="text-sm font-serif">₹${(item.price * item.qty).toLocaleString('en-IN')}</p>
+        </div>
+      `).join('');
+
+      // Address
+      const addr = order.shippingAddress;
+      document.getElementById('modal-shipping-address').textContent = `${addr.address}, ${addr.city}, ${addr.postalCode}, ${addr.country}`;
+      document.getElementById('modal-payment-method').textContent = order.paymentMethod;
+
+      // Pricing
+      const itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+      document.getElementById('modal-subtotal').textContent = `₹${itemsPrice.toLocaleString('en-IN')}`;
+      document.getElementById('modal-shipping').textContent = `₹${order.shippingPrice.toLocaleString('en-IN')}`;
+      
+      const promoRow = document.getElementById('modal-promo-row');
+      if (order.promoCode) {
+          promoRow.classList.remove('hidden');
+          document.getElementById('modal-promo-label').textContent = `Promo Code (${order.promoCode})`;
+          document.getElementById('modal-discount').textContent = `-₹${order.discountPrice.toLocaleString('en-IN')}`;
+      } else {
+          promoRow.classList.add('hidden');
+      }
+      
+      document.getElementById('modal-total').textContent = `₹${order.totalPrice.toLocaleString('en-IN')}`;
+
+      document.getElementById('order-modal').classList.remove('hidden');
+      document.body.style.overflow = 'hidden';
+    } catch (err) {
+      alert('Could not retrieve order details: ' + err.message);
     }
   }
 

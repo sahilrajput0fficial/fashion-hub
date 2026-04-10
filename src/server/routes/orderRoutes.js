@@ -5,7 +5,8 @@ const {
     getOrderById,
     updateOrderToPaid,
     getMyOrders,
-    applyPromoCode
+    applyPromoCode,
+    cancelOrder
 } = require('../controllers/orderController');
 const { protect } = require('../middleware/authMiddleware');
 
@@ -22,5 +23,6 @@ router.route('/myorders').get(protect, getMyOrders);
 router.route('/promo').post(applyPromoCode);
 router.route('/:id').get(optionalProtect, getOrderById);
 router.route('/:id/pay').put(optionalProtect, updateOrderToPaid);
+router.route('/:id/cancel').put(protect, cancelOrder);
 
 module.exports = router;

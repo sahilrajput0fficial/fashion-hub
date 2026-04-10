@@ -81,6 +81,7 @@ const updateOrderToPaid = async (req, res) => {
     if (order) {
         order.isPaid = true;
         order.paidAt = Date.now();
+        order.status = 'Processing';
         order.paymentResult = {
             id: req.body.id,
             status: req.body.status,
@@ -131,10 +132,33 @@ const applyPromoCode = async (req, res) => {
     }
 };
 
+// @desc    Cancel an order
+// @route   PUT /api/orders/:id/cancel
+// @access  Private
+const cancelOrder = async (req, res) => {
+    const order = await Order.findById(req.params.id);
+
+    if (order) {
+        // Only allow cancellation if order is not yet shipped or delivered
+        if (['Shipped', 'Delivered', 'Cancelled'].includes(order.status)) {
+            res.status(400);
+            throw new Error(`Cannot cancel order that is already ${order.status.toLowerCase()}`);
+        }
+
+        order.status = 'Cancelled';
+        const cancelledOrder = await order.save();
+        res.json(cancelledOrder);
+    } else {
+        res.status(404);
+        throw new Error('Order not found');
+    }
+};
+
 module.exports = {
     addOrderItems,
     getOrderById,
     updateOrderToPaid,
     getMyOrders,
-    applyPromoCode
+    applyPromoCode,
+    cancelOrder
 };
