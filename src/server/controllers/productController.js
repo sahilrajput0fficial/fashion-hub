@@ -57,11 +57,11 @@ const getProducts = async (req, res) => {
             query.trending = true;
         }
 
-        let sort = {};
-        if (req.query.sort === 'price-asc') sort = { price: 1 };
-        else if (req.query.sort === 'price-desc') sort = { price: -1 };
-        else if (req.query.sort === 'newest') sort = { createdAt: -1 };
-        else if (req.query.sort === 'popular') sort = { rating: -1 };
+        let sort = { _id: 1 };
+        if (req.query.sort === 'price-asc') sort = { price: 1, _id: 1 };
+        else if (req.query.sort === 'price-desc') sort = { price: -1, _id: 1 };
+        else if (req.query.sort === 'newest') sort = { createdAt: -1, _id: 1 };
+        else if (req.query.sort === 'popular') sort = { rating: -1, _id: 1 };
 
         const count = await Product.countDocuments(query);
         const products = await Product.find(query)

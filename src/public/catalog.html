@@ -497,7 +497,9 @@
         applyFilters();
     }
 
-    function applyFilters() {
+    function applyFilters(resetPage = true) {
+        if (resetPage) currentPage = 1;
+        
         const searchInput = document.getElementById('search-input');
         if (searchInput) currentFilters.keyword = searchInput.value;
         
@@ -637,7 +639,7 @@
     window.goToPage = function(page) {
         if (page < 1 || page > totalPages || page === currentPage) return;
         currentPage = page;
-        applyFilters();
+        applyFilters(false);
     }
 
     async function onToggleWishlist(btn) {
