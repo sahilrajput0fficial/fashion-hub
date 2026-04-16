@@ -299,12 +299,24 @@ tailwind.config = {
   }
 
   async function cancelOrder(orderId) {
-    if (!confirm('Are you sure you want to cancel this order?')) return;
+    if (!confirm('Are you sure you want to cancel this entire order?')) return;
     try {
       await apiFetch(`/api/orders/${orderId}/cancel`, { method: 'PUT' });
       loadOrders(); // Refresh the list
     } catch (err) {
       alert('Error cancelling order: ' + err.message);
+    }
+  }
+
+  async function cancelOrderItem(orderId, itemId) {
+    if (!confirm('Are you sure you want to cancel this item?')) return;
+    try {
+      await apiFetch(`/api/orders/${orderId}/item/${itemId}/cancel`, { method: 'PUT' });
+      // Update UI: refresh the modal content and the order list in background
+      viewOrder(orderId);
+      loadOrders();
+    } catch (err) {
+      alert('Error cancelling item: ' + err.message);
     }
   }
 
@@ -324,16 +336,29 @@ tailwind.config = {
 
       // Items
       const itemsContainer = document.getElementById('modal-items-list');
-      itemsContainer.innerHTML = order.orderItems.map(item => `
-        <div class="flex items-center gap-4">
+      const orderCancellable = ['Pending', 'Processing'].includes(order.status);
+      itemsContainer.innerHTML = order.orderItems.map(item => {
+        const itemCancelled = item.status === 'Cancelled';
+        return `
+        <div class="flex items-center gap-4 ${itemCancelled ? 'opacity-50' : ''}">
           <img src="${item.image}" class="w-16 h-20 object-cover bg-surface-container" alt="${item.name}">
           <div class="flex-1">
-            <h5 class="text-sm font-medium">${item.name}</h5>
-            <p class="text-[10px] text-secondary uppercase tracking-widest mt-1">Size: ${item.size || 'M'} | Qty: ${item.qty}</p>
+            <h5 class="text-sm font-medium ${itemCancelled ? 'line-through' : ''}">${item.name}</h5>
+            <p class="text-[10px] text-secondary uppercase tracking-widest mt-1">
+                Size: ${item.size || 'M'} | Qty: ${item.qty}
+                ${itemCancelled ? ' | <span class="text-error font-bold text-[9px]">CANCELLED</span>' : ''}
+            </p>
           </div>
-          <p class="text-sm font-serif">₹${(item.price * item.qty).toLocaleString('en-IN')}</p>
+          <div class="text-right">
+            <p class="text-sm font-serif ${itemCancelled ? 'line-through text-secondary' : ''}">₹${(item.price * item.qty).toLocaleString('en-IN')}</p>
+            ${(!itemCancelled && orderCancellable) ? `
+                <button onclick="cancelOrderItem('${order._id}', '${item._id}')" class="text-[9px] tracking-widest uppercase font-bold text-error border border-error/10 px-2 py-0.5 mt-2 hover:bg-error hover:text-white transition-all">
+                    Cancel Item
+                </button>
+            ` : ''}
+          </div>
         </div>
-      `).join('');
+      `}).join('');
 
       // Address
       const addr = order.shippingAddress;
@@ -341,7 +366,7 @@ tailwind.config = {
       document.getElementById('modal-payment-method').textContent = order.paymentMethod;
 
       // Pricing
-      const itemsPrice = order.orderItems.reduce((acc, item) => acc + item.price * item.qty, 0);
+      const itemsPrice = order.itemsPrice !== undefined ? order.itemsPrice : order.orderItems.filter(item => item.status !== 'Cancelled').reduce((acc, item) => acc + item.price * item.qty, 0);
       document.getElementById('modal-subtotal').textContent = `₹${itemsPrice.toLocaleString('en-IN')}`;
       document.getElementById('modal-shipping').textContent = `₹${order.shippingPrice.toLocaleString('en-IN')}`;
       

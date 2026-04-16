@@ -36,16 +36,20 @@ const addOrderItems = async (req, res) => {
     }
 
     const order = new Order({
-        orderItems,
+        orderItems: orderItems.map(item => ({ ...item, status: 'Active' })),
         user: req.user ? req.user._id : null,
         guestInfo: req.user ? null : guestInfo,
         shippingAddress,
         paymentMethod,
+        itemsPrice,
         taxPrice,
         shippingPrice,
         totalPrice: totalPrice - discountPrice,
         promoCode,
-        discountPrice
+        discountPrice,
+        discountPercent: promoCode ? (discountPrice / itemsPrice) * 100 : 0,
+        isPaid: false, // Default to false, updated via /pay route for cards
+        status: paymentMethod === 'COD' ? 'Processing' : 'Pending'
     });
 
     const createdOrder = await order.save();
@@ -139,15 +143,72 @@ const cancelOrder = async (req, res) => {
     const order = await Order.findById(req.params.id);
 
     if (order) {
-        // Only allow cancellation if order is not yet shipped or delivered
         if (['Shipped', 'Delivered', 'Cancelled'].includes(order.status)) {
             res.status(400);
             throw new Error(`Cannot cancel order that is already ${order.status.toLowerCase()}`);
         }
 
         order.status = 'Cancelled';
+        // Also cancel all individual items
+        order.orderItems.forEach(item => {
+            item.status = 'Cancelled';
+        });
+
         const cancelledOrder = await order.save();
         res.json(cancelledOrder);
+    } else {
+        res.status(404);
+        throw new Error('Order not found');
+    }
+};
+
+// @desc    Cancel an order item
+// @route   PUT /api/orders/:id/item/:itemId/cancel
+// @access  Private
+const cancelOrderItem = async (req, res) => {
+    const order = await Order.findById(req.params.id);
+
+    if (order) {
+        if (['Shipped', 'Delivered', 'Cancelled'].includes(order.status)) {
+            res.status(400);
+            throw new Error(`Cannot cancel items from an order that is already ${order.status.toLowerCase()}`);
+        }
+
+        const item = order.orderItems.find(i => i._id.toString() === req.params.itemId);
+        if (!item) {
+            res.status(404);
+            throw new Error('Item not found in order');
+        }
+
+        if (item.status === 'Cancelled') {
+            res.status(400);
+            throw new Error('Item is already cancelled');
+        }
+
+        item.status = 'Cancelled';
+
+        // Recalculate totals
+        const activeItems = order.orderItems.filter(i => i.status === 'Active');
+        
+        if (activeItems.length === 0) {
+            order.status = 'Cancelled';
+        }
+
+        // Update prices based on active items
+        const newItemsPrice = activeItems.reduce((acc, i) => acc + i.price * i.qty, 0);
+        
+        let newDiscount = 0;
+        if (order.discountPercent > 0) {
+            newDiscount = (newItemsPrice * order.discountPercent) / 100;
+        }
+
+        order.itemsPrice = newItemsPrice;
+        order.discountPrice = newDiscount;
+        // Keep tax and shipping same for simplicity, or could recalculate if they depend on total
+        order.totalPrice = newItemsPrice + order.taxPrice + order.shippingPrice - newDiscount;
+
+        const updatedOrder = await order.save();
+        res.json(updatedOrder);
     } else {
         res.status(404);
         throw new Error('Order not found');
@@ -160,5 +221,6 @@ module.exports = {
     updateOrderToPaid,
     getMyOrders,
     applyPromoCode,
-    cancelOrder
+    cancelOrder,
+    cancelOrderItem
 };

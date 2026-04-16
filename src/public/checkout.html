@@ -104,12 +104,24 @@
             <section id="payment-section" class="hidden slide-in">
                 <h2 class="text-3xl font-serif mb-8">Payment Details</h2>
                 <div class="bg-surface-container-low p-8 space-y-6">
-                    <div class="flex items-center justify-between border-b border-outline-variant/20 pb-4">
-                        <span class="text-[10px] uppercase tracking-widest text-secondary">Credit / Debit Card</span>
-                        <div class="flex gap-2">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="h-4 opacity-50">
-                            <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="h-4 opacity-50">
-                        </div>
+                    <div class="space-y-4">
+                        <label class="flex items-center gap-4 p-4 border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                            <input type="radio" name="payment-method" value="Credit Card" checked class="text-primary focus:ring-primary">
+                            <div class="flex-grow">
+                                <span class="text-xs font-bold uppercase tracking-widest">Credit / Debit Card</span>
+                                <div class="flex gap-2 mt-1">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="h-3 opacity-50">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="h-3 opacity-50">
+                                </div>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                            <input type="radio" name="payment-method" value="COD" class="text-primary focus:ring-primary">
+                            <div class="flex-grow">
+                                <span class="text-xs font-bold uppercase tracking-widest">Cash on Delivery</span>
+                                <p class="text-[10px] text-secondary mt-1">Pay when your order arrives</p>
+                            </div>
+                        </label>
                     </div>
                     <div class="space-y-4">
                         <div id="card-element" class="p-4 bg-surface rounded-sm border border-outline-variant/30">
@@ -331,10 +343,12 @@
                 country: document.getElementById('country').value,
             };
 
+            const paymentMethod = document.querySelector('input[name="payment-method"]:checked').value;
+            
             const orderData = {
                 orderItems: cart.map(i => ({ ...i, product: i._id })),
                 shippingAddress,
-                paymentMethod: 'Credit Card',
+                paymentMethod: paymentMethod,
                 itemsPrice: subtotal,
                 taxPrice: 0,
                 shippingPrice: 0,
@@ -348,19 +362,23 @@
                 body: JSON.stringify(orderData)
             });
 
-            // 2. Mock payment logic
-            await new Promise(r => setTimeout(r, 2000));
-
-            // 3. Update order to paid
-            await apiFetch(`/api/orders/${order._id}/pay`, {
-                method: 'PUT',
-                body: JSON.stringify({
-                    id: 'PAY-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
-                    status: 'COMPLETED',
-                    update_time: new Date().toISOString(),
-                    email_address: document.getElementById('email').value
-                })
-            });
+            // 2. Processing logic
+            if (paymentMethod === 'Credit Card') {
+                // Mock payment update for cards
+                await new Promise(r => setTimeout(r, 2000));
+                await apiFetch(`/api/orders/${order._id}/pay`, {
+                    method: 'PUT',
+                    body: JSON.stringify({
+                        id: 'PAY-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                        status: 'COMPLETED',
+                        update_time: new Date().toISOString(),
+                        email_address: document.getElementById('email').value
+                    })
+                });
+            } else {
+                // Just a small delay for COD "simulation"
+                await new Promise(r => setTimeout(r, 1000));
+            }
 
             // 4. Show success
             Cart.clear();

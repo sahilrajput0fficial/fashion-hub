@@ -17,6 +17,12 @@ const orderSchema = mongoose.Schema({
             image: { type: String, required: true },
             price: { type: Number, required: true },
             size: { type: String, default: 'M' },
+            status: {
+                type: String,
+                required: true,
+                default: 'Active',
+                enum: ['Active', 'Cancelled']
+            },
             product: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,
@@ -59,6 +65,14 @@ const orderSchema = mongoose.Schema({
         type: String
     },
     discountPrice: {
+        type: Number,
+        default: 0.0
+    },
+    discountPercent: {
+        type: Number,
+        default: 0
+    },
+    itemsPrice: {
         type: Number,
         default: 0.0
     },
