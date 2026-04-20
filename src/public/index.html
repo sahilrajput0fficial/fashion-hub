@@ -203,7 +203,7 @@
                 <div class="absolute inset-0 flex flex-col justify-end p-10 bg-gradient-to-t from-black/70 to-transparent">
                     <h3 class="text-white text-3xl font-serif mb-2 tracking-tight">Clothing</h3>
                     <p class="text-white/80 text-[10px] uppercase tracking-[0.3em] font-semibold mb-6">Artisanal Tailoring & Silhouettes</p>
-                    <a href="/catalog?category=Clothing" class="text-white text-[10px] uppercase tracking-[0.2em] font-bold border-b border-white/20 hover:border-white w-fit pb-2 transition-all">Shop Collection</a>
+                    <a href="/catalog?category=Outerwear" class="text-white text-[10px] uppercase tracking-[0.2em] font-bold border-b border-white/20 hover:border-white w-fit pb-2 transition-all">Shop Collection</a>
                 </div>
             </div>
             <div class="relative group aspect-[4/5] overflow-hidden bg-surface-container-low shadow-xl">
@@ -426,7 +426,7 @@
                 const products = data.products || [];
                 const trendingGrid = document.getElementById('trending-grid');
                 if (!trendingGrid) return;
-                const trending = products.filter(p => p.trending);
+                const trending = products.filter(p => p.trending).slice(0, 4);
                 trendingGrid.innerHTML = trending.map(product => `
                     <div class="group">
                         <div class="aspect-[3/4] overflow-hidden bg-surface mb-6 relative">

@@ -109,9 +109,9 @@
                             <input type="radio" name="payment-method" value="Credit Card" checked class="text-primary focus:ring-primary">
                             <div class="flex-grow">
                                 <span class="text-xs font-bold uppercase tracking-widest">Credit / Debit Card</span>
-                                <div class="flex gap-2 mt-1">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/5e/Visa_Inc._logo.svg" alt="Visa" class="h-3 opacity-50">
-                                    <img src="https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg" alt="Mastercard" class="h-3 opacity-50">
+                                <div class="flex gap-2 mt-1 items-center">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/visa/visa-original.svg" alt="Visa" class="h-5 opacity-60" onerror="this.src='https://img.icons8.com/color/48/visa.png'; this.className='h-4 opacity-60'">
+                                    <img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mastercard/mastercard-original.svg" alt="Mastercard" class="h-5 opacity-60" onerror="this.src='https://img.icons8.com/color/48/mastercard.png'; this.className='h-4 opacity-60'">
                                 </div>
                             </div>
                         </label>
@@ -123,7 +123,7 @@
                             </div>
                         </label>
                     </div>
-                    <div class="space-y-4">
+                    <div id="card-fields" class="space-y-4">
                         <div id="card-element" class="p-4 bg-surface rounded-sm border border-outline-variant/30">
                             <!-- Stripe Element placeholder -->
                             <p class="text-xs text-secondary italic">Secure Payment via Stripe (Mocked)</p>
@@ -394,6 +394,21 @@
             spinner.classList.add('hidden');
         }
     }
+
+    // Toggle card fields based on payment method
+    document.querySelectorAll('input[name="payment-method"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            const cardFields = document.getElementById('card-fields');
+            const payBtn = document.getElementById('pay-btn-text');
+            if (radio.value === 'COD' && radio.checked) {
+                cardFields.classList.add('hidden');
+                payBtn.textContent = 'Place Order (COD)';
+            } else {
+                cardFields.classList.remove('hidden');
+                payBtn.textContent = 'Pay Now';
+            }
+        });
+    });
 
     initCheckout();
 </script>

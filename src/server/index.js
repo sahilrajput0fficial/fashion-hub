@@ -81,7 +81,8 @@ app.get('/api/health', async (req, res) => {
             JWT_SECRET_SET: !!process.env.JWT_SECRET,
             NODE_ENV: process.env.NODE_ENV || 'not set'
         },
-        db: mongoose.connection.readyState === 1 ? 'connected' : 'not connected'
+        db: mongoose.connection.readyState === 1 ? 'connected' : 'not connected',
+        dbName: mongoose.connection.name
     });
 });
 

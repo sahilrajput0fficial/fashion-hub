@@ -247,6 +247,12 @@ tailwind.config = {
   </section>
 
   <!-- Related Products -->
+  <section class="mt-24 border-t border-outline-variant/30 pt-16 px-0">
+    <h2 class="text-2xl font-serif mb-10 text-on-surface">You May Also Like</h2>
+    <div id="related-grid" class="grid grid-cols-2 md:grid-cols-4 gap-6">
+      <!-- Populated by loadRelated() -->
+    </div>
+  </section>
 </main>
 
 <footer class="w-full mt-20 bg-surface-container-low py-16 px-12 border-t border-black/5">
@@ -434,6 +440,7 @@ tailwind.config = {
 
       loadRelated(product);
     } catch (e) {
+      console.error('loadProduct error:', e);
       showError();
     }
   }
@@ -528,7 +535,7 @@ tailwind.config = {
 
   async function loadRelated(currentProduct) {
     try {
-      const all = await apiFetch('/api/products');
+      const { products: all } = await apiFetch('/api/products');
       const related = all.filter(p => p._id !== currentProduct._id).slice(0, 4);
       document.getElementById('related-grid').innerHTML = related.map(p => `
         <div class="group cursor-pointer" onclick="window.location.href='/product?id=${p._id}'">
