@@ -71,6 +71,10 @@ app.get('/product', (req, res) => {
     res.sendFile(path.join(__dirname, '../public/product.html'));
 });
 
+app.get('/track', (req, res) => {
+    res.sendFile(path.join(__dirname, '../public/track.html'));
+});
+
 app.get('/api/health', async (req, res) => {
     const mongoose = require('mongoose');
     res.json({

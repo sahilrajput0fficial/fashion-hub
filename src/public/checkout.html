@@ -46,6 +46,8 @@
             <span id="step-2-label" class="pb-1">02 Payment</span>
             <span class="text-outline-variant">/</span>
             <span id="step-3-label" class="pb-1">03 Review</span>
+            <span class="text-outline-variant">/</span>
+            <a href="/track" class="hover:text-primary transition-colors">Track Order</a>
         </div>
     </div>
 </nav>
@@ -122,12 +124,26 @@
                                 <p class="text-[10px] text-secondary mt-1">Pay when your order arrives</p>
                             </div>
                         </label>
+                        <label class="flex items-center gap-4 p-4 border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                            <input type="radio" name="payment-method" value="UPI" class="text-primary focus:ring-primary">
+                            <div class="flex-grow">
+                                <span class="text-xs font-bold uppercase tracking-widest">UPI (PhonePe / GPay)</span>
+                                <p class="text-[10px] text-secondary mt-1">Instant payment via any UPI app</p>
+                            </div>
+                        </label>
+                        <label class="flex items-center gap-4 p-4 border border-outline-variant/30 cursor-pointer hover:bg-surface-container transition-colors">
+                            <input type="radio" name="payment-method" value="Net Banking" class="text-primary focus:ring-primary">
+                            <div class="flex-grow">
+                                <span class="text-xs font-bold uppercase tracking-widest">Net Banking</span>
+                                <p class="text-[10px] text-secondary mt-1">Secure bank transfer</p>
+                            </div>
+                        </label>
                     </div>
                     <div id="card-fields" class="space-y-4">
                         <div id="card-element" class="p-4 bg-surface rounded-sm border border-outline-variant/30">
                             <!-- Stripe Element placeholder -->
                             <p class="text-xs text-secondary italic">Secure Payment via Stripe (Mocked)</p>
-                            <input type="text" placeholder="Card Number" class="w-full mt-4 bg-transparent border-none focus:ring-0 text-sm">
+                            <input type="text" id="cardNumber" placeholder="Card Number" maxlength="12" oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 12)" class="w-full mt-4 bg-transparent border-none focus:ring-0 text-sm">
                         </div>
                     </div>
                     <button type="button" onclick="handleMockPayment()" class="w-full mt-8 bg-primary text-on-primary py-5 text-xs tracking-widest uppercase font-label hover:opacity-90 transition-all flex items-center justify-center gap-3">
@@ -157,7 +173,13 @@
         <!-- Right: Order Summary (Fixed on Desktop) -->
         <div class="lg:col-span-5">
             <div class="bg-surface-container-lowest border border-outline-variant/20 p-8 sticky top-32">
-                <h3 class="text-xs tracking-widest uppercase font-label mb-8 pb-4 border-b border-outline-variant/10">Order Summary</h3>
+                <div class="flex justify-between items-center mb-8 pb-4 border-b border-outline-variant/10">
+                    <h3 class="text-xs tracking-widest uppercase font-label">Order Summary</h3>
+                    <div class="flex items-center gap-2 px-3 py-1 bg-primary/5 rounded-full">
+                        <span class="material-symbols-outlined !text-[14px] text-primary">local_shipping</span>
+                        <span class="text-[9px] uppercase tracking-widest font-bold text-primary">Delivered in 2-4 Days</span>
+                    </div>
+                </div>
                 
                 <div id="summary-items" class="space-y-6 mb-8 max-h-[300px] overflow-y-auto pr-4">
                     <!-- Dynamic items -->
@@ -403,6 +425,12 @@
             if (radio.value === 'COD' && radio.checked) {
                 cardFields.classList.add('hidden');
                 payBtn.textContent = 'Place Order (COD)';
+            } else if (radio.value === 'UPI' && radio.checked) {
+                cardFields.classList.add('hidden');
+                payBtn.textContent = 'Pay via UPI';
+            } else if (radio.value === 'Net Banking' && radio.checked) {
+                cardFields.classList.add('hidden');
+                payBtn.textContent = 'Pay via Net Banking';
             } else {
                 cardFields.classList.remove('hidden');
                 payBtn.textContent = 'Pay Now';

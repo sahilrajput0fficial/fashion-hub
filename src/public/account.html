@@ -41,6 +41,7 @@ tailwind.config = {
     <div class="hidden md:flex items-center space-x-12">
       <a class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/">Home</a>
       <a class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/catalog">Catalog</a>
+      <a class="text-secondary hover:text-primary transition-colors text-xs tracking-widest uppercase" href="/track">Track Order</a>
       <a id="account-nav-link" class="text-primary border-b border-primary pb-1 text-xs tracking-widest uppercase" href="/account">Account</a>
     </div>
     <div class="flex items-center space-x-4">
@@ -265,6 +266,11 @@ tailwind.config = {
               <span class="text-[9px] tracking-widest uppercase px-3 py-1 font-bold ${statusClass}">
                 ${order.status || (order.isDelivered ? 'Delivered' : order.isPaid ? 'Processing' : 'Pending')}
               </span>
+              ${order.status !== 'Cancelled' ? `
+                <button onclick="event.stopPropagation(); window.location.href='/track?id=${order._id}'" class="text-[9px] tracking-widest uppercase font-bold text-primary border border-primary/20 px-3 py-1 hover:bg-primary hover:text-white transition-all">
+                  Track
+                </button>
+              ` : ''}
               ${canCancel ? `
                 <button onclick="event.stopPropagation(); cancelOrder('${order._id}')" class="text-[9px] tracking-widest uppercase font-bold text-error border border-error/20 px-3 py-1 hover:bg-error hover:text-white transition-all">
                   Cancel
